@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
 export interface UserData extends mongoose.Document {
+    id?: string;
     name: string;
     email: string;
+    picture?: string;
 };
 
 const UserSchema = new mongoose.Schema({

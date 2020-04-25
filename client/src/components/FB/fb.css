@@ -1,0 +1,11 @@
+.fb-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border-radius: 5px;
+    background-color: rgb(58, 92, 169);
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}

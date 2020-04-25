@@ -1,2 +1,1 @@
-export const GET_USERS = 'Could not get users';
-export const CREATE_USER = 'Could not create User';
+export const FACEBOOK_LOGIN = 'Could not login with Facebook';

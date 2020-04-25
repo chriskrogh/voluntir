@@ -1,8 +1,10 @@
 import { ModelMetadata } from './model';
 
 export type UserData = {
-    name: string,
-    email: string
+    id?: string;
+    name: string;
+    email: string;
+    pictureUrl?: string;
 };
 
 export type User = UserData & ModelMetadata;
