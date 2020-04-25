@@ -1,29 +1,50 @@
 import express, { Request, Response } from 'express';
-import { UserModel } from "../models/user";
+import { UserModel, UserData } from "../models/user";
+import { LOGIN, ME } from '../common/errorMessages';
 import '../db/mongoose';
 
 const router = express.Router();
 
-// create / sign up
-router.post('/api/users', async (req: Request, res: Response) => {
+const createUser = async (data: UserData) => {
+    const user = new UserModel(data);
+    await user.save();
+    return user;
+}
+
+// sign up
+router.post('/api/users/signup', async (req: Request, res: Response) => {
     try {
-        let user = new UserModel(req.body);
-        await user.save();
-        res.status(201).send(user);
+        res.status(201).send(await createUser(req.body));
     } catch (err) {
         console.log(err);
         res.status(400).send();
     }
 });
 
-// get everyone
-router.get('/api/users', async (req: Request, res: Response) => {
+// login
+router.post('/api/users', async (req: Request, res: Response) => {
     try {
-        const users = await UserModel.find();
-        if (!users) {
-            throw new Error('Users not found');
+        const users = await UserModel.find({ email: req.body.email });
+        if (users.length > 0) {
+            res.status(200).send(users[0]);
+        } else if (req.body.fromThirdParty) {
+            res.status(201).send(await createUser(req.body));
         }
-        res.send(users);
+        throw new Error(LOGIN + req.body.email);
+    } catch (err) {
+        console.log(err);
+        res.status(400).send();
+    }
+});
+
+// get me
+router.get('/api/users/me', async (req: Request, res: Response) => {
+    try {
+        const user = await UserModel.find({ email: req.body.email });
+        if (!user) {
+            throw new Error(ME + req.body.email);
+        }
+        res.send(user);
     } catch (err) {
         console.log(err);
         res.status(404).send();

@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 export interface UserData extends mongoose.Document {
-    id?: string;
     name: string;
     email: string;
     picture?: string;
@@ -15,6 +14,9 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
+    },
+    picture: {
+        type: String
     }
 }, {
     timestamps: true
