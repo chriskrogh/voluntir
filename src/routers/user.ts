@@ -29,8 +29,9 @@ router.post('/api/users', async (req: Request, res: Response) => {
             res.status(200).send(users[0]);
         } else if (req.body.fromThirdParty) {
             res.status(201).send(await createUser(req.body));
+        } else {
+            throw new Error(LOGIN + req.body.email);
         }
-        throw new Error(LOGIN + req.body.email);
     } catch (err) {
         console.log(err);
         res.status(400).send();
