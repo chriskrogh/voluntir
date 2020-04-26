@@ -1,10 +1,14 @@
 import React from 'react';
+import UserContextProvider from 'context/user/provider';
 import FB from 'components/FB';
 
 function App() {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    </div>
+    <UserContextProvider>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <FB />
+      </div>
+    </UserContextProvider>
   );
 }
 
