@@ -11,7 +11,7 @@ const styles = (theme: Theme) => createStyles({
         display: 'flex',
         flex: 1,
         flexDirection: 'column',
-        height: '100%',
+        height: '100vh',
         width: '100%',
         backgroundColor: theme.palette.background.default
     }

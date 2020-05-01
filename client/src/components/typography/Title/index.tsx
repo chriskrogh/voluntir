@@ -6,6 +6,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 const styles = (theme: Theme) => ({
     text: {
         color: theme.palette.text.primary,
+        margin: 0,
     }
 });
 
