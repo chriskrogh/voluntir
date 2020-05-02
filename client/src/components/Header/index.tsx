@@ -1,15 +1,17 @@
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import /*type*/ { WithStyles } from '@material-ui/core/styles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import * as routes from 'utils/routes';
+import ThemeToggleButton from 'components/buttons/ThemeToggle';
 
 const styles = (theme: Theme) => createStyles({
     header: {
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         backgroundColor: theme.palette.primary.main,
         height: 60,
         width: '100%',
@@ -17,6 +19,9 @@ const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.down('sm')]: {
             height: 40
         }
+    },
+    fillHeight: {
+        height: '100%'
     }
 });
 
@@ -29,12 +34,23 @@ function Header({ classes }: Props) {
 
     return (
         <div className={classes.header}>
-            <Button onClick={() => history.push(routes.HOME)}>
-                Home
-            </Button>
-            <Button onClick={() => history.push(routes.AUTH)}>
-                Auth
-            </Button>
+            <div className={classes.fillHeight}>
+                <Button
+                    onClick={() => history.push(routes.HOME)}
+                    className={classes.fillHeight}
+                >
+                    Home
+                </Button>
+                <Button
+                    onClick={() => history.push(routes.AUTH)}
+                    className={classes.fillHeight}
+                >
+                    Auth
+                </Button>
+            </div>
+            <div className={classes.fillHeight}>
+                <ThemeToggleButton className={classes.fillHeight} />
+            </div>
         </div>
     );
 }

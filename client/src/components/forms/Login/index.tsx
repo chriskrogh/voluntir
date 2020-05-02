@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import /*type*/ { WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { TextField } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import FacebookLogin from 'components/FacebookLogin';
 import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
+
+const containerWidth = 230;
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -24,6 +26,15 @@ const styles = (theme: Theme) => createStyles({
         justifyContent: 'center',
         marginTop: theme.spacing(2)
     },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        marginTop: theme.spacing(3),
+        width: containerWidth,
+    },
+    textField: {
+        width: containerWidth
+    },
     lastElement: {
         marginBottom: theme.spacing(3)
     }
@@ -38,10 +49,10 @@ function LoginForm({ classes }: Props) {
     return (
         <div className={classes.container}>
             <div className={classes.inputContainer}>
-                <FacebookLogin />
+                <FacebookLogin mode="login" />
             </div>
             <div className={classes.inputContainer}>
-                <GoogleLogin />
+                <GoogleLogin mode="login" />
             </div>
             <div className={classes.orContainer}>
                 <ParagraphText text="OR" />
@@ -53,19 +64,24 @@ function LoginForm({ classes }: Props) {
                 <TextField
                     value={email}
                     label="Email"
-                    placeholder="a@b.com"
                     onChange={e => setEmail(e.target.value)}
                     required
+                    className={classes.textField}
+                    type="email"
                 />
             </div>
-            <div className={classnames(classes.inputContainer, classes.lastElement)}>
+            <div className={classes.inputContainer}>
                 <TextField
                     value={password}
                     label="Password"
-                    placeholder="password"
                     onChange={e => setPassword(e.target.value)}
                     required
+                    className={classes.textField}
+                    type="password"
                 />
+            </div>
+            <div className={classnames(classes.buttonContainer, classes.lastElement)}>
+                <Button>LOG IN</Button>
             </div>
         </div>
     );

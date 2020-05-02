@@ -10,3 +10,5 @@ export enum Method {
 export type LoginRequest = UserData & {
     fromThirdParty: boolean;
 };
+
+export type AuthMode = 'login' | 'signup';

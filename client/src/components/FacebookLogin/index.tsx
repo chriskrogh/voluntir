@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import { Method, LoginRequest } from 'types/network';
+import { Method, LoginRequest, AuthMode } from 'types/network';
 import { User } from 'types/user';
 import { makeRequest } from "network/request";
 import { FACEBOOK_LOGIN } from 'network/errorMessages';
@@ -29,7 +29,11 @@ const loginUser = async (res: ReactFacebookLoginInfo, callback: (user: User) => 
     }
 }
 
-const FB = () => {
+interface Props {
+    mode: AuthMode
+}
+
+const FB = ({ mode }: Props) => {
     const { setUser } = useContext(UserContext);
     const history = useHistory();
 
@@ -46,7 +50,7 @@ const FB = () => {
             callback={(res: ReactFacebookLoginInfo) => loginUser(res, callback)}
             cssClass="fb-button"
             icon={<Icon />}
-            textButton="Log in with Facebook"
+            textButton={`${mode === 'login' ? "Log in" : "Sign up"} with Facebook`}
         />
     );
 }

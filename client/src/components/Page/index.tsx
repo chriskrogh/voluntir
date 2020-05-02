@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import /*type*/ { WithStyles } from '@material-ui/core/styles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import * as routes from 'utils/routes';
@@ -11,9 +10,12 @@ const styles = (theme: Theme) => createStyles({
         display: 'flex',
         flex: 1,
         flexDirection: 'column',
-        height: '100vh',
+        height: 'calc(100vh - 60px)',
         width: '100%',
-        backgroundColor: theme.palette.background.default
+        backgroundColor: theme.palette.background.default,
+        [theme.breakpoints.down('sm')]: {
+            height: 'calc(100vh - 40px)',
+        }
     }
 });
 
