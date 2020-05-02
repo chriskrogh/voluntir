@@ -6,11 +6,11 @@ export default createMuiTheme({
             default: '#fff'
         },
         text: {
-            primary: '#393e46',
-            secondary: '#929aab'
+            primary: 'rgb(30, 30, 30)',
+            secondary: 'rgb(86, 86, 86)'
         },
         primary: {
-            main: '#f7f7f7'
+            main: 'rgb(245, 245, 245)'
         },
         secondary: {
             main: '#eeeeee'

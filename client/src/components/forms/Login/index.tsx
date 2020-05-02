@@ -32,6 +32,9 @@ const styles = (theme: Theme) => createStyles({
         marginTop: theme.spacing(3),
         width: containerWidth,
     },
+    button: {
+        color: theme.palette.text.primary,
+    },
     textField: {
         width: containerWidth
     },
@@ -81,7 +84,7 @@ function LoginForm({ classes }: Props) {
                 />
             </div>
             <div className={classnames(classes.buttonContainer, classes.lastElement)}>
-                <Button>LOG IN</Button>
+                <Button className={classes.button} >LOG IN</Button>
             </div>
         </div>
     );

@@ -1,10 +1,11 @@
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import classnames from 'classnames';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import * as routes from 'utils/routes';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';
+import * as routes from 'utils/routes';
 
 const styles = (theme: Theme) => createStyles({
     header: {
@@ -21,13 +22,14 @@ const styles = (theme: Theme) => createStyles({
         }
     },
     fillHeight: {
-        height: '100%'
+        height: '100%',
+    },
+    themeColor: {
+        color: theme.palette.text.primary
     }
 });
 
-interface Props extends WithStyles<typeof styles> {
-    theme: Theme
-}
+interface Props extends WithStyles<typeof styles> { }
 
 function Header({ classes }: Props) {
     const history = useHistory();
@@ -37,19 +39,19 @@ function Header({ classes }: Props) {
             <div className={classes.fillHeight}>
                 <Button
                     onClick={() => history.push(routes.HOME)}
-                    className={classes.fillHeight}
+                    className={classnames(classes.fillHeight, classes.themeColor)}
                 >
                     Home
                 </Button>
                 <Button
                     onClick={() => history.push(routes.AUTH)}
-                    className={classes.fillHeight}
+                    className={classnames(classes.fillHeight, classes.themeColor)}
                 >
                     Auth
                 </Button>
             </div>
             <div className={classes.fillHeight}>
-                <ThemeToggleButton className={classes.fillHeight} />
+                <ThemeToggleButton className={classnames(classes.fillHeight, classes.themeColor)} />
             </div>
         </div>
     );
