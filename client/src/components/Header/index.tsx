@@ -1,9 +1,9 @@
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
-import classnames from 'classnames';
-import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import BlurOnIcon from '@material-ui/icons/BlurOn';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';
 import * as routes from 'utils/routes';
 
@@ -21,11 +21,28 @@ const styles = (theme: Theme) => createStyles({
             height: 40
         }
     },
+    button: {
+        height: '100%',
+        color: theme.palette.text.primary,
+        fontSize: 20,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 15
+        }
+    },
     fillHeight: {
         height: '100%',
     },
-    themeColor: {
-        color: theme.palette.text.primary
+    iconContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 5
+    },
+    iconSize: {
+        fontSize: 35,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 25
+        }
     }
 });
 
@@ -39,19 +56,16 @@ function Header({ classes }: Props) {
             <div className={classes.fillHeight}>
                 <Button
                     onClick={() => history.push(routes.HOME)}
-                    className={classnames(classes.fillHeight, classes.themeColor)}
+                    className={classes.button}
                 >
-                    Home
-                </Button>
-                <Button
-                    onClick={() => history.push(routes.AUTH)}
-                    className={classnames(classes.fillHeight, classes.themeColor)}
-                >
-                    Auth
+                    <div className={classes.iconContainer}>
+                        <BlurOnIcon className={classes.iconSize} />
+                    </div>
+                    Community
                 </Button>
             </div>
             <div className={classes.fillHeight}>
-                <ThemeToggleButton className={classnames(classes.fillHeight, classes.themeColor)} />
+                <ThemeToggleButton className={classes.button} />
             </div>
         </div>
     );
