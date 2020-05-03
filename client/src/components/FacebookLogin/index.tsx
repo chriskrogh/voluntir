@@ -39,13 +39,13 @@ const FB = ({ mode }: Props) => {
 
     const callback = (user: User) => {
         setUser(user);
+        localStorage.setItem('userId', user._id);
         history.push(routes.HOME);
     }
 
     return (
         <FacebookLogin
             appId={appId}
-            autoLoad={true}
             fields="name,email,picture"
             callback={(res: ReactFacebookLoginInfo) => loginUser(res, callback)}
             cssClass="fb-button"

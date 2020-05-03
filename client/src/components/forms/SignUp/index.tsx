@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import /*type*/ { WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import FacebookLogin from 'components/FacebookLogin';
 import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
+import { isValidEmail, isValidPassword, isEmpty } from 'utils/validator';
 
 const containerWidth = 230;
 
@@ -29,26 +30,31 @@ const styles = (theme: Theme) => createStyles({
     buttonContainer: {
         display: 'flex',
         justifyContent: 'flex-end',
-        marginTop: theme.spacing(3),
+        alignItems: 'center',
+        marginTop: theme.spacing(1),
         width: containerWidth,
     },
-    button: {
+    lastElement: {
+        marginBottom: theme.spacing(3)
+    },
+    textColor: {
         color: theme.palette.text.primary,
     },
     textField: {
         width: containerWidth
-    },
-    lastElement: {
-        marginBottom: theme.spacing(3)
     }
 });
 
-interface Props extends WithStyles<typeof styles> { }
+interface Props extends WithStyles<typeof styles> {
+    theme: Theme
+}
 
-function SignUpForm({ classes }: Props) {
+function SignUpForm({ classes, theme }: Props) {
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [cPassword, setCPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(true);
 
     return (
         <div className={classes.container}>
@@ -63,6 +69,16 @@ function SignUpForm({ classes }: Props) {
             </div>
             <div className={classes.orContainer}>
                 <ParagraphText text="Sign up with email and password" />
+            </div>
+            <div className={classes.inputContainer}>
+                <TextField
+                    value={name}
+                    label="Name"
+                    onChange={e => setName(e.target.value)}
+                    required
+                    className={classes.textField}
+                    type="text"
+                />
             </div>
             <div className={classes.inputContainer}>
                 <TextField
@@ -94,11 +110,27 @@ function SignUpForm({ classes }: Props) {
                     type="password"
                 />
             </div>
+            <div className={classes.buttonContainer}>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                size="small"
+                                checked={rememberMe}
+                                onChange={() => setRememberMe(!rememberMe)}
+                                style={{ color: theme.palette.success.main }}
+                            />
+                        }
+                        label="Remember me"
+                        className={classes.textColor}
+                    />
+                </FormGroup>
+            </div>
             <div className={classnames(classes.buttonContainer, classes.lastElement)}>
-                <Button className={classes.button} >SIGN UP</Button>
+                <Button className={classes.textColor} >SIGN UP</Button>
             </div>
         </div>
     );
 }
 
-export default withStyles(styles)(SignUpForm);
+export default withStyles(styles, { withTheme: true })(SignUpForm);

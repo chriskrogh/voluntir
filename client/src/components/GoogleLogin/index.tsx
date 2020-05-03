@@ -59,13 +59,13 @@ const Google = ({ classes, mode }: Props) => {
 
     const callback = (user: User) => {
         setUser(user);
+        localStorage.setItem('userId', user._id);
         history.push(routes.HOME);
     }
 
     return (
         <GoogleLogin
             clientId={clientId}
-            autoLoad
             onSuccess={(res: GoogleLoginResponse | GoogleLoginResponseOffline) => loginUser(res, callback)}
             onFailure={() => {
                 throw new Error(GOOGLE_LOGIN);

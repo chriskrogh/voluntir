@@ -9,7 +9,7 @@ export const isValidEmail = (email: string) => {
 }
 
 export const isValidPassword = (password: string) => {
-    return password && (password.length > 5);
+    return password != null && (password.length > 5);
 }
 
 export const isValidPhoneNumber = (phoneNumber: string) => {

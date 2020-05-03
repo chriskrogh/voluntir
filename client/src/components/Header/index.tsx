@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import BlurOnIcon from '@material-ui/icons/BlurOn';
@@ -46,13 +47,15 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
-interface Props extends WithStyles<typeof styles> { }
+interface Props extends WithStyles<typeof styles> {
+    heightClassName: string
+}
 
-function Header({ classes }: Props) {
+function Header({ classes, heightClassName }: Props) {
     const history = useHistory();
 
     return (
-        <div className={classes.header}>
+        <div className={classnames(classes.header, heightClassName)}>
             <div className={classes.fillHeight}>
                 <Button
                     onClick={() => history.push(routes.HOME)}

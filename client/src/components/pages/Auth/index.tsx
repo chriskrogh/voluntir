@@ -31,7 +31,8 @@ const styles = (theme: Theme) => createStyles({
         width: 200
     },
     formContainer: {
-        marginTop: theme.spacing(3)
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3)
     }
 });
 
