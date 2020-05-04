@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { TextField, Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+import { TextField, Button, FormGroup, FormControlLabel, Checkbox, CircularProgress } from '@material-ui/core';
 import FacebookLogin from 'components/FacebookLogin';
 import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
@@ -54,6 +54,9 @@ const styles = (theme: Theme) => createStyles({
         color: theme.palette.error.main,
         width: innerContainerWidth,
         marginTop: theme.spacing(2)
+    },
+    activityIndicator: {
+        color: theme.palette.text.primary
     }
 });
 
@@ -104,7 +107,9 @@ function SignUpForm({ classes, theme }: Props) {
     const [password, setPassword] = useState('');
     const [cPassword, setCPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [invalidRequest, setInvalidRequest] = useState(false);
 
     const helpEmail = () => {
         return !isValidEmail(email);
@@ -119,14 +124,20 @@ function SignUpForm({ classes, theme }: Props) {
     }
 
     const submit = async () => {
+        setIsLoading(true);
         setSubmitted(true);
-        const user = await signUp(name, email, password, cPassword);
-        if (user != null) {
-            setUser(user);
-            if (rememberMe) {
-                localStorage.setItem('userId', user._id);
+        try {
+            const user = await signUp(name, email, password, cPassword);
+            if (user != null) {
+                setUser(user);
+                if (rememberMe) {
+                    localStorage.setItem('userId', user._id);
+                }
+                history.push(routes.HOME);
             }
-            history.push(routes.HOME);
+        } catch (error) {
+            setInvalidRequest(true);
+            setIsLoading(false);
         }
     }
 
@@ -159,6 +170,11 @@ function SignUpForm({ classes, theme }: Props) {
                     {(!isValidPassword(password) || password !== cPassword) && (
                         <li>
                             <ErrorText text="Passwords must be at least 6 characters long and must match" />
+                        </li>
+                    )}
+                    {invalidRequest && (
+                        <li>
+                            <ErrorText text="A user with this email already esists" />
                         </li>
                     )}
                 </ul>
@@ -225,7 +241,7 @@ function SignUpForm({ classes, theme }: Props) {
                     />
                 </FormGroup>
             </div>
-            <div className={classnames(classes.buttonContainer, classes.lastElement)}>
+            <div className={classnames(classes.buttonContainer, !isLoading && classes.lastElement)}>
                 <Button
                     className={classes.textColor}
                     onClick={submit}
@@ -233,6 +249,11 @@ function SignUpForm({ classes, theme }: Props) {
                     SIGN UP
                 </Button>
             </div>
+            {isLoading && (
+                <div className={classes.lastElement} style={{ marginTop: theme.spacing(2) }}>
+                    <CircularProgress className={classes.activityIndicator} />
+                </div>
+            )}
         </div>
     );
 }
