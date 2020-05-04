@@ -1,9 +1,9 @@
 import ACTION_TYPES from 'context/theme/actions';
-import { Theme } from '@material-ui/core/styles';
+import { NamedTheme } from 'types/theme';
 
 type ActionTypeTuple = typeof ACTION_TYPES;
 
 export type Action = {
     type: ActionTypeTuple[number];
-    payload: Theme
+    payload: NamedTheme
 };

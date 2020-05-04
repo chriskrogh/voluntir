@@ -1,10 +1,11 @@
 import { createContext } from 'react';
-import { Theme } from '@material-ui/core/styles';
+import { NamedTheme } from 'types/theme';
 import LightTheme from 'theme/themes/light';
+import DarkTheme from 'theme/themes/dark';
 
 export const initialState = {
-    theme: LightTheme,
-    setTheme: (theme: Theme) => { },
+    theme: (localStorage.getItem('theme') === 'light' ? LightTheme : DarkTheme),
+    setTheme: (theme: NamedTheme) => { },
 };
 
 export const ThemeContext = createContext(initialState);

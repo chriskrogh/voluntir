@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Theme } from '@material-ui/core/styles';
+import { NamedTheme } from 'types/theme';
 import { Button } from '@material-ui/core';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { ThemeContext } from 'context/theme/state';
@@ -10,8 +10,8 @@ interface Props {
     className: string
 }
 
-const isLightTheme = (theme: Theme): boolean => {
-    return theme.palette.background.default === '#fff';
+const isLightTheme = (theme: NamedTheme): boolean => {
+    return theme.name === 'light';
 }
 
 function ThemeToggleButton({ className }: Props) {
