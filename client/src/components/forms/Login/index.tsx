@@ -10,7 +10,7 @@ import FacebookLogin from 'components/FacebookLogin';
 import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
 import ErrorText from 'components/typography/ErrorText';
-import { isValidEmail, isEmpty, isValidPassword } from 'utils/validator';
+import { isValidEmail, isValidPassword } from 'utils/validator';
 import { authenticate } from 'utils/network/auth';
 import { LOG_IN } from 'utils/network/errorMessages';
 import * as routes from 'utils/routes';
