@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from 'context/user/state';
 import { Button } from '@material-ui/core';
 import BlurOnIcon from '@material-ui/icons/BlurOn';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';
@@ -52,7 +53,14 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function Header({ classes, heightClassName }: Props) {
+    const { user, unsetUser } = useContext(UserContext);
     const history = useHistory();
+
+    const logout = () => {
+        unsetUser();
+        localStorage.removeItem('userId');
+        history.push(routes.AUTH);
+    }
 
     return (
         <div className={classnames(classes.header, heightClassName)}>
@@ -69,6 +77,11 @@ function Header({ classes, heightClassName }: Props) {
             </div>
             <div className={classes.fillHeight}>
                 <ThemeToggleButton className={classes.button} />
+                {user._id !== '0' && (
+                    <Button onClick={logout}>
+                        LOG OUT
+                    </Button>
+                )}
             </div>
         </div>
     );

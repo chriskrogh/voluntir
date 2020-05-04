@@ -11,8 +11,8 @@ const Provider = ({ children }: any) => {
         dispatch({ type: actionTypes.SET_USER, payload: user });
     }
 
-    const unsetUser = (user: User) => {
-        dispatch({ type: actionTypes.UNSET_USER, payload: user });
+    const unsetUser = () => {
+        dispatch({ type: actionTypes.UNSET_USER, payload: initialState.user });
     }
 
     return (

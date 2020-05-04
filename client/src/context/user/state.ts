@@ -10,7 +10,7 @@ export const initialState = {
         email: 'a@b.com',
     } as User,
     setUser: (user: User) => { },
-    unsetUser: (user: User) => { },
+    unsetUser: () => { },
 };
 
 export const UserContext = createContext(initialState);

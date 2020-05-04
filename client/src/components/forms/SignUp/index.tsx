@@ -107,15 +107,15 @@ function SignUpForm({ classes, theme }: Props) {
     const [submitted, setSubmitted] = useState(false);
 
     const helpEmail = () => {
-        return !isEmpty(email) && !isValidEmail(email);
+        return !isValidEmail(email);
     }
 
     const helpPassword = () => {
-        return !isEmpty(password) && !isValidPassword(password);
+        return !isValidPassword(password);
     }
 
     const helpCPassword = () => {
-        return !isEmpty(cPassword) && !(cPassword === password);
+        return !(cPassword === password);
     }
 
     const submit = async () => {
