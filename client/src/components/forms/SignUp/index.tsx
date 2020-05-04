@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import React, { useState, useContext } from 'react';
 import /*type*/ { WithStyles } from '@material-ui/core/styles';
+import { AuthRequest } from 'types/network';
 import classnames from 'classnames';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from 'context/user/state';
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TextField, Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import FacebookLogin from 'components/FacebookLogin';
 import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
+import ErrorText from 'components/typography/ErrorText';
+import { SIGN_UP } from 'utils/network/errorMessages';
 import { isValidEmail, isValidPassword, isEmpty } from 'utils/validator';
+import { authenticate } from 'utils/network/auth';
+import * as routes from 'utils/routes';
 
-const containerWidth = 230;
+const innerContainerWidth = 230;
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -19,7 +26,7 @@ const styles = (theme: Theme) => createStyles({
         backgroundColor: theme.palette.primary.main,
         borderRadius: 4
     },
-    inputContainer: {
+    topSpacing: {
         marginTop: theme.spacing(3)
     },
     orContainer: {
@@ -32,7 +39,7 @@ const styles = (theme: Theme) => createStyles({
         justifyContent: 'flex-end',
         alignItems: 'center',
         marginTop: theme.spacing(1),
-        width: containerWidth,
+        width: innerContainerWidth,
     },
     lastElement: {
         marginBottom: theme.spacing(3)
@@ -41,73 +48,165 @@ const styles = (theme: Theme) => createStyles({
         color: theme.palette.text.primary,
     },
     textField: {
-        width: containerWidth
+        width: innerContainerWidth,
+    },
+    errorList: {
+        color: theme.palette.error.main,
+        width: innerContainerWidth,
+        marginTop: theme.spacing(2)
     }
 });
+
+const validate = (
+    name: string,
+    email: string,
+    password: string,
+    cPassword: string
+) => {
+    return (
+        !isEmpty(name)
+        && isValidEmail(email)
+        && isValidPassword(password)
+        && (password === cPassword)
+    );
+}
+
+const signUp = async (
+    name: string,
+    email: string,
+    password: string,
+    cPassword: string,
+) => {
+    if (validate(name, email, password, cPassword)) {
+        return await authenticate(
+            {
+                name,
+                email,
+                secret: password,
+                fromThirdParty: false,
+                mode: 'signup'
+            } as AuthRequest,
+            SIGN_UP
+        );
+    }
+}
 
 interface Props extends WithStyles<typeof styles> {
     theme: Theme
 }
 
 function SignUpForm({ classes, theme }: Props) {
-    const [email, setEmail] = useState('');
+    const { setUser } = useContext(UserContext);
+    const history = useHistory();
+
     const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cPassword, setCPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(true);
+    const [submitted, setSubmitted] = useState(false);
+
+    const helpEmail = () => {
+        return !isEmpty(email) && !isValidEmail(email);
+    }
+
+    const helpPassword = () => {
+        return !isEmpty(password) && !isValidPassword(password);
+    }
+
+    const helpCPassword = () => {
+        return !isEmpty(cPassword) && !(cPassword === password);
+    }
+
+    const submit = async () => {
+        setSubmitted(true);
+        const user = await signUp(name, email, password, cPassword);
+        if (user != null) {
+            setUser(user);
+            if (rememberMe) {
+                localStorage.setItem('userId', user._id);
+            }
+            history.push(routes.HOME);
+        }
+    }
 
     return (
         <div className={classes.container}>
-            <div className={classes.inputContainer}>
-                <FacebookLogin mode="signup" />
+            <div className={classes.topSpacing}>
+                <FacebookLogin mode='signup' />
             </div>
-            <div className={classes.inputContainer}>
-                <GoogleLogin mode="signup" />
-            </div>
-            <div className={classes.orContainer}>
-                <ParagraphText text="OR" />
+            <div className={classes.topSpacing}>
+                <GoogleLogin mode='signup' />
             </div>
             <div className={classes.orContainer}>
-                <ParagraphText text="Sign up with email and password" />
+                <ParagraphText text='OR' />
             </div>
-            <div className={classes.inputContainer}>
+            <div className={classes.orContainer}>
+                <ParagraphText text='Sign up with email and password' />
+            </div>
+            {submitted && (
+                <ul className={classes.errorList} >
+                    {isEmpty(name) && (
+                        <li>
+                            <ErrorText text="Name cannot be empty" />
+                        </li>
+                    )}
+                    {!isValidEmail(email) && (
+                        <li>
+                            <ErrorText text="Invalid email" />
+                        </li>
+                    )}
+                    {(!isValidPassword(password) || password !== cPassword) && (
+                        <li>
+                            <ErrorText text="Passwords must be at least 6 characters long and must match" />
+                        </li>
+                    )}
+                </ul>
+            )}
+            <div className={classes.topSpacing}>
                 <TextField
                     value={name}
-                    label="Name"
+                    label='Name'
                     onChange={e => setName(e.target.value)}
                     required
                     className={classes.textField}
-                    type="text"
+                    type='text'
                 />
             </div>
-            <div className={classes.inputContainer}>
+            <div className={classes.topSpacing}>
                 <TextField
                     value={email}
-                    label="Email"
+                    label='Email'
                     onChange={e => setEmail(e.target.value)}
                     required
                     className={classes.textField}
-                    type="email"
+                    type='email'
+                    error={helpEmail()}
+                    helperText={helpEmail() ? 'Enter a valid email address (example@gmail.com)' : ''}
                 />
             </div>
-            <div className={classes.inputContainer}>
+            <div className={classes.topSpacing}>
                 <TextField
                     value={password}
-                    label="Password"
+                    label='Password'
                     onChange={e => setPassword(e.target.value)}
                     required
                     className={classes.textField}
-                    type="password"
+                    type='password'
+                    error={helpPassword()}
+                    helperText={helpPassword() ? 'Password must be at least 6 characters' : ''}
                 />
             </div>
-            <div className={classes.inputContainer}>
+            <div className={classes.topSpacing}>
                 <TextField
                     value={cPassword}
-                    label="Confirm Password"
+                    label='Confirm Password'
                     onChange={e => setCPassword(e.target.value)}
                     required
                     className={classes.textField}
-                    type="password"
+                    type='password'
+                    error={helpCPassword()}
+                    helperText={helpCPassword() ? 'Passwords must match' : ''}
                 />
             </div>
             <div className={classes.buttonContainer}>
@@ -115,19 +214,24 @@ function SignUpForm({ classes, theme }: Props) {
                     <FormControlLabel
                         control={
                             <Checkbox
-                                size="small"
+                                size='small'
                                 checked={rememberMe}
                                 onChange={() => setRememberMe(!rememberMe)}
                                 style={{ color: theme.palette.success.main }}
                             />
                         }
-                        label="Remember me"
+                        label='Remember me'
                         className={classes.textColor}
                     />
                 </FormGroup>
             </div>
             <div className={classnames(classes.buttonContainer, classes.lastElement)}>
-                <Button className={classes.textColor} >SIGN UP</Button>
+                <Button
+                    className={classes.textColor}
+                    onClick={submit}
+                >
+                    SIGN UP
+                </Button>
             </div>
         </div>
     );

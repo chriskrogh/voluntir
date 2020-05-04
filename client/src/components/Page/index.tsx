@@ -6,6 +6,7 @@ import { UserContext } from 'context/user/state';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import * as routes from 'utils/routes';
+import { getUserById } from 'utils/network/auth';
 
 const headerHeightDesktop = 60;
 const headerHeightMobile = 40;
@@ -44,14 +45,23 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function Page({ classes, children }: Props) {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const history = useHistory();
 
     useEffect(() => {
-        if (user._id === '0') {
-            history.push(routes.AUTH);
+        async function fetchUser() {
+            if (user._id === '0') {
+                const id = localStorage.getItem('userId');
+                if (id != null) {
+                    const user = await getUserById(id);
+                    setUser(user);
+                } else {
+                    history.push(routes.AUTH);
+                }
+            }
         }
-    }, [history, user._id])
+        fetchUser();
+    }, [history, user._id, setUser])
 
     return (
         <>

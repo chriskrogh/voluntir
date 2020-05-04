@@ -2,11 +2,10 @@ import React, { useContext } from 'react';
 import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import { Method, LoginRequest, AuthMode } from 'types/network';
+import { AuthMode, AuthRequest } from 'types/network';
+import { authenticate } from 'utils/network/auth';
 import { User } from 'types/user';
-import { makeRequest } from "network/request";
-import { FACEBOOK_LOGIN } from 'network/errorMessages';
-import { USERS } from 'network/endpoints';
+import { FACEBOOK_LOGIN } from 'utils/network/errorMessages';
 import * as routes from 'utils/routes';
 import Icon from './icon';
 import './fb.css';
@@ -19,11 +18,15 @@ const loginUser = async (res: ReactFacebookLoginInfo, callback: (user: User) => 
         throw new Error(FACEBOOK_LOGIN);
     } else {
         const picture = res.picture.data.url;
-        const user = await makeRequest<User, LoginRequest>(
-            Method.POST,
-            USERS,
-            FACEBOOK_LOGIN,
-            { ...res, picture, fromThirdParty: true } as LoginRequest
+        const user = await authenticate(
+            {
+                ...res,
+                picture,
+                fromThirdParty: true,
+                mode: 'login',
+                secret: res.accessToken
+            } as AuthRequest,
+            FACEBOOK_LOGIN
         );
         callback(user);
     }

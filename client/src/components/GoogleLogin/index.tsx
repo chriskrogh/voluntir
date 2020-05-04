@@ -4,12 +4,11 @@ import /*type*/ { WithStyles } from '@material-ui/core/styles';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import { Method, LoginRequest, AuthMode } from 'types/network';
+import { AuthMode, AuthRequest } from 'types/network';
 import { User } from 'types/user';
-import { makeRequest } from "network/request";
-import { GOOGLE_LOGIN } from 'network/errorMessages';
-import { USERS } from 'network/endpoints';
+import { GOOGLE_LOGIN } from 'utils/network/errorMessages';
 import * as routes from 'utils/routes';
+import { authenticate } from 'utils/network/auth';
 
 const { REACT_APP_GOOGLE_CLIENT_ID } = process.env;
 const clientId = REACT_APP_GOOGLE_CLIENT_ID || '';
@@ -39,11 +38,15 @@ const loginUser = async (
         throw new Error(GOOGLE_LOGIN);
     } else {
         const picture = res.profileObj.imageUrl;
-        const user = await makeRequest<User, LoginRequest>(
-            Method.POST,
-            USERS,
-            GOOGLE_LOGIN,
-            { ...res.profileObj, picture, fromThirdParty: true } as LoginRequest
+        const user = await authenticate(
+            {
+                ...res.profileObj,
+                picture,
+                fromThirdParty: true,
+                mode: 'login',
+                secret: res.accessToken
+            } as AuthRequest,
+            GOOGLE_LOGIN
         );
         callback(user);
     }

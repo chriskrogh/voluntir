@@ -4,7 +4,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 
 const styles = (theme: Theme) => ({
     text: {
-        color: theme.palette.text.primary,
+        color: theme.palette.error.main,
         margin: 0,
     }
 });
@@ -13,7 +13,7 @@ interface Props extends WithStyles<typeof styles> {
     text: string
 }
 
-function ParagraphText({ classes, text }: Props) {
+function ErrorText({ classes, text }: Props) {
     return (
         <p className={classes.text}>
             {text}
@@ -21,4 +21,4 @@ function ParagraphText({ classes, text }: Props) {
     );
 }
 
-export default withStyles(styles)(ParagraphText);
+export default withStyles(styles)(ErrorText);

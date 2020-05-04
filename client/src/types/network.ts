@@ -7,8 +7,9 @@ export enum Method {
     DELETE
 };
 
-export type LoginRequest = UserData & {
-    fromThirdParty: boolean;
-};
-
 export type AuthMode = 'login' | 'signup';
+
+export type AuthRequest = UserData & {
+    fromThirdParty: boolean;
+    mode: AuthMode;
+};
