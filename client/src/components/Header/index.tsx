@@ -78,7 +78,7 @@ function Header({ classes, heightClassName }: Props) {
             <div className={classes.fillHeight}>
                 <ThemeToggleButton className={classes.button} />
                 {user._id !== '0' && (
-                    <Button onClick={logout}>
+                    <Button className={classes.button} onClick={logout}>
                         LOG OUT
                     </Button>
                 )}

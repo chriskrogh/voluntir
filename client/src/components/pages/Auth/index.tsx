@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from 'context/user/state';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { ButtonGroup, Button } from '@material-ui/core';
@@ -7,6 +9,7 @@ import Title from 'components/typography/Title';
 import Subtitle from 'components/typography/Subtitle';
 import LoginForm from 'components/forms/Login';
 import SignUpForm from 'components/forms/SignUp';
+import * as routes from 'utils/routes';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -39,7 +42,16 @@ const styles = (theme: Theme) => createStyles({
 interface Props extends WithStyles<typeof styles> { }
 
 function Auth({ classes }: Props) {
+    const history = useHistory();
+    const { user } = useContext(UserContext);
+
     const [isLogin, setIsLogin] = useState(true);
+
+    useEffect(() => {
+        if (user._id !== '0') {
+            history.push(routes.HOME);
+        }
+    }, [user._id, history]);
 
     return (
         <Page>
