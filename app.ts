@@ -7,11 +7,8 @@ import UserRouter from './src/routers/user';
 const app = express();
 
 // set client directory
-var CLIENT_DIR = 'client/build';
-
-if (path.basename(__dirname) === 'build') {
-    CLIENT_DIR = '../' + CLIENT_DIR;
-}
+const clientBuild = 'client/build';
+const CLIENT_DIR = (path.basename(__dirname) === 'build') ? `../${clientBuild}` : clientBuild;
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, CLIENT_DIR)));

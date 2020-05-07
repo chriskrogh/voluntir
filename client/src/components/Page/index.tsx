@@ -40,8 +40,8 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    theme: Theme
-    children: JSX.Element | JSX.Element[]
+    theme: Theme;
+    children: React.ReactNode;
 }
 
 function Page({ classes, children }: Props) {

@@ -10,8 +10,8 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    theme: Theme,
-    text: string
+    theme: Theme;
+    text: string;
 }
 
 function Subtitle({ classes, text }: Props) {

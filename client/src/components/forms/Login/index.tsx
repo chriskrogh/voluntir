@@ -88,7 +88,7 @@ const login = async (
 }
 
 interface Props extends WithStyles<typeof styles> {
-    theme: Theme
+    theme: Theme;
 }
 
 function LoginForm({ classes, theme }: Props) {

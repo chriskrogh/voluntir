@@ -12,10 +12,7 @@ const styles = () => ({
     }
 });
 
-interface Props extends WithStyles<typeof styles> {
-}
-
-function Home({ classes }: Props) {
+function Home({ classes }: WithStyles<typeof styles>) {
     return (
         <Page>
             <div className={classes.container}>

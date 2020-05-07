@@ -10,7 +10,7 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    text: string
+    text: string;
 }
 
 function ParagraphText({ classes, text }: Props) {

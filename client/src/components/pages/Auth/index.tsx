@@ -39,9 +39,7 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
-interface Props extends WithStyles<typeof styles> { }
-
-function Auth({ classes }: Props) {
+function Auth({ classes }: WithStyles<typeof styles>) {
     const history = useHistory();
     const { user } = useContext(UserContext);
 

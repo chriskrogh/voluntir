@@ -7,7 +7,7 @@ import LightTheme from 'theme/themes/light';
 import DarkTheme from 'theme/themes/dark';
 
 interface Props {
-    className: string
+    className: string;
 }
 
 const isLightTheme = (theme: NamedTheme): boolean => {

@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
 
-export interface UserData extends mongoose.Document {
-    name: string;
-    email: string;
-    secret: string;
-    picture?: string;
+export interface CommunityData extends mongoose.Document {
+    title: string;
+    description: string;
+    admins: string[];
 }
 
-const UserSchema = new mongoose.Schema({
+const CommunitySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -27,4 +26,4 @@ const UserSchema = new mongoose.Schema({
     timestamps: true
 });
 
-export const UserModel = mongoose.model<UserData>('User', UserSchema);
+export const CommunityModel = mongoose.model<CommunityData>('Community', CommunitySchema);

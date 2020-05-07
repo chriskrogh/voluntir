@@ -95,7 +95,7 @@ const signUp = async (
 }
 
 interface Props extends WithStyles<typeof styles> {
-    theme: Theme
+    theme: Theme;
 }
 
 function SignUpForm({ classes, theme }: Props) {

@@ -5,5 +5,5 @@ type ActionTypeTuple = typeof ACTION_TYPES;
 
 export type Action = {
     type: ActionTypeTuple[number];
-    payload: User
+    payload: User;
 };

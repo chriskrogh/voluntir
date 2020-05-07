@@ -33,7 +33,7 @@ const loginUser = async (res: ReactFacebookLoginInfo, callback: (user: User) => 
 }
 
 interface Props {
-    mode: AuthMode
+    mode: AuthMode;
 }
 
 const FB = ({ mode }: Props) => {

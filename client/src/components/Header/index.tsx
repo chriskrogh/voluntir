@@ -49,7 +49,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    heightClassName: string
+    heightClassName: string;
 }
 
 function Header({ classes, heightClassName }: Props) {

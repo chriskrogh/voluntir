@@ -9,6 +9,7 @@ export const initialState = {
         name: 'Anonymous',
         email: 'a@b.com',
     } as User,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setUser: (user: User) => { },
     unsetUser: () => { },
 };

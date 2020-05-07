@@ -4,7 +4,11 @@ import { NamedTheme } from 'types/theme';
 import Reducer from './reducer';
 import * as actionTypes from './actions';
 
-const Provider = ({ children }: any) => {
+interface Props {
+    children: React.ReactNode | React.ReactNode[];
+}
+
+const Provider = ({ children }: Props) => {
     const [state, dispatch] = useReducer(Reducer, initialState);
 
     const setTheme = (theme: NamedTheme) => {

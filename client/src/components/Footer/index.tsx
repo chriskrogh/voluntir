@@ -20,7 +20,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    heightClassName: string
+    heightClassName: string;
 }
 
 function Footer({ classes, heightClassName }: Props) {
