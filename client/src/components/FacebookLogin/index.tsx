@@ -42,7 +42,7 @@ const FB = ({ mode }: Props) => {
 
     const callback = (user: User) => {
         setUser(user);
-        sessionStorage.setItem('userId', user._id);
+        localStorage.setItem('userId', user._id);
         history.push(routes.HOME);
     }
 

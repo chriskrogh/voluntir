@@ -118,7 +118,7 @@ function LoginForm({ classes, theme }: Props) {
             if (user != null) {
                 setUser(user);
                 if (rememberMe) {
-                    sessionStorage.setItem('userId', user._id);
+                    localStorage.setItem('userId', user._id);
                 }
                 history.push(routes.HOME);
             }
