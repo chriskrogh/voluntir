@@ -5,7 +5,14 @@ import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { TextField, Button, FormGroup, FormControlLabel, Checkbox, CircularProgress } from '@material-ui/core';
+import {
+    TextField,
+    Button,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
+    CircularProgress
+} from '@material-ui/core';
 import FacebookLogin from 'components/FacebookLogin';
 import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
@@ -169,6 +176,7 @@ function SignUpForm({ classes, theme }: Props) {
                     )}
                     {(!isValidPassword(password) || password !== cPassword) && (
                         <li>
+                            {/* eslint-disable-next-line max-len */}
                             <ErrorText text="Passwords must be at least 6 characters long and must match" />
                         </li>
                     )}
@@ -198,7 +206,11 @@ function SignUpForm({ classes, theme }: Props) {
                     className={classes.textField}
                     type='email'
                     error={helpEmail()}
-                    helperText={helpEmail() ? 'Enter a valid email address (example@gmail.com)' : ''}
+                    helperText={
+                        helpEmail()
+                            ? 'Enter a valid email address (example@gmail.com)'
+                            : ''
+                    }
                 />
             </div>
             <div className={classes.topSpacing}>
@@ -210,7 +222,9 @@ function SignUpForm({ classes, theme }: Props) {
                     className={classes.textField}
                     type='password'
                     error={helpPassword()}
-                    helperText={helpPassword() ? 'Password must be at least 6 characters' : ''}
+                    helperText={
+                        helpPassword() ? 'Password must be at least 6 characters' : ''
+                    }
                 />
             </div>
             <div className={classes.topSpacing}>
@@ -241,7 +255,9 @@ function SignUpForm({ classes, theme }: Props) {
                     />
                 </FormGroup>
             </div>
-            <div className={classnames(classes.buttonContainer, !isLoading && classes.lastElement)}>
+            <div className={
+                classnames(classes.buttonContainer, !isLoading && classes.lastElement)
+            }>
                 <Button
                     className={classes.textColor}
                     onClick={submit}
@@ -250,7 +266,10 @@ function SignUpForm({ classes, theme }: Props) {
                 </Button>
             </div>
             {isLoading && (
-                <div className={classes.lastElement} style={{ marginTop: theme.spacing(2) }}>
+                <div
+                    className={classes.lastElement}
+                    style={{ marginTop: theme.spacing(2) }}
+                >
                     <CircularProgress className={classes.activityIndicator} />
                 </div>
             )}

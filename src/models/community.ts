@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 export interface CommunityData extends mongoose.Document {
     title: string;
     description: string;
-    admins: string[];
+    admins?: mongoose.Schema.Types.ObjectId[];
 }
 
 const CommunitySchema = new mongoose.Schema({
@@ -17,6 +17,9 @@ const CommunitySchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    admins: [{
+        type: mongoose.Schema.Types.ObjectId,
+    }]
 }, {
     timestamps: true
 });

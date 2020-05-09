@@ -21,6 +21,14 @@
     "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/no-use-before-define": "warn"
+        "@typescript-eslint/no-use-before-define": "warn",
+        "max-len": [
+            2,
+            {
+                "code": 90,
+                "tabWidth": 2
+            }
+        ],
+        "no-trailing-spaces": 2
     }
 }

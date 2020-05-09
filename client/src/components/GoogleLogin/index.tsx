@@ -1,7 +1,10 @@
 import React, { useContext } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles } from '@material-ui/core/styles';
-import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import GoogleLogin, {
+    GoogleLoginResponse,
+    GoogleLoginResponseOffline
+} from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { AuthMode, AuthRequest } from 'types/network';
@@ -69,7 +72,10 @@ const Google = ({ classes, mode }: Props) => {
     return (
         <GoogleLogin
             clientId={clientId}
-            onSuccess={(res: GoogleLoginResponse | GoogleLoginResponseOffline) => loginUser(res, callback)}
+            onSuccess={
+                (res: GoogleLoginResponse | GoogleLoginResponseOffline) =>
+                    loginUser(res, callback)
+            }
             onFailure={() => {
                 throw new Error(GOOGLE_LOGIN);
             }}

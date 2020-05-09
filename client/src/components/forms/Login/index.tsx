@@ -5,7 +5,14 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { UserContext } from 'context/user/state';
 import { useHistory } from 'react-router-dom';
-import { TextField, Button, FormGroup, FormControlLabel, Checkbox, CircularProgress } from '@material-ui/core';
+import {
+    TextField,
+    Button,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
+    CircularProgress
+} from '@material-ui/core';
 import FacebookLogin from 'components/FacebookLogin';
 import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
@@ -151,6 +158,7 @@ function LoginForm({ classes, theme }: Props) {
                     )}
                     {!isValidPassword(password) && (
                         <li>
+                            {/* eslint-disable-next-line max-len */}
                             <ErrorText text="Passwords must be at least 6 characters long" />
                         </li>
                     )}
@@ -170,7 +178,11 @@ function LoginForm({ classes, theme }: Props) {
                     className={classes.textField}
                     type="email"
                     error={helpEmail()}
-                    helperText={helpEmail() ? 'Enter a valid email address (example@gmail.com)' : ''}
+                    helperText={
+                        helpEmail()
+                            ? 'Enter a valid email address (example@gmail.com)'
+                            : ''
+                    }
                 />
             </div>
             <div className={classes.topSpacing}>
@@ -182,7 +194,11 @@ function LoginForm({ classes, theme }: Props) {
                     className={classes.textField}
                     type="password"
                     error={helpPassword()}
-                    helperText={helpPassword() ? 'Password must be at least 6 characters' : ''}
+                    helperText={
+                        helpPassword()
+                            ? 'Password must be at least 6 characters'
+                            : ''
+                    }
                 />
             </div>
             <div className={classes.buttonContainer}>
@@ -201,7 +217,11 @@ function LoginForm({ classes, theme }: Props) {
                     />
                 </FormGroup>
             </div>
-            <div className={classnames(classes.buttonContainer, !isLoading && classes.lastElement)}>
+            <div
+                className={
+                    classnames(classes.buttonContainer, !isLoading && classes.lastElement)
+                }
+            >
                 <Button
                     className={classes.textColor}
                     onClick={submit}
@@ -211,7 +231,10 @@ function LoginForm({ classes, theme }: Props) {
                 </Button>
             </div>
             {isLoading && (
-                <div className={classes.lastElement} style={{ marginTop: theme.spacing(2) }}>
+                <div
+                    className={classes.lastElement}
+                    style={{ marginTop: theme.spacing(2) }}
+                >
                     <CircularProgress className={classes.activityIndicator} />
                 </div>
             )}

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import bcryptjs from 'bcryptjs';
 import { UserModel, UserData } from "../models/user";
-import * as M from '../common/errorMessages';
+import * as M from '../utils/errorMessages';
 import '../db/mongoose';
 
 const router = express.Router();
@@ -34,7 +34,10 @@ router.post('/api/users', async (req: Request, res: Response) => {
         const users = await UserModel.find({ email: req.body.email });
         if (users.length > 0) {
             const user = users[0];
-            const successfulComparison = await bcryptjs.compare(req.body.secret, user.secret);
+            const successfulComparison = await bcryptjs.compare(
+                req.body.secret,
+                user.secret
+            );
             if (successfulComparison) {
                 res.status(200).send(user);
             } else {
