@@ -10,11 +10,15 @@ export interface UserData extends mongoose.Document {
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     email: {
+        unique: true,
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        lowercase: true
     },
     secret: {
         type: String,

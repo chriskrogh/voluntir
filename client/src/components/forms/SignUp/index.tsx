@@ -131,7 +131,7 @@ function SignUpForm({ classes, theme }: Props) {
             if (user != null) {
                 setUser(user);
                 if (rememberMe) {
-                    localStorage.setItem('userId', user._id);
+                    sessionStorage.setItem('userId', user._id);
                 }
                 history.push(routes.HOME);
             }

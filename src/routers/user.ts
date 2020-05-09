@@ -19,8 +19,7 @@ router.post('/api/users/signup', async (req: Request, res: Response) => {
         if (users.length > 0) {
             throw new Error(M.EXISTING_USER);
         } else {
-            const salt = await bcryptjs.genSalt(8);
-            const hash = await bcryptjs.hash(req.body.secret, salt);
+            const hash = await bcryptjs.hash(req.body.secret, 8);
             res.status(201).send(await createUser({ ...req.body, secret: hash }));
         }
     } catch (err) {

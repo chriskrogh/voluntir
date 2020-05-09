@@ -7,21 +7,16 @@ export interface CommunityData extends mongoose.Document {
 }
 
 const CommunitySchema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
-    email: {
+    description: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
-    secret: {
-        type: String,
-        required: true
-    },
-    picture: {
-        type: String
-    }
 }, {
     timestamps: true
 });

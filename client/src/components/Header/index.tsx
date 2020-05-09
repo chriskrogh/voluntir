@@ -58,7 +58,7 @@ function Header({ classes, heightClassName }: Props) {
 
     const logout = () => {
         unsetUser();
-        localStorage.removeItem('userId');
+        sessionStorage.removeItem('userId');
         history.push(routes.AUTH);
     }
 

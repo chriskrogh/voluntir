@@ -51,7 +51,7 @@ function Page({ classes, children }: Props) {
     useEffect(() => {
         async function fetchUser() {
             if (user._id === '0') {
-                const id = localStorage.getItem('userId');
+                const id = sessionStorage.getItem('userId');
                 if (id != null) {
                     const user = await getUserById(id);
                     setUser(user);

@@ -62,7 +62,7 @@ const Google = ({ classes, mode }: Props) => {
 
     const callback = (user: User) => {
         setUser(user);
-        localStorage.setItem('userId', user._id);
+        sessionStorage.setItem('userId', user._id);
         history.push(routes.HOME);
     }
 
