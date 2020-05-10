@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 import path from 'path';
 import storage, { BlobService } from 'azure-storage';
+import { Writable } from 'stream';
 
 const blobService = storage.createBlobService();
 
@@ -45,7 +46,11 @@ const createContainer = async (containerName: string) => {
     });
 };
 
-const uploadString = async (containerName: string, blobName: string, text: string) => {
+const uploadString = async (
+    containerName: string,
+    blobName: string,
+    text: string | Buffer
+) => {
     return new Promise((resolve, reject) => {
         blobService.createBlockBlobFromText(containerName, blobName, text, err => {
             if (err) {
@@ -98,7 +103,7 @@ const listBlobs = async (containerName: string) => {
 const downloadBlob = async (
     containerName: string,
     blobName: string,
-    writeStream: NodeJS.WriteStream
+    writeStream: Writable
 ) => {
     return new Promise((resolve, reject) => {
         blobService.getBlobToStream(containerName, blobName, writeStream, (err, data) => {
@@ -144,7 +149,7 @@ const createContainerIfDoesNotExist = async (containerName: string) => {
     }
 }
 
-module.exports = {
+export default {
     listContainers,
     createContainerIfDoesNotExist,
     uploadString,
@@ -153,4 +158,4 @@ module.exports = {
     downloadBlob,
     deleteBlob,
     deleteContainer
-}
+};

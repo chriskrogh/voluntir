@@ -1,11 +1,6 @@
 import mongoose from 'mongoose';
-
-export interface UserData extends mongoose.Document {
-    name: string;
-    email: string;
-    secret: string;
-    picture?: string;
-}
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -26,9 +21,62 @@ const UserSchema = new mongoose.Schema({
     },
     picture: {
         type: String
-    }
+    },
+    tokens: [{
+        type: String,
+        required: true
+    }]
 }, {
     timestamps: true
 });
 
-export const UserModel = mongoose.model<UserData>('User', UserSchema);
+UserSchema.virtual('event', {
+    ref: 'Event',
+    localField: '_id',
+    foreignField: 'owner'
+});
+
+UserSchema.methods.toJSON = function () {
+    const userObject = this.toObject();
+
+    delete userObject.secret;
+    delete userObject.tokens;
+
+    return userObject;
+}
+
+UserSchema.methods.generateAuthToken = async function () {
+    const token = jwt.sign({ id: this.id.toString() }, process.env.APP_SECRET || '');
+    this.tokens = this.tokens.concat({ token });
+    await this.save();
+    return token;
+}
+
+UserSchema.statics.findByCredentials = async (email: string, secret: string) => {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+        throw new Error('Unable to login');
+    }
+    const isMatch = await bcrypt.compare(secret, user.secret);
+    if (!isMatch) {
+        throw new Error('Unable to login');
+    }
+    return user;
+};
+
+export interface UserDoc extends mongoose.Document {
+    name: string;
+    email: string;
+    secret: string;
+    picture?: string;
+    tokens: string[];
+    generateAuthToken: () => Promise<string>;
+}
+
+interface User extends mongoose.Model<UserDoc> {
+    findByCredentials: (email: string, secret: string) => Promise<UserDoc>;
+}
+
+const UserModel: User = mongoose.model<UserDoc, User>('User', UserSchema);
+
+export default UserModel;

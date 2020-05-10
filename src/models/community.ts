@@ -19,6 +19,7 @@ const CommunitySchema = new mongoose.Schema({
     },
     admins: [{
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }]
 }, {
     timestamps: true

@@ -4,6 +4,7 @@ export interface EventData extends mongoose.Document {
     title: string;
     description: string;
     community: mongoose.Schema.Types.ObjectId;
+    owner: mongoose.Schema.Types.ObjectId;
 }
 
 const EventSchema = new mongoose.Schema({
@@ -19,7 +20,13 @@ const EventSchema = new mongoose.Schema({
     },
     community: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: 'Community'
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 }, {
     timestamps: true
