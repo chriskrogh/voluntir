@@ -8,6 +8,7 @@ import { Button } from '@material-ui/core';
 import BlurOnIcon from '@material-ui/icons/BlurOn';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';
 import * as routes from 'utils/routes';
+import { logout } from 'utils/data/user';
 
 const styles = (theme: Theme) => createStyles({
     header: {
@@ -56,10 +57,19 @@ function Header({ classes, heightClassName }: Props) {
     const { user, unsetUser } = useContext(UserContext);
     const history = useHistory();
 
-    const logout = () => {
-        unsetUser();
-        localStorage.removeItem('userId');
-        history.push(routes.AUTH);
+    const signOut = async () => {
+        try {
+            unsetUser();
+            const token = localStorage.getItem('token');
+            if (token == null) throw new Error('Unable to log out');
+
+            await logout(token);
+            localStorage.removeItem('token');
+            history.push(routes.AUTH);
+        } catch (error) {
+            // TODO replace with helpful message 2 user
+            console.error(error);
+        }
     }
 
     return (
@@ -78,7 +88,7 @@ function Header({ classes, heightClassName }: Props) {
             <div className={classes.fillHeight}>
                 <ThemeToggleButton className={classes.button} />
                 {user._id !== '0' && (
-                    <Button className={classes.button} onClick={logout}>
+                    <Button className={classes.button} onClick={signOut}>
                         LOG OUT
                     </Button>
                 )}

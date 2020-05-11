@@ -4,8 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { User, UserData } from 'types/user';
 import { AuthMode } from 'types/network';
-import { FACEBOOK_LOGIN } from 'utils/network/errorMessages';
-import { signup } from 'utils/data/user';
+import { thirdPartyAuth } from 'utils/data/user';
 import * as routes from 'utils/routes';
 import Icon from './icon';
 import './fb.css';
@@ -17,12 +16,12 @@ const loginUser = async (
     res: ReactFacebookLoginInfo,
     callback: (user: User, token: string) => void
 ) => {
-    if (res.name == undefined || res.email === undefined || res.picture == null) {
-        throw new Error(FACEBOOK_LOGIN);
+    if (res.name == null || res.email == null || res.picture == null) {
+        throw new Error();
     } else {
         const picture = res.picture.data.url;
         const secret = res.email.split('@')[0];
-        const { user, token } = await signup({
+        const { user, token } = await thirdPartyAuth({
             ...res,
             picture,
             secret

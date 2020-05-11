@@ -21,13 +21,32 @@ router.post('/api/users/signup', async (req: Request, res: Response) => {
 
 // login
 router.post('/api/users', async (req: Request, res: Response) => {
-    const { email, secret } = req.body;
     try {
+        const { email, secret } = req.body;
         const user = await UserModel.findByCredentials(email, secret);
         const token = await user.generateAuthToken();
         res.send({ user, token });
     } catch (err) {
         console.log(err);
+        res.status(400).send(M.LOGIN);
+    }
+});
+
+router.post('/api/users/thirdPartyAuth', async (req: Request, res: Response) => {
+    try {
+        const { email, secret } = req.body;
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            const user = new UserModel(req.body);
+            const token = await user.generateAuthToken();
+            res.status(201).send({ user, token });
+        } else {
+            const verifiedUser = await UserModel.validateSecret(user, secret);
+            const token = await verifiedUser.generateAuthToken();
+            res.send({ verifiedUser, token });
+        }
+    } catch (error) {
+        console.log(error);
         res.status(400).send(M.LOGIN);
     }
 });
@@ -100,8 +119,8 @@ router.get('/api/users/:id/picture', async (req: Request, res: Response) => {
 
 // update me
 router.patch('/api/users/me', auth, async (req: UserRequest, res: Response) => {
-    const source = req.body as UserDoc;
     try {
+        const source = req.body as UserDoc;
         if (!req.user) throw new Error();
         const user = Object.assign(req.user, source);
         await user.save();

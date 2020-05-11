@@ -9,9 +9,8 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { AuthMode } from 'types/network';
 import { User, UserData } from 'types/user';
-import { GOOGLE_LOGIN } from 'utils/network/errorMessages';
 import * as routes from 'utils/routes';
-import { signup } from 'utils/data/user';
+import { thirdPartyAuth } from 'utils/data/user';
 
 const { REACT_APP_GOOGLE_CLIENT_ID } = process.env;
 const clientId = REACT_APP_GOOGLE_CLIENT_ID || '';
@@ -38,11 +37,11 @@ const loginUser = async (
     callback: (user: User, token: string) => void
 ) => {
     if (isOffline(res) || res.profileObj == null) {
-        throw new Error(GOOGLE_LOGIN);
+        throw new Error();
     } else {
         const picture = res.profileObj.imageUrl;
         const secret = res.profileObj.email.split('@')[0];
-        const { user, token } = await signup({
+        const { user, token } = await thirdPartyAuth({
             ...res.profileObj,
             picture,
             secret
@@ -73,7 +72,7 @@ const Google = ({ classes, mode }: Props) => {
                     loginUser(res, callback)
             }
             onFailure={() => {
-                throw new Error(GOOGLE_LOGIN);
+                throw new Error();
             }}
             buttonText={`${mode === 'login' ? "Log in" : "Sign up"} with Google`}
             className={classes.button}

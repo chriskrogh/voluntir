@@ -52,16 +52,20 @@ UserSchema.methods.generateAuthToken = async function () {
     return token;
 }
 
-UserSchema.statics.findByCredentials = async (email: string, secret: string) => {
-    const user = await UserModel.findOne({ email });
-    if (!user) {
-        throw new Error('Unable to login');
-    }
+UserSchema.statics.validateSecret = async (user: UserDoc, secret: string) => {
     const isMatch = await bcrypt.compare(secret, user.secret);
     if (!isMatch) {
         throw new Error('Unable to login');
     }
     return user;
+}
+
+UserSchema.statics.findByCredentials = async (email: string, secret: string) => {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+        throw new Error('Unable to login');
+    }
+    return await UserModel.validateSecret(user, secret);
 };
 
 UserSchema.pre('save', async function (next) {
@@ -83,6 +87,7 @@ export interface UserDoc extends mongoose.Document {
 
 interface User extends mongoose.Model<UserDoc> {
     findByCredentials: (email: string, secret: string) => Promise<UserDoc>;
+    validateSecret: (user: UserDoc, secret: string) => Promise<UserDoc>;
 }
 
 const UserModel: User = mongoose.model<UserDoc, User>('User', UserSchema);
