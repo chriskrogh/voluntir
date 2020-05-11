@@ -46,8 +46,8 @@ UserSchema.methods.toJSON = function () {
 }
 
 UserSchema.methods.generateAuthToken = async function () {
-    const token = jwt.sign({ id: this.id.toString() }, process.env.APP_SECRET || '');
-    this.tokens = this.tokens.concat({ token });
+    const token = jwt.sign({ id: this.id.toString() }, process.env.APP_SECRET);
+    this.tokens = this.tokens.concat(token);
     await this.save();
     return token;
 }
@@ -63,6 +63,14 @@ UserSchema.statics.findByCredentials = async (email: string, secret: string) => 
     }
     return user;
 };
+
+UserSchema.pre('save', async function (next) {
+    const user = this as UserDoc;
+    if (user.isModified('secret')) {
+        user.secret = await bcrypt.hash(user.secret, 8);
+    }
+    next();
+});
 
 export interface UserDoc extends mongoose.Document {
     name: string;

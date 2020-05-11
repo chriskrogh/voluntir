@@ -7,11 +7,11 @@ import GoogleLogin, {
 } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import { AuthMode, AuthRequest } from 'types/network';
-import { User } from 'types/user';
+import { AuthMode } from 'types/network';
+import { User, UserData } from 'types/user';
 import { GOOGLE_LOGIN } from 'utils/network/errorMessages';
 import * as routes from 'utils/routes';
-import { authenticate } from 'utils/network/auth';
+import { signup } from 'utils/data/user';
 
 const { REACT_APP_GOOGLE_CLIENT_ID } = process.env;
 const clientId = REACT_APP_GOOGLE_CLIENT_ID || '';
@@ -35,23 +35,19 @@ function isOffline(
 
 const loginUser = async (
     res: GoogleLoginResponse | GoogleLoginResponseOffline,
-    callback: (user: User) => void
+    callback: (user: User, token: string) => void
 ) => {
     if (isOffline(res) || res.profileObj == null) {
         throw new Error(GOOGLE_LOGIN);
     } else {
         const picture = res.profileObj.imageUrl;
-        const user = await authenticate(
-            {
-                ...res.profileObj,
-                picture,
-                fromThirdParty: true,
-                mode: 'login',
-                secret: res.accessToken
-            } as AuthRequest,
-            GOOGLE_LOGIN
-        );
-        callback(user);
+        const secret = res.profileObj.email.split('@')[0];
+        const { user, token } = await signup({
+            ...res.profileObj,
+            picture,
+            secret
+        } as UserData);
+        callback(user, token);
     }
 }
 
@@ -63,9 +59,9 @@ const Google = ({ classes, mode }: Props) => {
     const { setUser } = useContext(UserContext);
     const history = useHistory();
 
-    const callback = (user: User) => {
+    const callback = (user: User, token: string) => {
         setUser(user);
-        localStorage.setItem('userId', user._id);
+        localStorage.setItem('token', token);
         history.push(routes.HOME);
     }
 

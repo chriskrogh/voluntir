@@ -15,20 +15,26 @@ export const makeRequest = async <R, D = {}>(
     method: Method,
     urlExt: string,
     errorMessage: string,
-    data?: D
+    data?: D,
+    token?: string
 ): Promise<R> => {
     const url = getUrl(urlExt);
+    const options = {
+        headers: {
+            Authorization: "Bearer " + token,
+        }
+    };
 
     try {
         switch (method) {
             case Method.GET:
-                return await (await axios.get(url)).data as R;
+                return await (await axios.get(url, options)).data as R;
             case Method.POST:
-                return await (await axios.post(url, data)).data as R;
+                return await (await axios.post(url, data, options)).data as R;
             case Method.PATCH:
-                return await (await axios.patch(url, data)).data as R;
+                return await (await axios.patch(url, data, options)).data as R;
             case Method.DELETE:
-                return await (await axios.delete(url)).data as R;
+                return await (await axios.delete(url, options)).data as R;
             default:
                 return {} as R;
         }

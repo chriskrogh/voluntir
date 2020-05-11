@@ -11,13 +11,13 @@ const auth = async (req: UserRequest, res: Response, next: NextFunction) => {
     try {
         const { APP_SECRET } = process.env;
         const authHeader = req.header('Authorization');
-        if (authHeader == null || APP_SECRET == null) {
+        if (authHeader == null) {
             throw new Error();
         }
         const token = authHeader.replace('Bearer ', '');
         const verification = jwt.verify(token, APP_SECRET) as TokenVerification;
         const id = verification.id;
-        const user = await UserModel.findOne({ _id: id, 'tokens.token': token });
+        const user = await UserModel.findOne({ _id: id, 'tokens': token });
         if (!user) {
             throw new Error();
         }

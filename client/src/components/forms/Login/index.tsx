@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
-import { AuthRequest } from 'types/network';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { UserContext } from 'context/user/state';
@@ -18,8 +17,7 @@ import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
 import ErrorText from 'components/typography/ErrorText';
 import { isValidEmail, isValidPassword } from 'utils/validator';
-import { authenticate } from 'utils/network/auth';
-import { LOG_IN } from 'utils/network/errorMessages';
+import { login } from 'utils/data/user';
 import * as routes from 'utils/routes';
 
 const innerContainerWidth = 230;
@@ -77,20 +75,11 @@ const validate = (
     );
 }
 
-const login = async (
-    email: string,
-    password: string,
-) => {
+const authenticate = async (email: string, password: string) => {
     if (validate(email, password)) {
-        return await authenticate(
-            {
-                email,
-                secret: password,
-                fromThirdParty: false,
-                mode: 'login'
-            } as AuthRequest,
-            LOG_IN
-        );
+        return await login({ email, secret: password });
+    } else {
+        throw new Error();
     }
 }
 
@@ -121,11 +110,11 @@ function LoginForm({ classes, theme }: Props) {
         setIsLoading(true);
         setSubmitted(true);
         try {
-            const user = await login(email, password);
+            const { user, token } = await authenticate(email, password);
             if (user != null) {
                 setUser(user);
                 if (rememberMe) {
-                    localStorage.setItem('userId', user._id);
+                    localStorage.setItem('token', token);
                 }
                 history.push(routes.HOME);
             }

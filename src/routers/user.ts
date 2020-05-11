@@ -7,7 +7,7 @@ import '../db/mongoose';
 
 const router = express.Router();
 
-// create / sign up
+// sign up
 router.post('/api/users/signup', async (req: Request, res: Response) => {
     try {
         const user = new UserModel(req.body);
@@ -15,20 +15,20 @@ router.post('/api/users/signup', async (req: Request, res: Response) => {
         res.status(201).send({ user, token });
     } catch (err) {
         console.log(err);
-        res.status(400).send(M.EXISTING_USER);
+        res.status(400).send(M.SIGN_UP);
     }
 });
 
 // login
 router.post('/api/users', async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { email, secret } = req.body;
     try {
-        const user = await UserModel.findByCredentials(email, password);
+        const user = await UserModel.findByCredentials(email, secret);
         const token = await user.generateAuthToken();
         res.send({ user, token });
     } catch (err) {
         console.log(err);
-        res.status(400).send();
+        res.status(400).send(M.LOGIN);
     }
 });
 
@@ -64,13 +64,13 @@ router.post('/api/users/logoutAll', auth, async (req: UserRequest, res: Response
     }
 });
 
-// get you
+// get me
 router.get('/api/users/me', auth, async (req: UserRequest, res: Response) => {
     res.send(req.user);
 });
 
 // get someone
-router.get('/api/users', auth, async (req: UserRequest, res: Response) => {
+router.get('/api/users', auth, async (req: Request, res: Response) => {
     try {
         const user = await UserModel.findOne({ email: req.body.email });
         if (!user) {
@@ -98,7 +98,7 @@ router.get('/api/users/:id/picture', async (req: Request, res: Response) => {
     }
 });
 
-// update
+// update me
 router.patch('/api/users/me', auth, async (req: UserRequest, res: Response) => {
     const source = req.body as UserDoc;
     try {
@@ -131,7 +131,19 @@ router.patch('/api/users/:id', auth, async (req: Request, res: Response) => {
     }
 });
 
-// delete user
+// delete me
+router.delete('/api/users/me', auth, async (req: UserRequest, res: Response) => {
+    try {
+        if (!req.user) throw new Error();
+        await req.user.remove();
+        res.send(req.user);
+    } catch (err) {
+        console.log(err);
+        res.status(400).send();
+    }
+});
+
+// delete someone
 router.delete('/api/users/:id', auth, async (req: Request, res: Response) => {
     try {
         const user = await UserModel.findById(req.params.id);

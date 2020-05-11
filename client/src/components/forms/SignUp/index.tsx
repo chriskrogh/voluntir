@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import /*type*/ { WithStyles } from '@material-ui/core/styles';
-import { AuthRequest } from 'types/network';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
@@ -17,10 +16,9 @@ import FacebookLogin from 'components/FacebookLogin';
 import GoogleLogin from 'components/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
 import ErrorText from 'components/typography/ErrorText';
-import { SIGN_UP } from 'utils/network/errorMessages';
 import { isValidEmail, isValidPassword, isEmpty } from 'utils/validator';
-import { authenticate } from 'utils/network/auth';
 import * as routes from 'utils/routes';
+import { signup } from 'utils/data/user';
 
 const innerContainerWidth = 230;
 
@@ -81,23 +79,16 @@ const validate = (
     );
 }
 
-const signUp = async (
+const authenticate = async (
     name: string,
     email: string,
     password: string,
     cPassword: string,
 ) => {
     if (validate(name, email, password, cPassword)) {
-        return await authenticate(
-            {
-                name,
-                email,
-                secret: password,
-                fromThirdParty: false,
-                mode: 'signup'
-            } as AuthRequest,
-            SIGN_UP
-        );
+        return await signup({ name, email, secret: password });
+    } else {
+        throw new Error();
     }
 }
 
@@ -134,11 +125,11 @@ function SignUpForm({ classes, theme }: Props) {
         setIsLoading(true);
         setSubmitted(true);
         try {
-            const user = await signUp(name, email, password, cPassword);
+            const { user, token } = await authenticate(name, email, password, cPassword);
             if (user != null) {
                 setUser(user);
                 if (rememberMe) {
-                    localStorage.setItem('userId', user._id);
+                    localStorage.setItem('token', token);
                 }
                 history.push(routes.HOME);
             }

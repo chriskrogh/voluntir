@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import { getUser } from 'utils/data/user';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import * as routes from 'utils/routes';
-import { getUserById } from 'utils/network/auth';
 
 const headerHeightDesktop = 60;
 const headerHeightMobile = 40;
@@ -51,9 +51,9 @@ function Page({ classes, children }: Props) {
     useEffect(() => {
         async function fetchUser() {
             if (user._id === '0') {
-                const id = localStorage.getItem('userId');
-                if (id != null) {
-                    const user = await getUserById(id);
+                const token = localStorage.getItem('token');
+                if (token != null) {
+                    const user = await getUser(token);
                     setUser(user);
                 } else {
                     history.push(routes.AUTH);

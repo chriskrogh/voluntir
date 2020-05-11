@@ -1,4 +1,4 @@
-import { UserData } from './user';
+import { User } from './user';
 
 export enum Method {
     GET,
@@ -9,8 +9,7 @@ export enum Method {
 
 export type AuthMode = 'login' | 'signup';
 
-export type AuthRequest = UserData & {
-    name?: string;
-    fromThirdParty: boolean;
-    mode: AuthMode;
+export type AuthResponse = {
+    user: User;
+    token: string;
 };
