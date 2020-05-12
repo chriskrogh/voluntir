@@ -54,18 +54,14 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function Header({ classes, heightClassName }: Props) {
-    const { user, unsetUser } = useContext(UserContext);
+    const { user, token, unsetUser, unsetToken } = useContext(UserContext);
     const history = useHistory();
 
     const signOut = async () => {
         try {
             unsetUser();
-
-            const token = localStorage.getItem('token');
-            if (token == null) throw new Error('Unable to log out');
-
             await logout(token);
-
+            unsetToken();
             localStorage.removeItem('token');
             history.push(routes.AUTH);
         } catch (error) {

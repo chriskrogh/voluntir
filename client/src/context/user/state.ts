@@ -9,7 +9,7 @@ export const initialState = {
         name: 'Anonymous',
         email: 'a@b.com'
     },
-    token: '',
+    token: localStorage.getItem('token') || '',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setUser: (user: User) => { },
     unsetUser: () => { },

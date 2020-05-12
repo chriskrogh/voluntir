@@ -97,7 +97,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function SignUpForm({ classes, theme }: Props) {
-    const { setUser } = useContext(UserContext);
+    const { setUser, setToken } = useContext(UserContext);
     const history = useHistory();
 
     const [name, setName] = useState('');
@@ -126,13 +126,14 @@ function SignUpForm({ classes, theme }: Props) {
         setSubmitted(true);
         try {
             const { user, token } = await authenticate(name, email, password, cPassword);
-            if (user != null) {
+            if (user && token) {
                 setUser(user);
+                setToken(token);
                 if (rememberMe) {
                     localStorage.setItem('token', token);
                 }
                 history.push(routes.HOME);
-            }
+            } else throw new Error();
         } catch (error) {
             setInvalidRequest(true);
             setIsLoading(false);

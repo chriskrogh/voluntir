@@ -45,15 +45,14 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function Page({ classes, children }: Props) {
-    const { user, setUser } = useContext(UserContext);
+    const { user, token, setUser } = useContext(UserContext);
     const history = useHistory();
     const location = useLocation();
 
     useEffect(() => {
         async function fetchUser() {
             if (user._id === '0' && location.pathname !== routes.AUTH) {
-                const token = localStorage.getItem('token');
-                if (token != null) {
+                if (token !== '') {
                     const user = await getUser(token);
                     setUser(user);
                 } else {
@@ -62,7 +61,8 @@ function Page({ classes, children }: Props) {
             }
         }
         fetchUser();
-    }, [user._id, setUser, history, location.pathname])
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <>

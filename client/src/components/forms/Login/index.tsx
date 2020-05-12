@@ -88,7 +88,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function LoginForm({ classes, theme }: Props) {
-    const { setUser } = useContext(UserContext);
+    const { setUser, setToken } = useContext(UserContext);
     const history = useHistory();
 
     const [email, setEmail] = useState('');
@@ -111,13 +111,14 @@ function LoginForm({ classes, theme }: Props) {
         setSubmitted(true);
         try {
             const { user, token } = await authenticate(email, password);
-            if (user != null) {
+            if (user && token) {
                 setUser(user);
+                setToken(token);
                 if (rememberMe) {
                     localStorage.setItem('token', token);
                 }
                 history.push(routes.HOME);
-            }
+            } else throw new Error();
         } catch (error) {
             setInvalidRequest(true);
             setIsLoading(false);

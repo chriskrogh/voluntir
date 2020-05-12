@@ -35,11 +35,12 @@ interface Props {
 }
 
 const FB = ({ mode }: Props) => {
-    const { setUser } = useContext(UserContext);
+    const { setUser, setToken } = useContext(UserContext);
     const history = useHistory();
 
     const callback = (user: User, token: string) => {
         setUser(user);
+        setToken(token);
         localStorage.setItem('token', token);
         history.push(routes.HOME);
     }
