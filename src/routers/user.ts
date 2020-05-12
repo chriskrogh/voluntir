@@ -43,7 +43,7 @@ router.post('/api/users/thirdPartyAuth', async (req: Request, res: Response) => 
         } else {
             const verifiedUser = await UserModel.validateSecret(user, secret);
             const token = await verifiedUser.generateAuthToken();
-            res.send({ verifiedUser, token });
+            res.send({ user: verifiedUser, token });
         }
     } catch (error) {
         console.log(error);

@@ -1,18 +1,27 @@
-import { Action } from 'types/actions/user';
 import { initialState } from 'context/user/state';
-import * as actionTypes from 'context/user/actions';
+import ActionTypes, { Action } from 'context/user/actions';
 
 export default (state = initialState, action: Action) => {
     switch (action.type) {
-        case actionTypes.SET_USER:
+        case ActionTypes.SET_USER:
             return {
                 ...state,
                 user: action.payload
             };
-        case actionTypes.UNSET_USER:
+        case ActionTypes.UNSET_USER:
             return {
                 ...state,
                 user: initialState.user
+            };
+        case ActionTypes.SET_TOKEN:
+            return {
+                ...state,
+                token: action.payload
+            };
+        case ActionTypes.UNSET_TOKEN:
+            return {
+                ...state,
+                token: initialState.token
             };
         default:
             return state;

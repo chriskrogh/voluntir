@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { getUser } from 'utils/data/user';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -47,10 +47,11 @@ interface Props extends WithStyles<typeof styles> {
 function Page({ classes, children }: Props) {
     const { user, setUser } = useContext(UserContext);
     const history = useHistory();
+    const location = useLocation();
 
     useEffect(() => {
         async function fetchUser() {
-            if (user._id === '0') {
+            if (user._id === '0' && location.pathname !== routes.AUTH) {
                 const token = localStorage.getItem('token');
                 if (token != null) {
                     const user = await getUser(token);
@@ -61,7 +62,7 @@ function Page({ classes, children }: Props) {
             }
         }
         fetchUser();
-    }, [history, user._id, setUser])
+    }, [user._id, setUser, history, location.pathname])
 
     return (
         <>

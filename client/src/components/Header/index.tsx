@@ -60,10 +60,12 @@ function Header({ classes, heightClassName }: Props) {
     const signOut = async () => {
         try {
             unsetUser();
+
             const token = localStorage.getItem('token');
             if (token == null) throw new Error('Unable to log out');
 
             await logout(token);
+
             localStorage.removeItem('token');
             history.push(routes.AUTH);
         } catch (error) {

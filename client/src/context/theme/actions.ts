@@ -1,5 +1,14 @@
-export const SET_THEME = 'Set theme';
+import { NamedTheme } from "types/theme";
 
-export default [
-    SET_THEME,
-];
+enum ActionTypes {
+    SET_THEME = 'Set theme'
+}
+
+type SetTheme = {
+    type: ActionTypes.SET_THEME;
+    payload: NamedTheme;
+}
+
+export type Action = SetTheme;
+
+export default ActionTypes;

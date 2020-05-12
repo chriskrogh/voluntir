@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { ThemeContext, initialState } from './state';
 import { NamedTheme } from 'types/theme';
 import Reducer from './reducer';
-import * as actionTypes from './actions';
+import ActionTypes from './actions';
 
 interface Props {
     children: React.ReactNode | React.ReactNode[];
@@ -13,7 +13,7 @@ const Provider = ({ children }: Props) => {
 
     const setTheme = (theme: NamedTheme) => {
         localStorage.setItem('theme', theme.name);
-        dispatch({ type: actionTypes.SET_THEME, payload: theme });
+        dispatch({ type: ActionTypes.SET_THEME, payload: theme });
     }
 
     return (

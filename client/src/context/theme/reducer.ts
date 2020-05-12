@@ -1,10 +1,10 @@
-import { Action } from 'types/actions/theme';
+import { Action } from './actions';
 import { initialState } from 'context/theme/state';
-import * as actionTypes from 'context/theme/actions';
+import ActionTypes from 'context/theme/actions';
 
 export default (state = initialState, action: Action) => {
     switch (action.type) {
-        case actionTypes.SET_THEME:
+        case ActionTypes.SET_THEME:
             return {
                 ...state,
                 theme: action.payload
