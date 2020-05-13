@@ -9,14 +9,14 @@ const styles = (theme: Theme) => createStyles({
         flex: 1,
         height: '100%',
         justifyContent: 'center',
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.main,
     }
 });
 
 function RightPanel({ classes }: WithStyles<typeof styles>) {
     return (
         <div className={classes.panel}>
-            <Title text="Left Panel" />
+            <Title text="Right Panel" />
         </div>
     );
 }
