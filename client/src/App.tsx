@@ -3,7 +3,7 @@ import UserContextProvider from 'context/user/provider';
 import ThemeContextProvider from 'context/theme/provider';
 import ThemeProvider from 'theme/themeProvider';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Home from 'components/pages/Home';
+import Main from 'components/pages/Main';
 import Auth from 'components/pages/Auth';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <ThemeContextProvider>
         <ThemeProvider>
           <BrowserRouter>
-            <Route path='/' exact component={Home}></Route>
+            <Route path='/' exact component={Main}></Route>
             <Route path='/auth' component={Auth}></Route>
           </BrowserRouter>
         </ThemeProvider>

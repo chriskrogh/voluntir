@@ -21,6 +21,13 @@ const theme = createMuiTheme({
         error: {
             main: '#ff4757'
         }
+    },
+    overrides: {
+        MuiButton: {
+            root: {
+                textTransform: 'unset'
+            }
+        }
     }
 });
 

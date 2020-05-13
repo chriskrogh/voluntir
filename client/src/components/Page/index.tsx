@@ -4,38 +4,17 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { getUser } from 'utils/data/user';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
 import * as routes from 'utils/routes';
-
-const headerHeightDesktop = 60;
-const headerHeightMobile = 40;
-const footerHeightDesktop = 60;
-const footerHeightMobile = 40;
 
 const styles = (theme: Theme) => createStyles({
     page: {
         display: 'flex',
         flex: 1,
         flexDirection: 'column',
-        minHeight: `calc(100vh - ${headerHeightDesktop}px - ${footerHeightDesktop}px)`,
+        alignItems: 'center',
         width: '100%',
         backgroundColor: theme.palette.background.default,
-        [theme.breakpoints.down('sm')]: {
-            minHeight: `calc(100vh - ${headerHeightMobile}px - ${footerHeightMobile}px)`,
-        }
-    },
-    headerHeight: {
-        height: 60,
-        [theme.breakpoints.down('sm')]: {
-            height: 40
-        }
-    },
-    footerHeight: {
-        height: 60,
-        [theme.breakpoints.down('sm')]: {
-            height: 40
-        }
+        minHeight: '100vh',
     }
 });
 
@@ -66,11 +45,9 @@ function Page({ classes, children }: Props) {
 
     return (
         <>
-            <Header heightClassName={classes.headerHeight} />
             <div className={classes.page}>
                 {children}
             </div>
-            <Footer heightClassName={classes.footerHeight} />
         </>
     );
 }

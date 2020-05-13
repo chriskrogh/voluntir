@@ -29,7 +29,7 @@ const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         width: 400,
         backgroundColor: theme.palette.primary.main,
-        borderRadius: 4
+        borderRadius: theme.spacing(1)
     },
     topSpacing: {
         marginTop: theme.spacing(3)
