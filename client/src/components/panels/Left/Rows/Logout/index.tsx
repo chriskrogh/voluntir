@@ -5,7 +5,7 @@ import { UserContext } from 'context/user/state';
 import { logout } from 'utils/data/user';
 import { Button } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import * as routes from 'utils/routes';
+import { routes } from 'utils/constants';
 
 interface Props {
     styles: LeftPanelRowStyles;

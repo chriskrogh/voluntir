@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Page from 'components/Page';
@@ -21,6 +21,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 function Main({ classes }: WithStyles<typeof styles>) {
+    const [page, setPage] = useState('home');
     return (
         <Page>
             <div className={classes.container}>

@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { AuthMode } from 'types/network';
 import { User, UserData } from 'types/user';
-import * as routes from 'utils/routes';
+import { routes } from 'utils/constants';
 import { thirdPartyAuth } from 'utils/data/user';
 
 const { REACT_APP_GOOGLE_CLIENT_ID } = process.env;

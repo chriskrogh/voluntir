@@ -18,7 +18,7 @@ import ParagraphText from 'components/typography/ParagraphText';
 import ErrorText from 'components/typography/ErrorText';
 import { isValidEmail, isValidPassword } from 'utils/validator';
 import { login } from 'utils/data/user';
-import * as routes from 'utils/routes';
+import { routes } from 'utils/constants';
 
 const innerContainerWidth = 230;
 

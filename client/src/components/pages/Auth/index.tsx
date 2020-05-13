@@ -9,7 +9,7 @@ import Title from 'components/typography/Title';
 import Subtitle from 'components/typography/Subtitle';
 import LoginForm from 'components/forms/Login';
 import SignUpForm from 'components/forms/SignUp';
-import * as routes from 'utils/routes';
+import { routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     container: {

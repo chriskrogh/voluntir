@@ -5,7 +5,7 @@ import { UserContext } from 'context/user/state';
 import { User, UserData } from 'types/user';
 import { AuthMode } from 'types/network';
 import { thirdPartyAuth } from 'utils/data/user';
-import * as routes from 'utils/routes';
+import { routes } from 'utils/constants';
 import Icon from './icon';
 import './fb.css';
 

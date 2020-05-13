@@ -2,8 +2,11 @@ import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Logo from 'components/buttons/Logo';
-import ThemeToggleButton from 'components/panels/Left/Rows/ThemeToggle';
-import LogoutButton from 'components/panels/Left/Rows/Logout';
+import HomeButton from './Rows/Home';
+import ExploreButton from './Rows/Explore';
+import ProfileButton from './Rows/Profile';
+import ThemeToggleButton from './Rows/ThemeToggle';
+import LogoutButton from './Rows/Logout';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
@@ -47,6 +50,12 @@ const styles = (theme: Theme) => createStyles({
 });
 
 function LeftPanel({ classes }: WithStyles<typeof styles>) {
+    const rowStyles = {
+        button: classes.button,
+        iconContainer: classes.iconContainer,
+        icon: classes.iconSize
+    };
+
     return (
         <div className={classes.panel}>
             <div className={classes.row}>
@@ -54,22 +63,19 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
             </div>
             <div className={classes.table}>
                 <div className={classes.row}>
-                    <ThemeToggleButton
-                        styles={{
-                            button: classes.button,
-                            iconContainer: classes.iconContainer,
-                            icon: classes.iconSize
-                        }}
-                    />
+                    <HomeButton styles={rowStyles} />
                 </div>
                 <div className={classes.row}>
-                    <LogoutButton
-                        styles={{
-                            button: classes.button,
-                            iconContainer: classes.iconContainer,
-                            icon: classes.iconSize
-                        }}
-                    />
+                    <ExploreButton styles={rowStyles} />
+                </div>
+                <div className={classes.row}>
+                    <ProfileButton styles={rowStyles} />
+                </div>
+                <div className={classes.row}>
+                    <ThemeToggleButton styles={rowStyles} />
+                </div>
+                <div className={classes.row}>
+                    <LogoutButton styles={rowStyles} />
                 </div>
             </div>
         </div>

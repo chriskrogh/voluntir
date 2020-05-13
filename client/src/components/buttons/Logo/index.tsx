@@ -4,7 +4,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import BlurOnIcon from '@material-ui/icons/BlurOn';
-import * as routes from 'utils/routes';
+import { routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     iconSize: {
