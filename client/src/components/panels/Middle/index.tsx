@@ -6,8 +6,8 @@ import Title from 'components/typography/Title';
 const styles = (theme: Theme) => createStyles({
     panel: {
         display: 'flex',
-        flex: 1,
         height: '100%',
+        width: 600,
         justifyContent: 'center',
         backgroundColor: theme.palette.background.default,
     }

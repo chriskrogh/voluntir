@@ -1,0 +1,41 @@
+import React, { useContext } from 'react';
+import { LeftPanelRowStyles } from 'types/styles/leftPanelRow';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from 'context/user/state';
+import { logout } from 'utils/data/user';
+import { Button } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import * as routes from 'utils/routes';
+
+interface Props {
+    styles: LeftPanelRowStyles;
+}
+
+function LogoutButton({ styles }: Props) {
+    const { token, unsetUser, unsetToken } = useContext(UserContext);
+    const history = useHistory();
+
+    const signOut = async () => {
+        try {
+            unsetUser();
+            await logout(token);
+            unsetToken();
+            localStorage.removeItem('token');
+            history.push(routes.AUTH);
+        } catch (error) {
+            // TODO replace with helpful message 2 user
+            console.error(error);
+        }
+    }
+
+    return (
+        <Button className={styles.button} onClick={signOut}>
+            <div className={styles.iconContainer}>
+                <ExitToAppIcon className={styles.icon} />
+            </div>
+            Sign out
+        </Button>
+    );
+}
+
+export default LogoutButton;

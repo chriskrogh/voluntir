@@ -1,20 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
-import { UserContext } from 'context/user/state';
-import { logout } from 'utils/data/user';
-import { Button } from '@material-ui/core';
-import ThemeToggleButton from 'components/buttons/ThemeToggle';
 import Logo from 'components/buttons/Logo';
-import * as routes from 'utils/routes';
+import ThemeToggleButton from 'components/panels/Left/Rows/ThemeToggle';
+import LogoutButton from 'components/panels/Left/Rows/Logout';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
         display: 'flex',
-        flex: 1,
         flexDirection: 'column',
         height: '100%',
+        width: 180,
         justifyContent: 'center',
         backgroundColor: theme.palette.background.default,
     },
@@ -23,36 +19,34 @@ const styles = (theme: Theme) => createStyles({
         borderRadius: theme.spacing(1)
     },
     row: {
-        height: 40,
+        height: theme.spacing(6),
         width: '100%'
     },
     button: {
         height: '100%',
+        width: '100%',
+        justifyContent: 'left',
         color: theme.palette.text.primary,
         fontSize: 20,
         [theme.breakpoints.down('sm')]: {
             fontSize: 15
         }
+    },
+    iconContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: theme.spacing(2)
+    },
+    iconSize: {
+        fontSize: 30,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 25
+        }
     }
 });
 
 function LeftPanel({ classes }: WithStyles<typeof styles>) {
-    const { user, token, unsetUser, unsetToken } = useContext(UserContext);
-    const history = useHistory();
-
-    const signOut = async () => {
-        try {
-            unsetUser();
-            await logout(token);
-            unsetToken();
-            localStorage.removeItem('token');
-            history.push(routes.AUTH);
-        } catch (error) {
-            // TODO replace with helpful message 2 user
-            console.error(error);
-        }
-    }
-
     return (
         <div className={classes.panel}>
             <div className={classes.row}>
@@ -60,14 +54,22 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
             </div>
             <div className={classes.table}>
                 <div className={classes.row}>
-                    <ThemeToggleButton className={classes.button} />
+                    <ThemeToggleButton
+                        styles={{
+                            button: classes.button,
+                            iconContainer: classes.iconContainer,
+                            icon: classes.iconSize
+                        }}
+                    />
                 </div>
                 <div className={classes.row}>
-                    {user._id !== '0' && (
-                        <Button className={classes.button} onClick={signOut}>
-                            Log out
-                        </Button>
-                    )}
+                    <LogoutButton
+                        styles={{
+                            button: classes.button,
+                            iconContainer: classes.iconContainer,
+                            icon: classes.iconSize
+                        }}
+                    />
                 </div>
             </div>
         </div>
