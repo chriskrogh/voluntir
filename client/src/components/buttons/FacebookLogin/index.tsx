@@ -5,7 +5,7 @@ import { UserContext } from 'context/user/state';
 import { User, UserData } from 'types/user';
 import { AuthMode } from 'types/network';
 import { thirdPartyAuth } from 'utils/data/user';
-import { routes } from 'utils/constants';
+import { Routes } from 'utils/constants';
 import Icon from './icon';
 import './fb.css';
 
@@ -42,7 +42,7 @@ const FB = ({ mode }: Props) => {
         setUser(user);
         setToken(token);
         localStorage.setItem('token', token);
-        history.push(routes.HOME);
+        history.push(Routes.HOME);
     }
 
     return (

@@ -4,7 +4,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { getUser } from 'utils/data/user';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import { routes } from 'utils/constants';
+import { Routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     page: {
@@ -30,12 +30,12 @@ function Page({ classes, children }: Props) {
 
     useEffect(() => {
         async function fetchUser() {
-            if (user._id === '0' && location.pathname !== routes.AUTH) {
+            if (user._id === '0' && location.pathname !== Routes.AUTH) {
                 if (token !== '') {
                     const user = await getUser(token);
                     setUser(user);
                 } else {
-                    history.push(routes.AUTH);
+                    history.push(Routes.AUTH);
                 }
             }
         }

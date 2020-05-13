@@ -5,7 +5,7 @@ import { UserContext } from 'context/user/state';
 import { logout } from 'utils/data/user';
 import { Button } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { routes } from 'utils/constants';
+import { Routes } from 'utils/constants';
 
 interface Props {
     styles: LeftPanelRowStyles;
@@ -21,7 +21,7 @@ function LogoutButton({ styles }: Props) {
             await logout(token);
             unsetToken();
             localStorage.removeItem('token');
-            history.push(routes.AUTH);
+            history.push(Routes.AUTH);
         } catch (error) {
             // TODO replace with helpful message 2 user
             console.error(error);

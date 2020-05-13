@@ -18,7 +18,7 @@ import ParagraphText from 'components/typography/ParagraphText';
 import ErrorText from 'components/typography/ErrorText';
 import { isValidEmail, isValidPassword } from 'utils/validator';
 import { login } from 'utils/data/user';
-import { routes } from 'utils/constants';
+import { Routes } from 'utils/constants';
 
 const innerContainerWidth = 230;
 
@@ -117,7 +117,7 @@ function LoginForm({ classes, theme }: Props) {
                 if (rememberMe) {
                     localStorage.setItem('token', token);
                 }
-                history.push(routes.HOME);
+                history.push(Routes.HOME);
             } else throw new Error();
         } catch (error) {
             setInvalidRequest(true);

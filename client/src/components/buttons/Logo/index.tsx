@@ -4,7 +4,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import BlurOnIcon from '@material-ui/icons/BlurOn';
-import { routes } from 'utils/constants';
+import { Routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     iconSize: {
@@ -28,7 +28,7 @@ function Logo({ classes }: WithStyles<typeof styles>) {
 
     return (
         <Button
-            onClick={() => history.push(routes.HOME)}
+            onClick={() => history.push(Routes.HOME)}
             className={classes.button}
         >
             <BlurOnIcon className={classes.iconSize} />

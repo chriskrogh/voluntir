@@ -5,6 +5,7 @@ import Page from 'components/Page';
 import Left from 'components/panels/Left';
 import Middle from 'components/panels/Middle';
 import Right from 'components/panels/Right';
+import { Pages } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -21,7 +22,8 @@ const styles = (theme: Theme) => createStyles({
 });
 
 function Main({ classes }: WithStyles<typeof styles>) {
-    const [page, setPage] = useState('home');
+    const [page, setPage] = useState(Pages.HOME);
+
     return (
         <Page>
             <div className={classes.container}>

@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { AuthMode } from 'types/network';
 import { User, UserData } from 'types/user';
-import { routes } from 'utils/constants';
+import { Routes } from 'utils/constants';
 import { thirdPartyAuth } from 'utils/data/user';
 
 const { REACT_APP_GOOGLE_CLIENT_ID } = process.env;
@@ -62,7 +62,7 @@ const Google = ({ classes, mode }: Props) => {
         setUser(user);
         setToken(token);
         localStorage.setItem('token', token);
-        history.push(routes.HOME);
+        history.push(Routes.HOME);
     }
 
     return (

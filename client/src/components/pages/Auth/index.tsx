@@ -9,7 +9,7 @@ import Title from 'components/typography/Title';
 import Subtitle from 'components/typography/Subtitle';
 import LoginForm from 'components/forms/Login';
 import SignUpForm from 'components/forms/SignUp';
-import { routes } from 'utils/constants';
+import { Routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -47,7 +47,7 @@ function Auth({ classes }: WithStyles<typeof styles>) {
 
     useEffect(() => {
         if (user._id !== '0') {
-            history.push(routes.HOME);
+            history.push(Routes.HOME);
         }
     }, [user._id, history]);
 
