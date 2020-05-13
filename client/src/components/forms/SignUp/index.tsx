@@ -12,8 +12,8 @@ import {
     Checkbox,
     CircularProgress
 } from '@material-ui/core';
-import FacebookLogin from 'components/FacebookLogin';
-import GoogleLogin from 'components/GoogleLogin';
+import FacebookLogin from 'components/buttons/FacebookLogin';
+import GoogleLogin from 'components/buttons/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
 import ErrorText from 'components/typography/ErrorText';
 import { isValidEmail, isValidPassword, isEmpty } from 'utils/validator';
