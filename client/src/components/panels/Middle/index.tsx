@@ -12,10 +12,11 @@ const styles = (theme: Theme) => createStyles({
         flexDirection: 'column',
         height: '100%',
         width: 600,
+        marginTop: theme.spacing(1) / 2,
         backgroundColor: theme.palette.background.default,
     },
     titleContainer: {
-        margin: `0 ${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(2)}px`
+        margin: `0 ${theme.spacing(3)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
     },
     eventContainer: {
         margin: `0 ${theme.spacing(2)}px 0 ${theme.spacing(2)}px`

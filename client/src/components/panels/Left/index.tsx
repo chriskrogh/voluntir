@@ -13,6 +13,7 @@ const styles = (theme: Theme) => createStyles({
     panel: {
         display: 'flex',
         flexDirection: 'column',
+        position: 'sticky',
         height: '100%',
         width: 180,
         justifyContent: 'center',
