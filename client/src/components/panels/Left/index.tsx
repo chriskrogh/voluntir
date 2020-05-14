@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SetStateAction, Dispatch } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Logo from 'components/buttons/Logo';
@@ -7,6 +7,7 @@ import ExploreButton from './Rows/Explore';
 import ProfileButton from './Rows/Profile';
 import ThemeToggleButton from './Rows/ThemeToggle';
 import LogoutButton from './Rows/Logout';
+import { Pages } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
@@ -49,7 +50,11 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
-function LeftPanel({ classes }: WithStyles<typeof styles>) {
+interface Props extends WithStyles<typeof styles> {
+    setPage: Dispatch<SetStateAction<Pages>>;
+}
+
+function LeftPanel({ classes, setPage }: Props) {
     const rowStyles = {
         button: classes.button,
         iconContainer: classes.iconContainer,
@@ -63,13 +68,22 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
             </div>
             <div className={classes.table}>
                 <div className={classes.row}>
-                    <HomeButton styles={rowStyles} />
+                    <HomeButton
+                        styles={rowStyles}
+                        setPage={setPage}
+                    />
                 </div>
                 <div className={classes.row}>
-                    <ExploreButton styles={rowStyles} />
+                    <ExploreButton
+                        styles={rowStyles}
+                        setPage={setPage}
+                    />
                 </div>
                 <div className={classes.row}>
-                    <ProfileButton styles={rowStyles} />
+                    <ProfileButton
+                        styles={rowStyles}
+                        setPage={setPage}
+                    />
                 </div>
                 <div className={classes.row}>
                     <ThemeToggleButton styles={rowStyles} />

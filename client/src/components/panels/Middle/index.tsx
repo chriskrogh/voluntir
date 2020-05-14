@@ -2,21 +2,30 @@ import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Title from 'components/typography/Title';
+import { Pages } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
         display: 'flex',
         height: '100%',
         width: 600,
-        justifyContent: 'center',
         backgroundColor: theme.palette.background.default,
+    },
+    titleContainer: {
+        marginLeft: theme.spacing(2)
     }
 });
 
-function MiddlePanel({ classes }: WithStyles<typeof styles>) {
+interface Props extends WithStyles<typeof styles> {
+    page: Pages;
+}
+
+function MiddlePanel({ classes, page }: Props) {
     return (
         <div className={classes.panel}>
-            <Title text="Middle Panel" />
+            <div className={classes.titleContainer}>
+                <Title text={page} />
+            </div>
         </div>
     );
 }

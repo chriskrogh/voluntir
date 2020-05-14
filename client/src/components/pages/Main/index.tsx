@@ -27,8 +27,8 @@ function Main({ classes }: WithStyles<typeof styles>) {
     return (
         <Page>
             <div className={classes.container}>
-                <Left />
-                <Middle />
+                <Left setPage={setPage} />
+                <Middle page={page} />
                 <Right />
             </div>
         </Page>
