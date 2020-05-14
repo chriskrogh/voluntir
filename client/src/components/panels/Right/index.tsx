@@ -9,7 +9,7 @@ const styles = (theme: Theme) => createStyles({
         height: '100%',
         width: 180,
         justifyContent: 'center',
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.secondary.main,
     }
 });
 

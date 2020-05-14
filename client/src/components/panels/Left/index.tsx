@@ -19,7 +19,7 @@ const styles = (theme: Theme) => createStyles({
         backgroundColor: theme.palette.background.default,
     },
     table: {
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.secondary.main,
         borderRadius: theme.spacing(1)
     },
     row: {
