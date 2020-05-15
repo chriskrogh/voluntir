@@ -22,7 +22,9 @@ function ThemeToggleButton({ styles }: Props) {
             <div className={styles.iconContainer}>
                 <Brightness4Icon className={styles.icon} />
             </div>
-            Theme
+            <div className={styles.labelContainer}>
+                Theme
+            </div>
         </Button>
     );
 }

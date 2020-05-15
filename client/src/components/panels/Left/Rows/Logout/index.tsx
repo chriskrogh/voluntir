@@ -33,7 +33,9 @@ function LogoutButton({ styles }: Props) {
             <div className={styles.iconContainer}>
                 <ExitToAppIcon className={styles.icon} />
             </div>
-            Sign out
+            <div className={styles.labelContainer}>
+                Sign out
+            </div>
         </Button>
     );
 }

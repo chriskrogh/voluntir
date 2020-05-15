@@ -38,7 +38,9 @@ function ExploreButton({ styles, page, setPage }: Props) {
             <div className={styles.iconContainer}>
                 <Icon page={page} className={styles.icon} />
             </div>
-            {page}
+            <div className={styles.labelContainer}>
+                {page}
+            </div>
         </Button>
     );
 }

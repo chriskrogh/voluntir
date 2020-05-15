@@ -26,7 +26,8 @@ const theme = createMuiTheme({
     overrides: {
         MuiButton: {
             root: {
-                textTransform: 'unset'
+                textTransform: 'unset',
+                minWidth: 40
             }
         }
     }

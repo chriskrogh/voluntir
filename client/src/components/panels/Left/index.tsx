@@ -16,6 +16,9 @@ const styles = (theme: Theme) => createStyles({
         width: 180,
         justifyContent: 'center',
         backgroundColor: theme.palette.background.default,
+        [theme.breakpoints.down('sm')]: {
+            width: 40
+        }
     },
     table: {
         backgroundColor: theme.palette.secondary.main,
@@ -32,6 +35,8 @@ const styles = (theme: Theme) => createStyles({
         color: theme.palette.text.primary,
         fontSize: 20,
         [theme.breakpoints.down('sm')]: {
+            width: 40,
+            justifyContent: 'center',
             fontSize: 15
         }
     },
@@ -39,12 +44,20 @@ const styles = (theme: Theme) => createStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.down('sm')]: {
+            marginRight: 0,
+        }
     },
     iconSize: {
         fontSize: 30,
+    },
+    labelContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         [theme.breakpoints.down('sm')]: {
-            fontSize: 25
+            display: 'none'
         }
     }
 });
@@ -57,7 +70,8 @@ function LeftPanel({ classes, setPage }: Props) {
     const rowStyles = {
         button: classes.button,
         iconContainer: classes.iconContainer,
-        icon: classes.iconSize
+        icon: classes.iconSize,
+        labelContainer: classes.labelContainer
     };
 
     return (

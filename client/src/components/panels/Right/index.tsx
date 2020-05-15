@@ -10,6 +10,9 @@ const styles = (theme: Theme) => createStyles({
         width: 180,
         justifyContent: 'center',
         backgroundColor: theme.palette.secondary.main,
+        [theme.breakpoints.down('sm')]: {
+            width: 120
+        }
     }
 });
 

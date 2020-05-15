@@ -14,6 +14,9 @@ const styles = (theme: Theme) => createStyles({
         width: 600,
         marginTop: theme.spacing(1) / 2,
         backgroundColor: theme.palette.background.default,
+        [theme.breakpoints.down('sm')]: {
+            width: 440
+        }
     },
     titleContainer: {
         margin: `0 ${theme.spacing(3)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
