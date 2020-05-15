@@ -84,7 +84,7 @@ function CollapseableContainer({
           >
             <div className={classes.buttonText}>
               <ParagraphText
-                text={expanded ? 'See Less' : 'See More'}
+                text={expanded ? 'Less' : 'More'}
                 color={theme.palette.text.secondary}
               />
             </div>

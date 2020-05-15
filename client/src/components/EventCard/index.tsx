@@ -6,6 +6,7 @@ import { Event } from 'types/event';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
+import Gallery from 'components/Gallery';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -39,6 +40,11 @@ function EventCard({ classes, className, event }: Props) {
             >
                 <ParagraphText text={event.description} />
             </CollapsableContainer>
+            {event.media && (
+                <Gallery
+                    media={event.media}
+                />
+            )}
         </div>
     );
 }
