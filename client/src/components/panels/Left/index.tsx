@@ -2,9 +2,7 @@ import React, { SetStateAction, Dispatch } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Logo from 'components/buttons/Logo';
-import HomeButton from './Rows/Home';
-import ExploreButton from './Rows/Explore';
-import ProfileButton from './Rows/Profile';
+import NavButton from './Rows/Nav';
 import ThemeToggleButton from './Rows/ThemeToggle';
 import LogoutButton from './Rows/Logout';
 import { Pages } from 'utils/constants';
@@ -69,20 +67,23 @@ function LeftPanel({ classes, setPage }: Props) {
             </div>
             <div className={classes.table}>
                 <div className={classes.row}>
-                    <HomeButton
+                    <NavButton
                         styles={rowStyles}
+                        page={Pages.HOME}
                         setPage={setPage}
                     />
                 </div>
                 <div className={classes.row}>
-                    <ExploreButton
+                    <NavButton
                         styles={rowStyles}
+                        page={Pages.EXPLORE}
                         setPage={setPage}
                     />
                 </div>
                 <div className={classes.row}>
-                    <ProfileButton
+                    <NavButton
                         styles={rowStyles}
+                        page={Pages.PROFILE}
                         setPage={setPage}
                     />
                 </div>
