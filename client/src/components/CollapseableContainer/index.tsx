@@ -31,7 +31,7 @@ const styles = (theme: Theme) => ({
   },
   icon: {
     fontSize: 24,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.secondary,
     transition: 'transform 300ms ease',
   },
   expandedIcon: {
@@ -44,6 +44,7 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props extends WithStyles<typeof styles> {
+  theme: Theme;
   maxHeight: number;
   containerClassName?: string;
   children?: React.ReactNode;
@@ -51,6 +52,7 @@ interface Props extends WithStyles<typeof styles> {
 
 function CollapseableContainer({
   classes,
+  theme,
   containerClassName,
   maxHeight,
   children
@@ -81,7 +83,10 @@ function CollapseableContainer({
             onClick={toggleExpanded}
           >
             <div className={classes.buttonText}>
-              <ParagraphText text={expanded ? 'See Less' : 'See More'} />
+              <ParagraphText
+                text={expanded ? 'See Less' : 'See More'}
+                color={theme.palette.text.secondary}
+              />
             </div>
             <ExpandMoreIcon
               className={classnames(
@@ -96,4 +101,4 @@ function CollapseableContainer({
   );
 }
 
-export default withStyles(styles)(CollapseableContainer);
+export default withStyles(styles, { withTheme: true })(CollapseableContainer);

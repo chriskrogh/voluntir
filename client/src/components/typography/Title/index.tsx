@@ -5,7 +5,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 const styles = (theme: Theme) => ({
     text: {
         fontSize: 32,
-        color: theme.palette.text.primary,
+        color: theme.palette.text.secondary,
         margin: 0,
         [theme.breakpoints.down('sm')]: {
             fontSize: 26

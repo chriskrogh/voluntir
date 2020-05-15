@@ -11,6 +11,7 @@ const styles = (theme: Theme) => createStyles({
     container: {
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'center',
         width: 960,
         [theme.breakpoints.down('sm')]: {
             width: 600

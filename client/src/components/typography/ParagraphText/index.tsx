@@ -1,6 +1,6 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme: Theme) => ({
     text: {
@@ -15,11 +15,15 @@ const styles = (theme: Theme) => ({
 
 interface Props extends WithStyles<typeof styles> {
     text: string;
+    color?: string;
 }
 
-function ParagraphText({ classes, text }: Props) {
+function ParagraphText({ classes, color, text }: Props) {
     return (
-        <p className={classes.text}>
+        <p
+            className={classes.text}
+            style={{ color }}
+        >
             {text}
         </p>
     );

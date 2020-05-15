@@ -18,6 +18,9 @@ const styles = (theme: Theme) => createStyles({
         backgroundColor: theme.palette.background.default,
         [theme.breakpoints.down('sm')]: {
             width: 40
+        },
+        [theme.breakpoints.down('xs')]: {
+            display: 'none'
         }
     },
     table: {
