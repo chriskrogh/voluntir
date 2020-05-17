@@ -62,7 +62,7 @@ const Google = ({ classes, mode }: Props) => {
         setUser(user);
         setToken(token);
         localStorage.setItem('token', token);
-        history.push(Routes.HOME);
+        history.push(Routes.MAIN);
     }
 
     return (

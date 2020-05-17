@@ -47,7 +47,7 @@ function Auth({ classes }: WithStyles<typeof styles>) {
 
     useEffect(() => {
         if (user._id !== '0') {
-            history.push(Routes.HOME);
+            history.push(Routes.MAIN);
         }
     }, [user._id, history]);
 

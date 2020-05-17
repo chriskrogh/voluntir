@@ -132,7 +132,7 @@ function SignUpForm({ classes, theme }: Props) {
                 if (rememberMe) {
                     localStorage.setItem('token', token);
                 }
-                history.push(Routes.HOME);
+                history.push(Routes.MAIN);
             } else throw new Error();
         } catch (error) {
             setInvalidRequest(true);
