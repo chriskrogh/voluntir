@@ -48,13 +48,12 @@ const getIndex = (translateValue: number) => ((translateValue / 100) * -1);
 
 interface Props extends WithStyles<typeof styles> {
     media: Media[];
-    getContainerWidth: () => number | undefined;
 }
 
-function Slider({ classes, media, getContainerWidth }: Props) {
+function Slider({ classes, media }: Props) {
     const [translateValue, setTranslateValue] = useState(0);
 
-    const slideHeight = (getContainerWidth() || 552) / media[getIndex(translateValue)].AR;
+    const slideHeight = (552) / media[getIndex(translateValue)].AR;
 
     const [sliderHeight, setSliderHeight] = useState(slideHeight);
 

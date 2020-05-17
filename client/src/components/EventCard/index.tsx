@@ -44,14 +44,9 @@ function EventCard({ classes, className, event }: Props) {
             >
                 <ParagraphText text={event.description} />
             </CollapsableContainer>
-            <div ref={mediaContainerRef}>
-                {event.media && (
-                    <Slider
-                        media={event.media}
-                        getContainerWidth={getContainerWidth}
-                    />
-                )}
-            </div>
+            {event.media && (
+                <Slider media={event.media} />
+            )}
         </div>
     );
 }

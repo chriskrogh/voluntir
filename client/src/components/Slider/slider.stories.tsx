@@ -9,13 +9,8 @@ export default {
 
 const media = events[0].media;
 
-const getContainerWidth = () => 512;
-
 export const gallery = () => (
     <div style={{ width: '100vw' }}>
-        <Slider
-            media={media || []}
-            getContainerWidth={getContainerWidth}
-        />
+        <Slider media={media || []} />
     </div>
 );
