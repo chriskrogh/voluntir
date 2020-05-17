@@ -1,4 +1,4 @@
-import React, { SetStateAction, Dispatch } from 'react';
+import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Logo from 'components/buttons/Logo';
@@ -65,11 +65,7 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
-interface Props extends WithStyles<typeof styles> {
-    setPanel: Dispatch<SetStateAction<Panels>>;
-}
-
-function LeftPanel({ classes, setPanel }: Props) {
+function LeftPanel({ classes }: WithStyles<typeof styles>) {
     const rowStyles = {
         button: classes.button,
         iconContainer: classes.iconContainer,
@@ -87,21 +83,18 @@ function LeftPanel({ classes, setPanel }: Props) {
                     <NavButton
                         styles={rowStyles}
                         panel={Panels.HOME}
-                        setPanel={setPanel}
                     />
                 </div>
                 <div className={classes.row}>
                     <NavButton
                         styles={rowStyles}
                         panel={Panels.EXPLORE}
-                        setPanel={setPanel}
                     />
                 </div>
                 <div className={classes.row}>
                     <NavButton
                         styles={rowStyles}
                         panel={Panels.PROFILE}
-                        setPanel={setPanel}
                     />
                 </div>
                 <div className={classes.row}>

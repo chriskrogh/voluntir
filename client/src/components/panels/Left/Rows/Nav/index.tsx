@@ -1,10 +1,11 @@
-import React, { SetStateAction, Dispatch } from 'react';
+import React, { useContext } from 'react';
 import { LeftPanelRowStyles } from 'types/styles/leftPanelRow';
 import { Button } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Explore';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Panels } from 'utils/constants';
+import { MainContext } from 'context/main/state';
 
 interface IconProps {
     panel: Panels;
@@ -26,11 +27,12 @@ const Icon = ({ panel, className }: IconProps) => {
 
 interface Props {
     styles: LeftPanelRowStyles;
-    setPanel: Dispatch<SetStateAction<Panels>>;
     panel: Panels;
 }
 
-function NavButton({ styles, panel, setPanel }: Props) {
+function NavButton({ styles, panel }: Props) {
+    const { setPanel } = useContext(MainContext);
+
     const handleClick = () => {
         setPanel(panel);
     }

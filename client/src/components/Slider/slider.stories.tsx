@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from '.';
-import events from 'data/home';
+import events from 'data/events';
 
 export default {
     component: Slider,

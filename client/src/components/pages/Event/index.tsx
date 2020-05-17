@@ -9,7 +9,7 @@ import CollapseableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import useQuery from 'utils/hooks/useQuery';
-import events from 'data/home';
+import events from 'data/events';
 
 const styles = (theme: Theme) => createStyles({
     container: {

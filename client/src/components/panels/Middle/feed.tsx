@@ -3,7 +3,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { Event } from 'types/event';
 import { Panels } from 'utils/constants';
-import events from 'data/home';
+import events from 'data/events';
 import Title from 'components/typography/Title';
 import EventCard from 'components/EventCard';
 import useScreenSize from 'utils/hooks/useScreenSize';

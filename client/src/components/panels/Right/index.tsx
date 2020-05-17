@@ -3,7 +3,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { Event } from 'types/event';
-import events from 'data/home';
+import events from 'data/events';
 import ParagraphText from 'components/typography/ParagraphText';
 
 const styles = (theme: Theme) => createStyles({
