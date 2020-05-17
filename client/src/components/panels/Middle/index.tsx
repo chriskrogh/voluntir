@@ -5,6 +5,7 @@ import { Pages } from 'utils/constants';
 import events from 'data/home';
 import Title from 'components/typography/Title';
 import EventCard from 'components/EventCard';
+import useScreenSize from 'utils/hooks/useScreenSize';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
@@ -36,6 +37,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function MiddlePanel({ classes, page }: Props) {
+    const screenSize = useScreenSize();
     return (
         <div className={classes.panel}>
             <div className={classes.titleContainer}>
@@ -47,6 +49,7 @@ function MiddlePanel({ classes, page }: Props) {
                         key={event._id}
                         event={event}
                         className={index === 0 ? classes.firstChild : undefined}
+                        screenSize={screenSize}
                     />
                 ))}
             </div>

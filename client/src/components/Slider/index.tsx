@@ -48,12 +48,13 @@ const getIndex = (translateValue: number) => ((translateValue / 100) * -1);
 
 interface Props extends WithStyles<typeof styles> {
     media: Media[];
+    containerWidth: number;
 }
 
-function Slider({ classes, media }: Props) {
+function Slider({ classes, media, containerWidth }: Props) {
     const [translateValue, setTranslateValue] = useState(0);
 
-    const slideHeight = (552) / media[getIndex(translateValue)].AR;
+    const slideHeight = (containerWidth / media[getIndex(translateValue)].AR);
 
     const [sliderHeight, setSliderHeight] = useState(slideHeight);
 
@@ -114,4 +115,4 @@ function Slider({ classes, media }: Props) {
     );
 }
 
-export default withStyles(styles)(Slider);
+export default React.memo(withStyles(styles)(Slider));

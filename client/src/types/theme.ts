@@ -5,3 +5,9 @@ export type TextColor = 'primary' | 'secondary';
 export type NamedTheme = Theme & {
     name: string;
 }
+
+export enum ScreenSize {
+    MD = 'md',
+    SM = 'sm',
+    XS = 'xs'
+}

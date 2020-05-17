@@ -101,4 +101,4 @@ function CollapseableContainer({
   );
 }
 
-export default withStyles(styles, { withTheme: true })(CollapseableContainer);
+export default React.memo(withStyles(styles, { withTheme: true })(CollapseableContainer));
