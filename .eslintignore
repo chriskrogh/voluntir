@@ -1,6 +1,5 @@
 build
 node_modules
 
-client/.storybook
 client/build
 client/node_modules

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
@@ -6,7 +6,7 @@ import { Event } from 'types/event';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
-import Gallery from 'components/Gallery';
+import Slider from 'components/Slider';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -29,6 +29,10 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function EventCard({ classes, className, event }: Props) {
+    const mediaContainerRef = useRef<HTMLDivElement>(null);
+
+    const getContainerWidth = () => mediaContainerRef.current?.offsetWidth;
+
     return (
         <div className={classnames(classes.container, className)}>
             <div className={classes.titleContainer}>
@@ -40,11 +44,14 @@ function EventCard({ classes, className, event }: Props) {
             >
                 <ParagraphText text={event.description} />
             </CollapsableContainer>
-            {event.media && (
-                <Gallery
-                    media={event.media}
-                />
-            )}
+            <div ref={mediaContainerRef}>
+                {event.media && (
+                    <Slider
+                        media={event.media}
+                        getContainerWidth={getContainerWidth}
+                    />
+                )}
+            </div>
         </div>
     );
 }
