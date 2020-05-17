@@ -7,6 +7,7 @@ function Home() {
 
     useEffect(() => {
         history.push(Routes.MAIN);
+        // eslint-disable-next-line
     }, []);
 
     return <div />;

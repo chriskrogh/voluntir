@@ -5,7 +5,7 @@ import Page from 'components/Page';
 import Left from 'components/panels/Left';
 import Middle from 'components/panels/Middle';
 import Right from 'components/panels/Right';
-import { Pages } from 'utils/constants';
+import { Panels } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -23,13 +23,13 @@ const styles = (theme: Theme) => createStyles({
 });
 
 function Main({ classes }: WithStyles<typeof styles>) {
-    const [page, setPage] = useState(Pages.HOME);
+    const [panel, setPanel] = useState(Panels.HOME);
 
     return (
         <Page>
             <div className={classes.container}>
-                <Left setPage={setPage} />
-                <Middle page={page} />
+                <Left setPanel={setPanel} />
+                <Middle panel={panel} />
                 <Right />
             </div>
         </Page>

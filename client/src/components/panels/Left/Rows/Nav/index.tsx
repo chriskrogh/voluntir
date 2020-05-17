@@ -4,45 +4,47 @@ import { Button } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Explore';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Pages } from 'utils/constants';
+import { Panels } from 'utils/constants';
 
 interface IconProps {
-    page: Pages;
+    panel: Panels;
     className?: string;
 }
 
-const Icon = ({ page, className }: IconProps) => {
-    switch (page) {
-        case Pages.HOME:
+const Icon = ({ panel, className }: IconProps) => {
+    switch (panel) {
+        case Panels.HOME:
             return <HomeIcon className={className} />;
-        case Pages.EXPLORE:
+        case Panels.EXPLORE:
             return <ExploreIcon className={className} />;
-        case Pages.PROFILE:
+        case Panels.PROFILE:
             return <AccountCircleIcon className={className} />;
+        default:
+            return <div />;
     }
 }
 
 interface Props {
     styles: LeftPanelRowStyles;
-    setPage: Dispatch<SetStateAction<Pages>>;
-    page: Pages;
+    setPanel: Dispatch<SetStateAction<Panels>>;
+    panel: Panels;
 }
 
-function ExploreButton({ styles, page, setPage }: Props) {
+function NavButton({ styles, panel, setPanel }: Props) {
     const handleClick = () => {
-        setPage(page);
+        setPanel(panel);
     }
 
     return (
         <Button className={styles.button} onClick={handleClick}>
             <div className={styles.iconContainer}>
-                <Icon page={page} className={styles.icon} />
+                <Icon panel={panel} className={styles.icon} />
             </div>
             <div className={styles.labelContainer}>
-                {page}
+                {panel}
             </div>
         </Button>
     );
 }
 
-export default ExploreButton;
+export default NavButton;

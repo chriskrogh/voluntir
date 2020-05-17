@@ -3,8 +3,9 @@ export enum Routes {
     AUTH = '/auth'
 }
 
-export enum Pages {
+export enum Panels {
     HOME = 'Home',
     EXPLORE = 'Explore',
-    PROFILE = 'Profile'
+    PROFILE = 'Profile',
+    EVENT = 'Event'
 }

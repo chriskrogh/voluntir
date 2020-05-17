@@ -1,11 +1,10 @@
 import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import { Pages } from 'utils/constants';
-import events from 'data/home';
-import Title from 'components/typography/Title';
-import EventCard from 'components/EventCard';
-import useScreenSize from 'utils/hooks/useScreenSize';
+import Feed from './feed';
+import ProfilePanel from './profile';
+import EventPanel from './event';
+import { Panels } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
@@ -17,42 +16,35 @@ const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.down('sm')]: {
             width: 440
         }
-    },
-    titleContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        height: 48,
-        margin: `0 ${theme.spacing(3)}px`,
-    },
-    eventContainer: {
-        margin: `0 ${theme.spacing(2)}px`,
-    },
-    firstChild: {
-        marginTop: 0
     }
 });
 
-interface Props extends WithStyles<typeof styles> {
-    page: Pages;
+interface PanelProps {
+    panel: Panels;
 }
 
-function MiddlePanel({ classes, page }: Props) {
-    const screenSize = useScreenSize();
+function Panel({ panel }: PanelProps) {
+    switch (panel) {
+        case Panels.HOME:
+        case Panels.EXPLORE:
+            return <Feed panel={panel} />
+        case Panels.PROFILE:
+            return <ProfilePanel />;
+        case Panels.EVENT:
+            return <EventPanel />;
+        default:
+            return <Feed panel={Panels.HOME} />;
+    }
+}
+
+interface Props extends WithStyles<typeof styles> {
+    panel: Panels;
+}
+
+function MiddlePanel({ classes, panel }: Props) {
     return (
         <div className={classes.panel}>
-            <div className={classes.titleContainer}>
-                <Title text={page} />
-            </div>
-            <div className={classes.eventContainer}>
-                {events.map((event, index) => (
-                    <EventCard
-                        key={event._id}
-                        event={event}
-                        className={index === 0 ? classes.firstChild : undefined}
-                        screenSize={screenSize}
-                    />
-                ))}
-            </div>
+            <Panel panel={panel} />
         </div>
     );
 }

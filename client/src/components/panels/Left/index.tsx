@@ -5,7 +5,7 @@ import Logo from 'components/buttons/Logo';
 import NavButton from './Rows/Nav';
 import ThemeToggleButton from './Rows/ThemeToggle';
 import LogoutButton from './Rows/Logout';
-import { Pages } from 'utils/constants';
+import { Panels } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
@@ -66,10 +66,10 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    setPage: Dispatch<SetStateAction<Pages>>;
+    setPanel: Dispatch<SetStateAction<Panels>>;
 }
 
-function LeftPanel({ classes, setPage }: Props) {
+function LeftPanel({ classes, setPanel }: Props) {
     const rowStyles = {
         button: classes.button,
         iconContainer: classes.iconContainer,
@@ -86,22 +86,22 @@ function LeftPanel({ classes, setPage }: Props) {
                 <div className={classes.row}>
                     <NavButton
                         styles={rowStyles}
-                        page={Pages.HOME}
-                        setPage={setPage}
+                        panel={Panels.HOME}
+                        setPanel={setPanel}
                     />
                 </div>
                 <div className={classes.row}>
                     <NavButton
                         styles={rowStyles}
-                        page={Pages.EXPLORE}
-                        setPage={setPage}
+                        panel={Panels.EXPLORE}
+                        setPanel={setPanel}
                     />
                 </div>
                 <div className={classes.row}>
                     <NavButton
                         styles={rowStyles}
-                        page={Pages.PROFILE}
-                        setPage={setPage}
+                        panel={Panels.PROFILE}
+                        setPanel={setPanel}
                     />
                 </div>
                 <div className={classes.row}>

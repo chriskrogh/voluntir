@@ -16,11 +16,11 @@ const styles = (theme: Theme) => createStyles({
         borderRadius: theme.spacing(1),
         backgroundColor: theme.palette.primary.main,
     },
-    titleContainer: {
+    descriptionContainer: {
         marginBottom: theme.spacing(1)
     },
-    descriptionContainer: {
-        marginBottom: theme.spacing(2)
+    textContainer: {
+        marginBottom: theme.spacing(1)
     }
 });
 
@@ -46,15 +46,17 @@ interface Props extends WithStyles<typeof styles> {
 function EventCard({ classes, className, event, screenSize }: Props) {
     return (
         <div className={classnames(classes.container, className)}>
-            <div className={classes.titleContainer}>
+            <div className={classes.textContainer}>
                 <Title text={event.title} />
             </div>
-            <CollapsableContainer
-                containerClassName={classes.descriptionContainer}
-                maxHeight={100}
-            >
-                <ParagraphText text={event.description} />
-            </CollapsableContainer>
+            <div className={classes.descriptionContainer}>
+                <CollapsableContainer
+                    containerClassName={classes.textContainer}
+                    maxHeight={100}
+                >
+                    <ParagraphText text={event.description} />
+                </CollapsableContainer>
+            </div>
             {event.media && (
                 <Slider
                     media={event.media}
