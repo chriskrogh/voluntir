@@ -65,4 +65,4 @@ function EventCard({ classes, className, event, screenSize }: Props) {
     );
 }
 
-export default React.memo(withStyles(styles)(EventCard));
+export default withStyles(styles)(EventCard);

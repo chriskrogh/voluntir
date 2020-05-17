@@ -115,4 +115,4 @@ function Slider({ classes, media, containerWidth }: Props) {
     );
 }
 
-export default React.memo(withStyles(styles)(Slider));
+export default withStyles(styles)(Slider);
