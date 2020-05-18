@@ -13,7 +13,7 @@ const styles = (theme: Theme) => ({
   },
   buttonContainer: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'flex-end'
   },
   button: {
     padding: 0,

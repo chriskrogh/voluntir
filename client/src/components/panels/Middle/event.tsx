@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 import { MainContext } from 'context/main/state';
 import { ButtonGroup, Button } from '@material-ui/core';
 import CollapseableContainer from 'components/CollapseableContainer';
@@ -26,13 +27,16 @@ const styles = (theme: Theme) => createStyles({
         marginTop: theme.spacing(2)
     },
     buttonGroup: {
-        backgroundColor: theme.palette.secondary.main,
+        // backgroundColor: theme.palette.secondary.main,
         marginTop: theme.spacing(3),
     },
     button: {
         color: theme.palette.text.primary,
         borderColor: theme.palette.text.secondary,
         width: '100%'
+    },
+    selectedButton: {
+        backgroundColor: theme.palette.secondary.main
     },
     sectionContainer: {
         marginTop: theme.spacing(3)
@@ -66,13 +70,19 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
             </CollapseableContainer>
             <ButtonGroup className={classes.buttonGroup}>
                 <Button
-                    className={classes.button}
+                    className={classnames(
+                        classes.button,
+                        { [classes.selectedButton]: section === Sections.GALLERY }
+                    )}
                     onClick={() => setSection(Sections.GALLERY)}
                 >
                     Gallery
                 </Button>
                 <Button
-                    className={classes.button}
+                    className={classnames(
+                        classes.button,
+                        { [classes.selectedButton]: section === Sections.LOCATION }
+                    )}
                     onClick={() => setSection(Sections.LOCATION)}
                 >
                     Location

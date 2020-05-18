@@ -31,19 +31,22 @@ const styles = (theme: Theme) => createStyles({
     locationContainer: {
         display: 'flex',
         alignItems: 'center',
+        width: 'calc(100% - 70px)',
+        marginTop: -30,
         marginBottom: theme.spacing(1)
     },
     locationIcon: {
-
+        color: theme.palette.error.main
     }
 });
 
 interface Props extends WithStyles<typeof styles> {
+    theme: Theme;
     event: Event;
     className?: string;
 }
 
-function EventCard({ classes, className, event }: Props) {
+function EventCard({ classes, theme, className, event }: Props) {
     const screenSize = useScreenSize();
     const { setPanel, setEvent } = useContext(MainContext);
 
@@ -78,7 +81,10 @@ function EventCard({ classes, className, event }: Props) {
                 onClick={expandEvent}
             >
                 <LocationOnIcon className={classes.locationIcon} />
-                <ParagraphText text={event.location} />
+                <ParagraphText
+                    text={event.location}
+                    color={theme.palette.text.secondary}
+                />
             </div>
             {event.media && (
                 <Slider
@@ -90,4 +96,4 @@ function EventCard({ classes, className, event }: Props) {
     );
 }
 
-export default withStyles(styles)(EventCard);
+export default withStyles(styles, { withTheme: true })(EventCard);
