@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { Event } from 'types/event';
 import { ScreenSize } from 'types/theme';
+import { MainContext } from 'context/main/state';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import Slider from 'components/Slider';
+import { Panels } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -15,6 +17,9 @@ const styles = (theme: Theme) => createStyles({
         padding: theme.spacing(1),
         borderRadius: theme.spacing(1),
         backgroundColor: theme.palette.primary.main,
+    },
+    clickableContainer: {
+        cursor: 'pointer'
     },
     descriptionContainer: {
         marginBottom: theme.spacing(1)
@@ -44,9 +49,19 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function EventCard({ classes, className, event, screenSize }: Props) {
+    const { setPanel, setEvent } = useContext(MainContext);
+
+    const expandEvent = () => {
+        setEvent(event);
+        setPanel(Panels.EVENT);
+    }
+
     return (
         <div className={classnames(classes.container, className)}>
-            <div className={classes.textContainer}>
+            <div
+                className={classnames(classes.textContainer, classes.clickableContainer)}
+                onClick={expandEvent}
+            >
                 <Title text={event.title} />
             </div>
             <div className={classes.descriptionContainer}>
@@ -54,7 +69,9 @@ function EventCard({ classes, className, event, screenSize }: Props) {
                     containerClassName={classes.textContainer}
                     maxHeight={100}
                 >
-                    <ParagraphText text={event.description} />
+                    <div className={classes.clickableContainer} onClick={expandEvent}>
+                        <ParagraphText text={event.description} />
+                    </div>
                 </CollapsableContainer>
             </div>
             {event.media && (
