@@ -7,6 +7,7 @@ import { MainContext } from 'context/main/state';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Slider from 'components/Slider';
 import { Panels } from 'utils/constants';
 import useScreenSize from 'utils/hooks/useScreenSize';
@@ -26,6 +27,14 @@ const styles = (theme: Theme) => createStyles({
     },
     textContainer: {
         marginBottom: theme.spacing(1)
+    },
+    locationContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: theme.spacing(1)
+    },
+    locationIcon: {
+
     }
 });
 
@@ -60,6 +69,16 @@ function EventCard({ classes, className, event }: Props) {
                         <ParagraphText text={event.description} />
                     </div>
                 </CollapsableContainer>
+            </div>
+            <div
+                className={classnames(
+                    classes.locationContainer,
+                    classes.clickableContainer
+                )}
+                onClick={expandEvent}
+            >
+                <LocationOnIcon className={classes.locationIcon} />
+                <ParagraphText text={event.location} />
             </div>
             {event.media && (
                 <Slider
