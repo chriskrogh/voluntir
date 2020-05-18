@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
+import { MainContext } from 'context/main/state';
 import { Event } from 'types/event';
 import events from 'data/events';
 import ParagraphText from 'components/typography/ParagraphText';
+import { Panels } from 'utils/constants';
+import Subtitle from 'components/typography/Subtitle';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
@@ -24,13 +27,13 @@ const styles = (theme: Theme) => createStyles({
         backgroundColor: theme.palette.secondary.main,
         borderRadius: theme.spacing(1),
     },
+    pointer: {
+        cursor: 'pointer',
+    },
     row: {
         marginTop: theme.spacing(1),
-        paddingBottom: theme.spacing(1) / 2,
+        paddingBottom: theme.spacing(1),
         borderBottom: `1px solid ${theme.palette.text.secondary}`
-    },
-    firstRow: {
-        marginTop: 0
     }
 });
 
@@ -39,17 +42,23 @@ const getUpcomingEvents = (): Event[] => {
 }
 
 function RightPanel({ classes }: WithStyles<typeof styles>) {
+    const { setEvent, setPanel } = useContext(MainContext);
+
+    const goToEvent = (event: Event) => {
+        setEvent(event);
+        setPanel(Panels.EVENT);
+    }
+
     return (
         <div className={classes.panel}>
-            {getUpcomingEvents().map((event, index) => (
+            <div className={classes.row}>
+                <Subtitle text="Upcoming" />
+            </div>
+            {getUpcomingEvents().map((event) => (
                 <div
                     key={event._id}
-                    className={
-                        classnames(
-                            classes.row,
-                            (index === 0) ? classes.firstRow : undefined
-                        )
-                    }
+                    onClick={() => goToEvent(event)}
+                    className={classnames(classes.row, classes.pointer)}
                 >
                     <ParagraphText text={event.title} />
                 </div>
