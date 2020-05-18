@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import /*type*/ { WithStyles } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
+import { ScreenSize } from 'types/theme';
 import { Button } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigatePreviousIcon from '@material-ui/icons/NavigateBefore';
@@ -29,7 +30,8 @@ const styles = () => createStyles({
         position: 'absolute',
         top: '50%',
         width: 40,
-        height: '100%',
+        height: 90,
+        backgroundColor: 'rgba(240, 240, 240, 0.35)',
         transform: 'translateY(-50%)',
         transition: transitionTime
     },
@@ -44,18 +46,31 @@ const styles = () => createStyles({
     }
 });
 
+const getContainerWidth = (screenSize: ScreenSize): number => {
+    switch (screenSize) {
+        case ScreenSize.MD:
+            return 552;
+        case ScreenSize.SM:
+            return 392;
+        case ScreenSize.XS:
+            return Math.min(392, window.innerWidth - 48);
+        default:
+            return 552;
+    }
+}
+
 const getIndex = (translateValue: number) => ((translateValue / 100) * -1);
 
 interface Props extends WithStyles<typeof styles> {
     media: Media[];
-    containerWidth: number;
+    screenSize: ScreenSize;
 }
 
-function Slider({ classes, media, containerWidth }: Props) {
+function Slider({ classes, media, screenSize }: Props) {
     const [translateValue, setTranslateValue] = useState(0);
 
+    const containerWidth = getContainerWidth(screenSize);
     const slideHeight = (containerWidth / media[getIndex(translateValue)].AR);
-
     const [sliderHeight, setSliderHeight] = useState(slideHeight);
 
     const hasManyItems = media.length > 0;

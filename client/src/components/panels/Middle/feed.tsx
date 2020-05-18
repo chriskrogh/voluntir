@@ -6,7 +6,6 @@ import { Panels } from 'utils/constants';
 import events from 'data/events';
 import Title from 'components/typography/Title';
 import EventCard from 'components/EventCard';
-import useScreenSize from 'utils/hooks/useScreenSize';
 
 const styles = (theme: Theme) => createStyles({
     titleContainer: {
@@ -39,7 +38,6 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function Feed({ classes, panel }: Props) {
-    const screenSize = useScreenSize();
     return (
         <>
             <div className={classes.titleContainer}>
@@ -51,7 +49,6 @@ function Feed({ classes, panel }: Props) {
                         key={event._id}
                         event={event}
                         className={index === 0 ? classes.firstChild : undefined}
-                        screenSize={screenSize}
                     />
                 ))}
             </div>

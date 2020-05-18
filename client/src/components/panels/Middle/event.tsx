@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { MainContext } from 'context/main/state';
@@ -6,8 +6,18 @@ import { ButtonGroup, Button } from '@material-ui/core';
 import CollapseableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
+import Slider from 'components/Slider';
+import useScreenSize from 'utils/hooks/useScreenSize';
 
 const styles = (theme: Theme) => createStyles({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: `48px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px`,
+        padding: theme.spacing(1),
+        backgroundColor: theme.palette.primary.main,
+        borderRadius: theme.spacing(1)
+    },
     titleContainer: {
         flex: 1,
     },
@@ -16,20 +26,35 @@ const styles = (theme: Theme) => createStyles({
         marginTop: theme.spacing(2)
     },
     buttonGroup: {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.secondary.main,
         marginTop: theme.spacing(3),
     },
     button: {
         color: theme.palette.text.primary,
         borderColor: theme.palette.text.secondary,
         width: '100%'
+    },
+    sectionContainer: {
+        marginTop: theme.spacing(3)
     }
 });
 
+enum Sections {
+    GALLERY = 'Gallery',
+    LOCATION = 'Location'
+}
+
 function EventPanel({ classes }: WithStyles<typeof styles>) {
+    const screenSize = useScreenSize();
     const { event } = useContext(MainContext);
+
+    const [section, setSection] = useState(event.media != null
+        ? Sections.GALLERY
+        : Sections.LOCATION
+    );
+
     return (
-        <div>
+        <div className={classes.container}>
             <div className={classes.titleContainer}>
                 <Title text={event.title} />
             </div>
@@ -42,17 +67,25 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
             <ButtonGroup className={classes.buttonGroup}>
                 <Button
                     className={classes.button}
-                    onClick={() => { }}
+                    onClick={() => setSection(Sections.GALLERY)}
                 >
-                    LOG IN
+                    Gallery
                 </Button>
                 <Button
                     className={classes.button}
-                    onClick={() => { }}
+                    onClick={() => setSection(Sections.LOCATION)}
                 >
-                    SIGN UP
+                    Location
                 </Button>
             </ButtonGroup>
+            <div className={classes.sectionContainer}>
+                {section === Sections.GALLERY && event.media && (
+                    <Slider
+                        media={event.media}
+                        screenSize={screenSize}
+                    />
+                )}
+            </div>
         </div>
     );
 }

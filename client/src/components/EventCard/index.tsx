@@ -3,13 +3,13 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { Event } from 'types/event';
-import { ScreenSize } from 'types/theme';
 import { MainContext } from 'context/main/state';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import Slider from 'components/Slider';
 import { Panels } from 'utils/constants';
+import useScreenSize from 'utils/hooks/useScreenSize';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -29,26 +29,13 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
-const getSliderContainerWidth = (screenSize: ScreenSize): number => {
-    switch (screenSize) {
-        case ScreenSize.MD:
-            return 552;
-        case ScreenSize.SM:
-            return 392;
-        case ScreenSize.XS:
-            return Math.min(392, window.innerWidth - 48);
-        default:
-            return 552;
-    }
-}
-
 interface Props extends WithStyles<typeof styles> {
     event: Event;
     className?: string;
-    screenSize: ScreenSize;
 }
 
-function EventCard({ classes, className, event, screenSize }: Props) {
+function EventCard({ classes, className, event }: Props) {
+    const screenSize = useScreenSize();
     const { setPanel, setEvent } = useContext(MainContext);
 
     const expandEvent = () => {
@@ -77,7 +64,7 @@ function EventCard({ classes, className, event, screenSize }: Props) {
             {event.media && (
                 <Slider
                     media={event.media}
-                    containerWidth={getSliderContainerWidth(screenSize)}
+                    screenSize={screenSize}
                 />
             )}
         </div>
