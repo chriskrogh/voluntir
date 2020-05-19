@@ -21,7 +21,7 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
-function Main({ classes }: WithStyles<typeof styles>) {
+function Event({ classes }: WithStyles<typeof styles>) {
     return (
         <Page>
             <div className={classes.container}>
@@ -33,4 +33,4 @@ function Main({ classes }: WithStyles<typeof styles>) {
     );
 }
 
-export default withStyles(styles)(Main);
+export default withStyles(styles)(Event);

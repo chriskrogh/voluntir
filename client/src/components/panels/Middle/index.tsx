@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import { MainContext } from 'context/main/state';
 import Feed from './feed';
 import ProfilePanel from './profile';
 import EventPanel from './event';
@@ -39,7 +38,6 @@ function Panel({ panel }: PanelProps) {
 }
 
 function MiddlePanel({ classes }: WithStyles<typeof styles>) {
-    const { panel } = useContext(MainContext);
     return (
         <div className={classes.panel}>
             <Panel panel={panel} />

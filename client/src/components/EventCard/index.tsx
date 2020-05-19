@@ -1,15 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { Event } from 'types/event';
-import { MainContext } from 'context/main/state';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Slider from 'components/Slider';
-import { Panels } from 'utils/constants';
 import useScreenSize from 'utils/hooks/useScreenSize';
 
 const styles = (theme: Theme) => createStyles({
@@ -48,18 +46,12 @@ interface Props extends WithStyles<typeof styles> {
 
 function EventCard({ classes, theme, className, event }: Props) {
     const screenSize = useScreenSize();
-    const { setPanel, setEvent } = useContext(MainContext);
-
-    const expandEvent = () => {
-        setEvent(event);
-        setPanel(Panels.EVENT);
-    }
 
     return (
         <div className={classnames(classes.container, className)}>
             <div
                 className={classnames(classes.textContainer, classes.clickableContainer)}
-                onClick={expandEvent}
+                onClick={() => { }}
             >
                 <Title text={event.title} />
             </div>
@@ -68,7 +60,7 @@ function EventCard({ classes, theme, className, event }: Props) {
                     containerClassName={classes.textContainer}
                     maxHeight={100}
                 >
-                    <div className={classes.clickableContainer} onClick={expandEvent}>
+                    <div className={classes.clickableContainer} onClick={() => { }}>
                         <ParagraphText text={event.description} />
                     </div>
                 </CollapsableContainer>
@@ -78,7 +70,7 @@ function EventCard({ classes, theme, className, event }: Props) {
                     classes.locationContainer,
                     classes.clickableContainer
                 )}
-                onClick={expandEvent}
+                onClick={() => { }}
             >
                 <LocationOnIcon className={classes.locationIcon} />
                 <ParagraphText

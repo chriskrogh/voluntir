@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { MainContext } from 'context/main/state';
 import { Event } from 'types/event';
 import events from 'data/events';
 import ParagraphText from 'components/typography/ParagraphText';
-import { Panels } from 'utils/constants';
 import Subtitle from 'components/typography/Subtitle';
 
 const styles = (theme: Theme) => createStyles({
@@ -42,13 +40,6 @@ const getUpcomingEvents = (): Event[] => {
 }
 
 function RightPanel({ classes }: WithStyles<typeof styles>) {
-    const { setEvent, setPanel } = useContext(MainContext);
-
-    const goToEvent = (event: Event) => {
-        setEvent(event);
-        setPanel(Panels.EVENT);
-    }
-
     return (
         <div className={classes.panel}>
             <div className={classes.row}>
@@ -57,7 +48,7 @@ function RightPanel({ classes }: WithStyles<typeof styles>) {
             {getUpcomingEvents().map((event) => (
                 <div
                     key={event._id}
-                    onClick={() => goToEvent(event)}
+                    onClick={() => { }}
                     className={classnames(classes.row, classes.pointer)}
                 >
                     <ParagraphText text={event.title} />

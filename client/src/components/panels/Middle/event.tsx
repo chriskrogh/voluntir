@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { MainContext } from 'context/main/state';
 import { ButtonGroup, Button } from '@material-ui/core';
 import CollapseableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import Slider from 'components/Slider';
 import useScreenSize from 'utils/hooks/useScreenSize';
+import events from 'data/events';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -50,8 +50,7 @@ enum Sections {
 
 function EventPanel({ classes }: WithStyles<typeof styles>) {
     const screenSize = useScreenSize();
-    const { event } = useContext(MainContext);
-
+    const event = events[0];
     const [section, setSection] = useState(event.media != null
         ? Sections.GALLERY
         : Sections.LOCATION
