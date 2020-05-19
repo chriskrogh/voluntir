@@ -42,7 +42,7 @@ const FB = ({ mode }: Props) => {
         setUser(user);
         setToken(token);
         localStorage.setItem('token', token);
-        history.push(Routes.MAIN);
+        history.push(Routes.HOME);
     }
 
     return (

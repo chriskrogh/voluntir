@@ -1,10 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { LeftPanelRowStyles } from 'types/styles/leftPanelRow';
 import { Button } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Explore';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Panels } from 'utils/constants';
+import { Panels, Routes } from 'utils/constants';
 
 interface IconProps {
     panel: Panels;
@@ -30,8 +31,26 @@ interface Props {
 }
 
 function NavButton({ styles, panel }: Props) {
+    const history = useHistory();
+
+    const navigate = () => {
+        switch (panel) {
+            case Panels.HOME:
+                history.push(Routes.HOME);
+                break;
+            case Panels.EXPLORE:
+                history.push(Routes.EXPLORE);
+                break;
+            case Panels.PROFILE:
+                history.push(Routes.PROFILE);
+                break;
+            default:
+                break;
+        }
+    }
+
     return (
-        <Button className={styles.button} onClick={() => { }}>
+        <Button className={styles.button} onClick={navigate}>
             <div className={styles.iconContainer}>
                 <Icon panel={panel} className={styles.icon} />
             </div>

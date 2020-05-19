@@ -28,7 +28,7 @@ function Logo({ classes }: WithStyles<typeof styles>) {
 
     return (
         <Button
-            onClick={() => history.push(Routes.MAIN)}
+            onClick={() => history.push(Routes.HOME)}
             className={classes.button}
         >
             <BlurOnIcon className={classes.iconSize} />

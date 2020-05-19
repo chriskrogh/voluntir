@@ -1,6 +1,10 @@
 export enum Routes {
-    MAIN = '/',
-    AUTH = '/auth'
+    AUTH = '/auth',
+    HOME = '/',
+    EXPLORE = '/explore',
+    PROFILE = '/profile',
+    EVENT = '/event',
+    COMMUNITY = '/community'
 }
 
 export enum Feeds {

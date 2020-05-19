@@ -117,7 +117,7 @@ function LoginForm({ classes, theme }: Props) {
                 if (rememberMe) {
                     localStorage.setItem('token', token);
                 }
-                history.push(Routes.MAIN);
+                history.push(Routes.HOME);
             } else throw new Error();
         } catch (error) {
             setInvalidRequest(true);

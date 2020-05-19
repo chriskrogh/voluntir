@@ -2,6 +2,7 @@ import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
+import { useHistory } from 'react-router-dom';
 import { Event } from 'types/event';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
@@ -9,6 +10,7 @@ import ParagraphText from 'components/typography/ParagraphText';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Slider from 'components/Slider';
 import useScreenSize from 'utils/hooks/useScreenSize';
+import { Routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -46,12 +48,17 @@ interface Props extends WithStyles<typeof styles> {
 
 function EventCard({ classes, theme, className, event }: Props) {
     const screenSize = useScreenSize();
+    const history = useHistory();
+
+    const goToEvent = () => {
+        history.push(Routes.EVENT + '?id=' + event._id);
+    }
 
     return (
         <div className={classnames(classes.container, className)}>
             <div
                 className={classnames(classes.textContainer, classes.clickableContainer)}
-                onClick={() => { }}
+                onClick={goToEvent}
             >
                 <Title text={event.title} />
             </div>
@@ -60,7 +67,7 @@ function EventCard({ classes, theme, className, event }: Props) {
                     containerClassName={classes.textContainer}
                     maxHeight={100}
                 >
-                    <div className={classes.clickableContainer} onClick={() => { }}>
+                    <div className={classes.clickableContainer} onClick={goToEvent}>
                         <ParagraphText text={event.description} />
                     </div>
                 </CollapsableContainer>
@@ -70,7 +77,7 @@ function EventCard({ classes, theme, className, event }: Props) {
                     classes.locationContainer,
                     classes.clickableContainer
                 )}
-                onClick={() => { }}
+                onClick={goToEvent}
             >
                 <LocationOnIcon className={classes.locationIcon} />
                 <ParagraphText
