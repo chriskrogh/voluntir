@@ -8,9 +8,20 @@ import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import Slider from 'components/Slider';
 import useScreenSize from 'utils/hooks/useScreenSize';
+import useQuery from 'utils/hooks/useQuery';
 import events from 'data/events';
 
 const styles = (theme: Theme) => createStyles({
+    panel: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        width: 600,
+        backgroundColor: theme.palette.background.default,
+        [theme.breakpoints.down('sm')]: {
+            width: 440
+        }
+    },
     container: {
         display: 'flex',
         flexDirection: 'column',
@@ -27,7 +38,6 @@ const styles = (theme: Theme) => createStyles({
         marginTop: theme.spacing(2)
     },
     buttonGroup: {
-        // backgroundColor: theme.palette.secondary.main,
         marginTop: theme.spacing(3),
     },
     button: {
@@ -48,52 +58,64 @@ enum Sections {
     LOCATION = 'Location'
 }
 
+const getEvent = (id: string | null) => {
+    if (id == null) {
+        // go home
+        return events[0];
+    } else {
+        return events[parseInt(id)];
+    }
+}
+
 function EventPanel({ classes }: WithStyles<typeof styles>) {
     const screenSize = useScreenSize();
-    const event = events[0];
+    const eventId = useQuery().get('id');
+    const event = getEvent(eventId);
     const [section, setSection] = useState(event.media != null
         ? Sections.GALLERY
         : Sections.LOCATION
     );
 
     return (
-        <div className={classes.container}>
-            <div className={classes.titleContainer}>
-                <Title text={event.title} />
-            </div>
-            <CollapseableContainer
-                containerClassName={classes.descriptionContainer}
-                maxHeight={200}
-            >
-                <ParagraphText text={event.description} />
-            </CollapseableContainer>
-            <ButtonGroup className={classes.buttonGroup}>
-                <Button
-                    className={classnames(
-                        classes.button,
-                        { [classes.selectedButton]: section === Sections.GALLERY }
-                    )}
-                    onClick={() => setSection(Sections.GALLERY)}
+        <div className={classes.panel}>
+            <div className={classes.container}>
+                <div className={classes.titleContainer}>
+                    <Title text={event.title} />
+                </div>
+                <CollapseableContainer
+                    containerClassName={classes.descriptionContainer}
+                    maxHeight={200}
                 >
-                    Gallery
+                    <ParagraphText text={event.description} />
+                </CollapseableContainer>
+                <ButtonGroup className={classes.buttonGroup}>
+                    <Button
+                        className={classnames(
+                            classes.button,
+                            { [classes.selectedButton]: section === Sections.GALLERY }
+                        )}
+                        onClick={() => setSection(Sections.GALLERY)}
+                    >
+                        Gallery
                 </Button>
-                <Button
-                    className={classnames(
-                        classes.button,
-                        { [classes.selectedButton]: section === Sections.LOCATION }
+                    <Button
+                        className={classnames(
+                            classes.button,
+                            { [classes.selectedButton]: section === Sections.LOCATION }
+                        )}
+                        onClick={() => setSection(Sections.LOCATION)}
+                    >
+                        Location
+                </Button>
+                </ButtonGroup>
+                <div className={classes.sectionContainer}>
+                    {section === Sections.GALLERY && event.media && (
+                        <Slider
+                            media={event.media}
+                            screenSize={screenSize}
+                        />
                     )}
-                    onClick={() => setSection(Sections.LOCATION)}
-                >
-                    Location
-                </Button>
-            </ButtonGroup>
-            <div className={classes.sectionContainer}>
-                {section === Sections.GALLERY && event.media && (
-                    <Slider
-                        media={event.media}
-                        screenSize={screenSize}
-                    />
-                )}
+                </div>
             </div>
         </div>
     );

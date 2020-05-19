@@ -1,10 +1,14 @@
 import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import { Feeds, Panels } from 'utils/constants';
 import Page from 'components/Page';
 import Left from 'components/panels/Left';
-import Middle from 'components/panels/Middle';
 import Right from 'components/panels/Right';
+import EventPanel from 'components/panels/Middle/event';
+import FeedPanel from 'components/panels/Middle/feed';
+import ProfilePanel from 'components/panels/Middle/profile';
+import CommunityPanel from 'components/panels/Middle/community';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -21,12 +25,37 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
-function Main({ classes }: WithStyles<typeof styles>) {
+interface PanelProps {
+    panel: Panels;
+}
+
+const Panel = ({ panel }: PanelProps) => {
+    switch (panel) {
+        case Panels.HOME:
+            return <FeedPanel feed={Feeds.HOME} />;
+        case Panels.EXPLORE:
+            return <FeedPanel feed={Feeds.EXPLORE} />;
+        case Panels.PROFILE:
+            return <ProfilePanel />;
+        case Panels.COMMUNITY:
+            return <CommunityPanel />;
+        case Panels.EVENT:
+            return <EventPanel />;
+        default:
+            return <FeedPanel feed={Feeds.HOME} />;
+    }
+}
+
+interface Props extends WithStyles<typeof styles> {
+    panel: Panels;
+}
+
+function Main({ classes, panel }: Props) {
     return (
         <Page>
             <div className={classes.container}>
                 <Left />
-                <Middle />
+                <Panel panel={panel} />
                 <Right />
             </div>
         </Page>
