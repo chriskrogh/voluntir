@@ -12,6 +12,7 @@ const styles = (theme: Theme) => createStyles({
         display: 'flex',
         flexDirection: 'column',
         position: 'sticky',
+        top: 0,
         height: '100%',
         width: 180,
         justifyContent: 'center',

@@ -13,6 +13,8 @@ const styles = (theme: Theme) => createStyles({
     panel: {
         display: 'flex',
         flexDirection: 'column',
+        position: 'sticky',
+        top: 48,
         height: '100%',
         justifyContent: 'center',
         width: 180,
@@ -23,7 +25,6 @@ const styles = (theme: Theme) => createStyles({
             display: 'none'
         },
         padding: theme.spacing(1),
-        marginTop: 48,
         backgroundColor: theme.palette.secondary.main,
         borderRadius: theme.spacing(1),
     },
