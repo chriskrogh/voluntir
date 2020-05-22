@@ -24,14 +24,16 @@ const styles = (theme: Theme) => createStyles({
         cursor: 'pointer'
     },
     communityContainer: {
-        marginBottom: theme.spacing(1),
+        display: 'flex',
+        flexDirection: 'row',
+        marginBottom: theme.spacing(2),
         cursor: 'pointer'
+    },
+    hostedByContainer: {
+        marginRight: theme.spacing(1) / 2
     },
     clickableContainer: {
         cursor: 'pointer'
-    },
-    descriptionContainer: {
-        marginBottom: theme.spacing(1)
     },
     textContainer: {
         marginBottom: theme.spacing(1)
@@ -40,7 +42,7 @@ const styles = (theme: Theme) => createStyles({
         display: 'flex',
         alignItems: 'center',
         width: 'calc(100% - 70px)',
-        marginTop: -30,
+        marginTop: -24,
         marginBottom: theme.spacing(1),
         cursor: 'pointer'
     },
@@ -78,13 +80,19 @@ function EventCard({ classes, theme, className, event }: Props) {
                 <Title text={title} />
             </div>
             <div className={classes.communityContainer} onClick={goToCommunity}>
+                <div className={classes.hostedByContainer}>
+                    <ParagraphText
+                        text="hosted by"
+                        color={theme.palette.text.secondary}
+                    />
+                </div>
                 <ParagraphText
                     text={communityName}
                     color={theme.palette.text.secondary}
                     underline
                 />
             </div>
-            <div className={classes.descriptionContainer}>
+            <div>
                 <CollapsableContainer
                     containerClassName={classes.textContainer}
                     maxHeight={100}
