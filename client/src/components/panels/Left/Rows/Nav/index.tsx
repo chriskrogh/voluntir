@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { LeftPanelRowStyles } from 'types/styles/leftPanelRow';
 import { Button } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
@@ -32,17 +32,24 @@ interface Props {
 
 function NavButton({ styles, panel }: Props) {
     const history = useHistory();
+    const location = useLocation();
 
     const navigate = () => {
         switch (panel) {
             case Panels.HOME:
-                history.push(Routes.HOME);
+                if (location.pathname !== Routes.HOME) {
+                    history.push(Routes.HOME);
+                }
                 break;
             case Panels.EXPLORE:
-                history.push(Routes.EXPLORE);
+                if (location.pathname !== Routes.EXPLORE) {
+                    history.push(Routes.EXPLORE);
+                }
                 break;
             case Panels.PROFILE:
-                history.push(Routes.PROFILE);
+                if (location.pathname !== Routes.PROFILE) {
+                    history.push(Routes.PROFILE);
+                }
                 break;
             default:
                 break;
