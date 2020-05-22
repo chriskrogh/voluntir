@@ -1,9 +1,9 @@
 import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
     text: {
         fontSize: 16,
         color: theme.palette.text.primary,
@@ -13,7 +13,7 @@ const styles = (theme: Theme) => ({
         }
     },
     underline: {
-        borderBottom: `1px solid ${theme.palette.text.primary}`,
+        textDecoration: 'underline'
     }
 });
 
