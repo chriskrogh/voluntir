@@ -7,6 +7,7 @@ export type EventData = {
     media?: Media[];
     location: string;
     date: Date;
+    community: string;
 };
 
 export type Event = EventData & ModelMetadata;
