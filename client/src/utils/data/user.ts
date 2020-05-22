@@ -3,7 +3,7 @@ import { AuthResponse } from 'types/network';
 import { User, Credentials, UserData } from 'types/user';
 import { Method } from 'types/network';
 import { USERS } from 'utils/network/endpoints';
-import * as M from 'utils/errorMessages';
+import M from 'utils/errorMessages';
 
 export const login = async (data: Credentials) => {
     return await makeRequest<AuthResponse, Credentials>(
