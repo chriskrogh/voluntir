@@ -19,6 +19,15 @@ const styles = (theme: Theme) => createStyles({
         borderRadius: theme.spacing(1),
         backgroundColor: theme.palette.primary.main,
     },
+    titleContainer: {
+        marginBottom: theme.spacing(1),
+        cursor: 'pointer'
+    },
+    communityContainer: {
+        marginBottom: theme.spacing(1),
+        borderBottom: `1px solid ${theme.palette.text.primary}`,
+        cursor: 'pointer'
+    },
     clickableContainer: {
         cursor: 'pointer'
     },
@@ -33,7 +42,8 @@ const styles = (theme: Theme) => createStyles({
         alignItems: 'center',
         width: 'calc(100% - 70px)',
         marginTop: -30,
-        marginBottom: theme.spacing(1)
+        marginBottom: theme.spacing(1),
+        cursor: 'pointer'
     },
     locationIcon: {
         color: theme.palette.error.main
@@ -50,17 +60,29 @@ function EventCard({ classes, theme, className, event }: Props) {
     const screenSize = useScreenSize();
     const history = useHistory();
 
+    const { title, community, communityName, description, location, media, _id } = event;
+
     const goToEvent = () => {
-        history.push(Routes.EVENT + '?id=' + event._id);
+        history.push(Routes.EVENT + '?id=' + _id);
+    }
+
+    const goToCommunity = () => {
+        history.push(Routes.COMMUNITY + '?id=' + community);
     }
 
     return (
         <div className={classnames(classes.container, className)}>
             <div
-                className={classnames(classes.textContainer, classes.clickableContainer)}
+                className={classes.titleContainer}
                 onClick={goToEvent}
             >
-                <Title text={event.title} />
+                <Title text={title} />
+            </div>
+            <div className={classes.communityContainer} onClick={goToCommunity}>
+                <ParagraphText
+                    text={communityName}
+                    color={theme.palette.text.secondary}
+                />
             </div>
             <div className={classes.descriptionContainer}>
                 <CollapsableContainer
@@ -68,26 +90,23 @@ function EventCard({ classes, theme, className, event }: Props) {
                     maxHeight={100}
                 >
                     <div className={classes.clickableContainer} onClick={goToEvent}>
-                        <ParagraphText text={event.description} />
+                        <ParagraphText text={description} />
                     </div>
                 </CollapsableContainer>
             </div>
             <div
-                className={classnames(
-                    classes.locationContainer,
-                    classes.clickableContainer
-                )}
+                className={classes.locationContainer}
                 onClick={goToEvent}
             >
                 <LocationOnIcon className={classes.locationIcon} />
                 <ParagraphText
-                    text={event.location}
+                    text={location}
                     color={theme.palette.text.secondary}
                 />
             </div>
-            {event.media && (
+            {media && (
                 <Slider
-                    media={event.media}
+                    media={media}
                     screenSize={screenSize}
                 />
             )}

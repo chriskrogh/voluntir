@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import /*type*/ { History } from 'history';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
+import { useHistory } from 'react-router-dom';
 import { ButtonGroup, Button } from '@material-ui/core';
 import CollapseableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
@@ -10,6 +12,8 @@ import Slider from 'components/Slider';
 import useScreenSize from 'utils/hooks/useScreenSize';
 import useQuery from 'utils/hooks/useQuery';
 import events from 'data/events';
+import M from 'utils/errorMessages';
+import { Routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
     panel: {
@@ -58,9 +62,10 @@ enum Sections {
     LOCATION = 'Location'
 }
 
-const getEvent = (id: string | null) => {
+const getEvent = (id: string | null, history: History) => {
     if (id == null) {
-        // go home
+        console.warn(M.EVENT_PAGE_ID);
+        history.push(Routes.HOME);
         return events[0];
     } else {
         return events[parseInt(id)];
@@ -68,9 +73,12 @@ const getEvent = (id: string | null) => {
 }
 
 function EventPanel({ classes }: WithStyles<typeof styles>) {
+    const history = useHistory();
+
     const screenSize = useScreenSize();
     const eventId = useQuery().get('id');
-    const event = getEvent(eventId);
+    const event = getEvent(eventId, history);
+
     const [section, setSection] = useState(event.media != null
         ? Sections.GALLERY
         : Sections.LOCATION
