@@ -1,5 +1,6 @@
 import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme: Theme) => ({
@@ -10,18 +11,25 @@ const styles = (theme: Theme) => ({
         [theme.breakpoints.down('sm')]: {
             fontSize: 14
         }
+    },
+    underline: {
+        borderBottom: `1px solid ${theme.palette.text.primary}`,
     }
 });
 
 interface Props extends WithStyles<typeof styles> {
     text: string;
     color?: string;
+    underline?: boolean;
 }
 
-function ParagraphText({ classes, color, text }: Props) {
+function ParagraphText({ classes, color, text, underline }: Props) {
     return (
         <p
-            className={classes.text}
+            className={classnames(
+                classes.text,
+                { [classes.underline]: underline }
+            )}
             style={{ color }}
         >
             {text}

@@ -25,7 +25,6 @@ const styles = (theme: Theme) => createStyles({
     },
     communityContainer: {
         marginBottom: theme.spacing(1),
-        borderBottom: `1px solid ${theme.palette.text.primary}`,
         cursor: 'pointer'
     },
     clickableContainer: {
@@ -82,6 +81,7 @@ function EventCard({ classes, theme, className, event }: Props) {
                 <ParagraphText
                     text={communityName}
                     color={theme.palette.text.secondary}
+                    underline
                 />
             </div>
             <div className={classes.descriptionContainer}>
