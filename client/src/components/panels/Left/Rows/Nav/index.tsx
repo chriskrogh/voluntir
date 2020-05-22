@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { LeftPanelRowStyles } from 'types/styles/leftPanelRow';
+import { LeftPanelRowStyles } from 'types/leftPanelRow';
 import { Button } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Explore';

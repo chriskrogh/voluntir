@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { LeftPanelRowStyles } from 'types/styles/leftPanelRow';
+import { LeftPanelRowStyles } from 'types/leftPanelRow';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { logout } from 'utils/data/user';

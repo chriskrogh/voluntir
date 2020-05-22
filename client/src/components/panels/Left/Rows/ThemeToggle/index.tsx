@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { LeftPanelRowStyles } from 'types/styles/leftPanelRow';
+import { LeftPanelRowStyles } from 'types/leftPanelRow';
 import { Button } from '@material-ui/core';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { ThemeContext } from 'context/theme/state';
