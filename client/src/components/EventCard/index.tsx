@@ -10,9 +10,8 @@ import ParagraphText from 'components/typography/ParagraphText';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Slider from 'components/Slider';
 import useScreenSize from 'utils/hooks/useScreenSize';
-import communities from 'data/communities';
 import { Routes } from 'utils/constants';
-import Subtitle from 'components/typography/Subtitle';
+import { getCommunityLogo } from 'utils/api/community';
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -27,6 +26,9 @@ const styles = (theme: Theme) => createStyles({
         width: 502,
         [theme.breakpoints.down('sm')]: {
             width: 356
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: Math.min(356, window.innerWidth - 48)
         }
     },
     logoContainer: {
@@ -73,10 +75,6 @@ const styles = (theme: Theme) => createStyles({
         color: theme.palette.error.main
     }
 });
-
-const getCommunityLogo = (id: string) => {
-    return communities[parseInt(id)].logo;
-}
 
 interface Props extends WithStyles<typeof styles> {
     theme: Theme;
