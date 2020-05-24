@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import /*type*/ { Theme, WithStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import ParagraphText from 'components/typography/ParagraphText';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useIsTextOverflowing from 'utils/hooks/useIsTextOverflowing';
 
@@ -24,13 +23,11 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
-  buttonText: {
-    fontSize: 16,
-    color: theme.palette.secondary.main,
-    marginRight: 8,
+  buttonTextContainer: {
+    marginRight: theme.spacing(1) / 2,
   },
   icon: {
-    fontSize: 24,
+    fontSize: 20,
     color: theme.palette.text.secondary,
     transition: 'transform 300ms ease',
   },
@@ -41,6 +38,11 @@ const styles = (theme: Theme) => ({
   buttonWrapper: {
     justifyContent: 'center',
   },
+  text: {
+    margin: 0,
+    fontSize: 12,
+    color: theme.palette.text.secondary
+  }
 });
 
 interface Props extends WithStyles<typeof styles> {
@@ -52,7 +54,6 @@ interface Props extends WithStyles<typeof styles> {
 
 function CollapseableContainer({
   classes,
-  theme,
   containerClassName,
   maxHeight,
   children
@@ -82,11 +83,8 @@ function CollapseableContainer({
             className={classes.button}
             onClick={toggleExpanded}
           >
-            <div className={classes.buttonText}>
-              <ParagraphText
-                text={expanded ? 'Less' : 'More'}
-                color={theme.palette.text.secondary}
-              />
+            <div className={classes.buttonTextContainer}>
+              <p className={classes.text}>{expanded ? 'Less' : 'More'}</p>
             </div>
             <ExpandMoreIcon
               className={classnames(
