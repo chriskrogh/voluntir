@@ -7,22 +7,22 @@ export interface CommunityData extends mongoose.Document {
 }
 
 const CommunitySchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    description: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    admins: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }]
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  admins: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 }, {
-    timestamps: true
+  timestamps: true
 });
 
 export const CommunityModel = mongoose.model<CommunityData>('Community', CommunitySchema);

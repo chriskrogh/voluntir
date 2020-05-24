@@ -14,80 +14,80 @@ const containerName = process.env.NODE_ENV === 'production' ? 'prod-media' : 'me
 
 // set media
 router.post(
-    '/api/media',
-    auth,
-    upload.single('media'),
-    async (req: UserRequest, res: Response) => {
-        try {
-            await blobService.createContainerIfDoesNotExist(containerName);
-            if (!req.file || !req.file.buffer) throw new Error;
+  '/api/media',
+  auth,
+  upload.single('media'),
+  async (req: UserRequest, res: Response) => {
+    try {
+      await blobService.createContainerIfDoesNotExist(containerName);
+      if (!req.file || !req.file.buffer) throw new Error;
 
-            const newBuffer = await compress(req.file.buffer);
-            const media = new MediaModel({ ...req.body });
+      const newBuffer = await compress(req.file.buffer);
+      const media = new MediaModel({ ...req.body });
 
-            await blobService.uploadString(containerName, media._id + '.jpg', newBuffer);
-            await media.save();
-            res.status(201).send();
-        } catch (err) {
-            console.log(err);
-            res.status(400).send(err);
-        }
+      await blobService.uploadString(containerName, media._id + '.jpg', newBuffer);
+      await media.save();
+      res.status(201).send();
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
     }
+  }
 );
 
 // get media by id
 router.get('/api/media/:id', async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-        const stream = new PassThrough();
-        const data: Uint8Array[] = [];
+    const stream = new PassThrough();
+    const data: Uint8Array[] = [];
 
-        stream.on('data', d => data.push(d));
-        await blobService.downloadBlob(containerName, id + '.jpg', stream);
-        const mergedBuffer = Buffer.concat(data);
+    stream.on('data', d => data.push(d));
+    await blobService.downloadBlob(containerName, id + '.jpg', stream);
+    const mergedBuffer = Buffer.concat(data);
 
-        res.set('Content-Type', 'image/jpg');
-        res.send(mergedBuffer);
-    } catch (err) {
-        console.log(err);
-        res.status(400).send(err);
-    }
+    res.set('Content-Type', 'image/jpg');
+    res.send(mergedBuffer);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
 });
 
 // update media
 router.patch('/api/media/:id', auth, async (req: Request, res: Response) => {
-    const updates = req.body as MediaDoc;
-    try {
-        const media = await MediaModel.findById(req.params.id);
-        if (!media) {
-            throw new Error;
-        }
-
-        Object.assign(media, updates);
-
-        await media.save();
-        res.send(media);
-    } catch (err) {
-        console.log(err);
-        res.status(400).send(err);
+  const updates = req.body as MediaDoc;
+  try {
+    const media = await MediaModel.findById(req.params.id);
+    if (!media) {
+      throw new Error;
     }
+
+    Object.assign(media, updates);
+
+    await media.save();
+    res.send(media);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
 });
 
 // delete media
 router.delete('/api/media/:id', auth, async (req: UserRequest, res: Response) => {
-    try {
-        const media = await MediaModel.findById(req.params.id);
-        if (!media) {
-            throw new Error;
-        }
-        await blobService.deleteBlob(containerName, media._id + '.jpg');
-        await media.remove();
-        res.send();
-    } catch (err) {
-        console.log(err);
-        res.status(404).send(err);
+  try {
+    const media = await MediaModel.findById(req.params.id);
+    if (!media) {
+      throw new Error;
     }
+    await blobService.deleteBlob(containerName, media._id + '.jpg');
+    await media.remove();
+    res.send();
+  } catch (err) {
+    console.log(err);
+    res.status(404).send(err);
+  }
 });
 
 export default router;

@@ -8,28 +8,28 @@ export interface EventData extends mongoose.Document {
 }
 
 const EventSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    description: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    community: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Community'
-    },
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
-    }
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  community: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Community'
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  }
 }, {
-    timestamps: true
+  timestamps: true
 });
 
 export const EventModel = mongoose.model<EventData>('Event', EventSchema);

@@ -30,6 +30,10 @@
                 "ignoreStrings": true
             }
         ],
-        "no-trailing-spaces": 2
+        "no-trailing-spaces": 2,
+        "indent": [
+            2,
+            2
+        ]
     }
 }

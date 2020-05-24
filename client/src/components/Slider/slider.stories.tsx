@@ -4,17 +4,17 @@ import events from 'data/events';
 import { ScreenSize } from 'types/theme';
 
 export default {
-    component: Slider,
-    title: 'Slider',
+  component: Slider,
+  title: 'Slider',
 };
 
 const media = events[0].media;
 
 export const gallery = () => (
-    <div style={{ width: '100vw' }}>
-        <Slider
-            media={media || []}
-            screenSize={ScreenSize.MD}
-        />
-    </div>
+  <div style={{ width: '100vw' }}>
+    <Slider
+      media={media || []}
+      screenSize={ScreenSize.MD}
+    />
+  </div>
 );

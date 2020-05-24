@@ -12,32 +12,32 @@ interface Props {
 }
 
 function LogoutButton({ styles }: Props) {
-    const { token, unsetUser, unsetToken } = useContext(UserContext);
-    const history = useHistory();
+  const { token, unsetUser, unsetToken } = useContext(UserContext);
+  const history = useHistory();
 
-    const signOut = async () => {
-        try {
-            unsetUser();
-            await logout(token);
-            unsetToken();
-            localStorage.removeItem('token');
-            history.push(Routes.AUTH);
-        } catch (error) {
-            // TODO replace with helpful message 2 user
-            console.error(error);
-        }
+  const signOut = async () => {
+    try {
+      unsetUser();
+      await logout(token);
+      unsetToken();
+      localStorage.removeItem('token');
+      history.push(Routes.AUTH);
+    } catch (error) {
+      // TODO replace with helpful message 2 user
+      console.error(error);
     }
+  }
 
-    return (
-        <Button className={styles.button} onClick={signOut}>
-            <div className={styles.iconContainer}>
-                <ExitToAppIcon className={styles.icon} />
-            </div>
-            <div className={styles.labelContainer}>
+  return (
+    <Button className={styles.button} onClick={signOut}>
+      <div className={styles.iconContainer}>
+        <ExitToAppIcon className={styles.icon} />
+      </div>
+      <div className={styles.labelContainer}>
                 Sign out
-            </div>
-        </Button>
-    );
+      </div>
+    </Button>
+  );
 }
 
 export default LogoutButton;

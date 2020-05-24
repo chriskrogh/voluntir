@@ -12,74 +12,74 @@ import SignUpForm from 'components/forms/SignUp';
 import { Routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    titleContainer: {
-        marginTop: theme.spacing(2),
-    },
-    subtitleContainer: {
-        marginTop: theme.spacing(3),
-    },
-    buttonGroup: {
-        backgroundColor: theme.palette.background.default,
-        marginTop: theme.spacing(3),
-    },
-    button: {
-        color: theme.palette.text.primary,
-        borderColor: theme.palette.text.secondary,
-        width: 200
-    },
-    formContainer: {
-        marginTop: theme.spacing(3),
-        marginBottom: theme.spacing(3)
-    }
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    marginTop: theme.spacing(2),
+  },
+  subtitleContainer: {
+    marginTop: theme.spacing(3),
+  },
+  buttonGroup: {
+    backgroundColor: theme.palette.background.default,
+    marginTop: theme.spacing(3),
+  },
+  button: {
+    color: theme.palette.text.primary,
+    borderColor: theme.palette.text.secondary,
+    width: 200
+  },
+  formContainer: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3)
+  }
 });
 
 function Auth({ classes }: WithStyles<typeof styles>) {
-    const history = useHistory();
-    const { user } = useContext(UserContext);
+  const history = useHistory();
+  const { user } = useContext(UserContext);
 
-    const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
-    useEffect(() => {
-        if (user._id !== '0') {
-            history.push(Routes.HOME);
-        }
-    }, [user._id, history]);
+  useEffect(() => {
+    if (user._id !== '0') {
+      history.push(Routes.HOME);
+    }
+  }, [user._id, history]);
 
-    return (
-        <Page>
-            <div className={classes.container}>
-                <div className={classes.titleContainer}>
-                    <Title text="Welcome to Community" />
-                </div>
-                <div className={classes.subtitleContainer}>
-                    <Subtitle text="Ready to help?" />
-                </div>
-                <ButtonGroup className={classes.buttonGroup}>
-                    <Button
-                        className={classes.button}
-                        onClick={() => setIsLogin(true)}
-                    >
+  return (
+    <Page>
+      <div className={classes.container}>
+        <div className={classes.titleContainer}>
+          <Title text="Welcome to Community" />
+        </div>
+        <div className={classes.subtitleContainer}>
+          <Subtitle text="Ready to help?" />
+        </div>
+        <ButtonGroup className={classes.buttonGroup}>
+          <Button
+            className={classes.button}
+            onClick={() => setIsLogin(true)}
+          >
                         LOG IN
-                    </Button>
-                    <Button
-                        className={classes.button}
-                        onClick={() => setIsLogin(false)}
-                    >
+          </Button>
+          <Button
+            className={classes.button}
+            onClick={() => setIsLogin(false)}
+          >
                         SIGN UP
-                    </Button>
-                </ButtonGroup>
-                <div className={classes.formContainer}>
-                    {isLogin ? <LoginForm /> : <SignUpForm />}
-                </div>
-            </div>
-        </Page>
-    );
+          </Button>
+        </ButtonGroup>
+        <div className={classes.formContainer}>
+          {isLogin ? <LoginForm /> : <SignUpForm />}
+        </div>
+      </div>
+    </Page>
+  );
 }
 
 export default withStyles(styles)(Auth);

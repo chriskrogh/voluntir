@@ -11,19 +11,19 @@ import ProfilePanel from 'components/panels/Middle/profile';
 import CommunityPanel from 'components/panels/Middle/community';
 
 const styles = (theme: Theme) => createStyles({
-    container: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        position: 'relative',
-        width: 960,
-        [theme.breakpoints.down('sm')]: {
-            width: 600
-        },
-        [theme.breakpoints.down('xs')]: {
-            width: '100%'
-        }
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'relative',
+    width: 960,
+    [theme.breakpoints.down('sm')]: {
+      width: 600
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '100%'
     }
+  }
 });
 
 interface PanelProps {
@@ -31,20 +31,20 @@ interface PanelProps {
 }
 
 const Panel = ({ panel }: PanelProps) => {
-    switch (panel) {
-        case Panels.HOME:
-            return <FeedPanel feed={Feeds.HOME} />;
-        case Panels.EXPLORE:
-            return <FeedPanel feed={Feeds.EXPLORE} />;
-        case Panels.PROFILE:
-            return <ProfilePanel />;
-        case Panels.COMMUNITY:
-            return <CommunityPanel />;
-        case Panels.EVENT:
-            return <EventPanel />;
-        default:
-            return <FeedPanel feed={Feeds.HOME} />;
-    }
+  switch (panel) {
+  case Panels.HOME:
+    return <FeedPanel feed={Feeds.HOME} />;
+  case Panels.EXPLORE:
+    return <FeedPanel feed={Feeds.EXPLORE} />;
+  case Panels.PROFILE:
+    return <ProfilePanel />;
+  case Panels.COMMUNITY:
+    return <CommunityPanel />;
+  case Panels.EVENT:
+    return <EventPanel />;
+  default:
+    return <FeedPanel feed={Feeds.HOME} />;
+  }
 }
 
 interface Props extends WithStyles<typeof styles> {
@@ -52,15 +52,15 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function Main({ classes, panel }: Props) {
-    return (
-        <Page>
-            <div className={classes.container}>
-                <Left />
-                <Panel panel={panel} />
-                <Right />
-            </div>
-        </Page>
-    );
+  return (
+    <Page>
+      <div className={classes.container}>
+        <Left />
+        <Panel panel={panel} />
+        <Right />
+      </div>
+    </Page>
+  );
 }
 
 export default withStyles(styles)(Main);

@@ -11,22 +11,22 @@ interface Props {
 }
 
 function ThemeToggleButton({ styles }: Props) {
-    const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
-    const toggleTheme = () => {
-        setTheme(theme.name === 'light' ? DarkTheme : LightTheme);
-    }
+  const toggleTheme = () => {
+    setTheme(theme.name === 'light' ? DarkTheme : LightTheme);
+  }
 
-    return (
-        <Button className={styles.button} onClick={toggleTheme}>
-            <div className={styles.iconContainer}>
-                <Brightness4Icon className={styles.icon} />
-            </div>
-            <div className={styles.labelContainer}>
+  return (
+    <Button className={styles.button} onClick={toggleTheme}>
+      <div className={styles.iconContainer}>
+        <Brightness4Icon className={styles.icon} />
+      </div>
+      <div className={styles.labelContainer}>
                 Theme
-            </div>
-        </Button>
-    );
+      </div>
+    </Button>
+  );
 }
 
 export default ThemeToggleButton;

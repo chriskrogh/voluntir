@@ -9,35 +9,35 @@ interface Props {
 }
 
 const Provider = ({ children }: Props) => {
-    const [state, dispatch] = useReducer(Reducer, initialState);
+  const [state, dispatch] = useReducer(Reducer, initialState);
 
-    const setUser = (user: User) => {
-        dispatch({ type: ActionTypes.SET_USER, payload: user });
-    }
+  const setUser = (user: User) => {
+    dispatch({ type: ActionTypes.SET_USER, payload: user });
+  }
 
-    const unsetUser = () => {
-        dispatch({ type: ActionTypes.UNSET_USER });
-    }
+  const unsetUser = () => {
+    dispatch({ type: ActionTypes.UNSET_USER });
+  }
 
-    const setToken = (token: string) => {
-        dispatch({ type: ActionTypes.SET_TOKEN, payload: token });
-    }
+  const setToken = (token: string) => {
+    dispatch({ type: ActionTypes.SET_TOKEN, payload: token });
+  }
 
-    const unsetToken = () => {
-        dispatch({ type: ActionTypes.UNSET_TOKEN });
-    }
+  const unsetToken = () => {
+    dispatch({ type: ActionTypes.UNSET_TOKEN });
+  }
 
-    return (
-        <UserContext.Provider value={{
-            ...state,
-            setUser,
-            unsetUser,
-            setToken,
-            unsetToken
-        }}>
-            {children}
-        </UserContext.Provider>
-    );
+  return (
+    <UserContext.Provider value={{
+      ...state,
+      setUser,
+      unsetUser,
+      setToken,
+      unsetToken
+    }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
 export default Provider;

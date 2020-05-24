@@ -10,7 +10,7 @@
     "dev": "concurrently \"yarn run dev:server\" \"cd client && yarn start\"",
     "build": "yarn run build:server && yarn run build:client",
     "start": "node build/app.js",
-    "eslint": "eslint '**/*.ts?(x)'"
+    "eslint": "eslint --fix '**/*.ts?(x)'"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",

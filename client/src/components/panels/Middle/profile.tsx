@@ -1,11 +1,11 @@
 import React from 'react';
 
 function ProfilePanel() {
-    return (
-        <div>
+  return (
+    <div>
             Profile
-        </div>
-    );
+    </div>
+  );
 }
 
 export default ProfilePanel;

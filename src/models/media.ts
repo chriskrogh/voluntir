@@ -5,12 +5,12 @@ export interface MediaDoc extends mongoose.Document {
 }
 
 const MediaSchema = new mongoose.Schema({
-    AR: {
-        type: Number,
-        required: true
-    }
+  AR: {
+    type: Number,
+    required: true
+  }
 }, {
-    timestamps: true
+  timestamps: true
 });
 
 export default mongoose.model<MediaDoc>('Media', MediaSchema);
