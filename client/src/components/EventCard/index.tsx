@@ -10,23 +10,46 @@ import ParagraphText from 'components/typography/ParagraphText';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Slider from 'components/Slider';
 import useScreenSize from 'utils/hooks/useScreenSize';
+import communities from 'data/communities';
 import { Routes } from 'utils/constants';
+import Subtitle from 'components/typography/Subtitle';
 
 const styles = (theme: Theme) => createStyles({
     container: {
+        display: 'flex',
+        flexDirection: 'row',
         marginTop: theme.spacing(2),
         padding: theme.spacing(1),
         borderRadius: theme.spacing(1),
         backgroundColor: theme.palette.primary.main,
     },
+    contentContainer: {
+        width: 502,
+        [theme.breakpoints.down('sm')]: {
+            width: 356
+        }
+    },
+    logoContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: theme.spacing(1),
+        overflow: 'hidden',
+        cursor: 'pointer',
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        [theme.breakpoints.down('sm')]: {
+            width: 28,
+            height: 28,
+            borderRadius: 14,
+        }
+    },
+    logo: {
+        maxHeight: '100%',
+    },
     titleContainer: {
         marginBottom: theme.spacing(1),
-        cursor: 'pointer'
-    },
-    communityContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        marginBottom: theme.spacing(2),
         cursor: 'pointer'
     },
     hostedByContainer: {
@@ -51,6 +74,10 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
+const getCommunityLogo = (id: string) => {
+    return communities[parseInt(id)].logo;
+}
+
 interface Props extends WithStyles<typeof styles> {
     theme: Theme;
     event: Event;
@@ -73,26 +100,23 @@ function EventCard({ classes, theme, className, event }: Props) {
 
     return (
         <div className={classnames(classes.container, className)}>
-            <div
-                className={classes.titleContainer}
-                onClick={goToEvent}
-            >
-                <Title text={title} />
-            </div>
-            <div className={classes.communityContainer} onClick={goToCommunity}>
-                <div className={classes.hostedByContainer}>
-                    <ParagraphText
-                        text="hosted by"
-                        color={theme.palette.text.secondary}
-                    />
-                </div>
-                <ParagraphText
-                    text={communityName}
-                    color={theme.palette.text.secondary}
-                    underline
+            <div className={classes.logoContainer} onClick={goToCommunity}>
+                <img
+                    src={getCommunityLogo(community)}
+                    className={classes.logo}
+                    alt="logo"
                 />
             </div>
-            <div>
+            <div className={classes.contentContainer}>
+                <div className={classes.clickableContainer} onClick={goToCommunity}>
+                    <ParagraphText text={communityName} underline />
+                </div>
+                <div
+                    className={classes.titleContainer}
+                    onClick={goToEvent}
+                >
+                    <Title text={title} />
+                </div>
                 <CollapsableContainer
                     containerClassName={classes.textContainer}
                     maxHeight={100}
@@ -101,23 +125,23 @@ function EventCard({ classes, theme, className, event }: Props) {
                         <ParagraphText text={description} />
                     </div>
                 </CollapsableContainer>
+                <div
+                    className={classes.locationContainer}
+                    onClick={goToEvent}
+                >
+                    <LocationOnIcon className={classes.locationIcon} />
+                    <ParagraphText
+                        text={location}
+                        color={theme.palette.text.secondary}
+                    />
+                </div>
+                {media && (
+                    <Slider
+                        media={media}
+                        screenSize={screenSize}
+                    />
+                )}
             </div>
-            <div
-                className={classes.locationContainer}
-                onClick={goToEvent}
-            >
-                <LocationOnIcon className={classes.locationIcon} />
-                <ParagraphText
-                    text={location}
-                    color={theme.palette.text.secondary}
-                />
-            </div>
-            {media && (
-                <Slider
-                    media={media}
-                    screenSize={screenSize}
-                />
-            )}
         </div>
     );
 }

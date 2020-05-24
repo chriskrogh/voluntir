@@ -10,16 +10,19 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    theme: Theme;
     text: string;
+    color?: string;
 }
 
-function Subtitle({ classes, text }: Props) {
+function Subtitle({ classes, text, color }: Props) {
     return (
-        <h3 className={classes.text}>
+        <h3
+            className={classes.text}
+            style={{ color }}
+        >
             {text}
         </h3>
     );
 }
 
-export default withStyles(styles, { withTheme: true })(Subtitle);
+export default withStyles(styles)(Subtitle);
