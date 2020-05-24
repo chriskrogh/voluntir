@@ -7,14 +7,16 @@ import { Event } from 'types/event';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
+import SubText from 'components/typography/SubText';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PlayArrow from '@material-ui/icons/PlayArrow';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import StopIcon from '@material-ui/icons/Stop';
 import Slider from 'components/Slider';
 import useScreenSize from 'utils/hooks/useScreenSize';
 import { Routes } from 'utils/constants';
 import { getCommunityLogo } from 'utils/api/community';
-import { getLocalTime } from 'utils';
+import { getLocalTime } from 'utils/date';
 
 const styles = (theme: Theme) => createStyles({
   container: {
@@ -66,6 +68,9 @@ const styles = (theme: Theme) => createStyles({
   textContainer: {
     marginBottom: theme.spacing(1)
   },
+  sliderContainer: {
+    marginBottom: theme.spacing(1)
+  },
   locationContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -73,28 +78,37 @@ const styles = (theme: Theme) => createStyles({
     marginBottom: theme.spacing(1),
     cursor: 'pointer'
   },
-  locationIcon: {
-    color: theme.palette.error.main
-  },
   dateContainer: {
+    marginLeft: theme.spacing(4)
+  },
+  dateColumnsContainer: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     width: '100%',
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    cursor: 'pointer'
   },
   timeContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    width: '50%'
   },
   startIcon: {
     color: theme.palette.success.main,
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
+    fontSize: 15
   },
-  stopIcon: {
+  redIcon: {
     color: theme.palette.error.main,
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
+    fontSize: 15
+  },
+  calendarIcon: {
+    color: theme.palette.text.primary,
+    marginRight: theme.spacing(1),
+    fontSize: 15
   }
 });
 
@@ -128,6 +142,8 @@ function EventCard({ classes, theme, className, event }: Props) {
     history.push(Routes.COMMUNITY + '?id=' + community);
   }
 
+  const isSameDay = start.toDateString() === end.toDateString();
+
   return (
     <div className={classnames(classes.container, className)}>
       <div className={classes.logoContainer} onClick={goToCommunity}>
@@ -147,6 +163,57 @@ function EventCard({ classes, theme, className, event }: Props) {
         >
           <Title text={title} />
         </div>
+        <div
+          className={classes.locationContainer}
+          onClick={goToEvent}
+        >
+          <LocationOnIcon className={classes.redIcon} />
+          <SubText
+            text={location}
+            color={theme.palette.text.secondary}
+          />
+        </div>
+        <div className={classes.dateColumnsContainer} onClick={goToEvent}>
+          {isSameDay && (
+            <div className={classes.timeContainer}>
+              <CalendarTodayIcon className={classes.calendarIcon} />
+              <SubText
+                text={start.toDateString()}
+                color={theme.palette.text.secondary}
+              />
+            </div>
+          )}
+          <div className={classes.timeContainer}>
+            <PlayArrow className={classes.startIcon} />
+            <div>
+              {!isSameDay && (
+                <SubText
+                  text={start.toDateString()}
+                  color={theme.palette.text.secondary}
+                />
+              )}
+              <SubText
+                text={getLocalTime(start)}
+                color={theme.palette.text.secondary}
+              />
+            </div>
+          </div>
+          <div className={classes.timeContainer}>
+            <StopIcon className={classes.redIcon} />
+            <div>
+              {!isSameDay && (
+                <SubText
+                  text={end.toDateString()}
+                  color={theme.palette.text.secondary}
+                />
+              )}
+              <SubText
+                text={getLocalTime(end)}
+                color={theme.palette.text.secondary}
+              />
+            </div>
+          </div>
+        </div>
         <CollapsableContainer
           containerClassName={classes.textContainer}
           maxHeight={100}
@@ -155,49 +222,13 @@ function EventCard({ classes, theme, className, event }: Props) {
             <ParagraphText text={description} />
           </div>
         </CollapsableContainer>
-        <div
-          className={classes.locationContainer}
-          onClick={goToEvent}
-        >
-          <LocationOnIcon className={classes.locationIcon} />
-          <ParagraphText
-            text={location}
-            color={theme.palette.text.secondary}
-          />
-        </div>
-        <div className={classes.dateContainer}>
-          <div className={classes.timeContainer}>
-            <PlayArrow className={classes.startIcon} />
-            <div>
-              <ParagraphText
-                text={start.toDateString()}
-                color={theme.palette.text.secondary}
-              />
-              <ParagraphText
-                text={getLocalTime(start)}
-                color={theme.palette.text.secondary}
-              />
-            </div>
-          </div>
-          <div className={classes.timeContainer}>
-            <StopIcon className={classes.stopIcon} />
-            <div>
-              <ParagraphText
-                text={end.toDateString()}
-                color={theme.palette.text.secondary}
-              />
-              <ParagraphText
-                text={getLocalTime(end)}
-                color={theme.palette.text.secondary}
-              />
-            </div>
-          </div>
-        </div>
         {media && (
-          <Slider
-            media={media}
-            screenSize={screenSize}
-          />
+          <div className={classes.sliderContainer}>
+            <Slider
+              media={media}
+              screenSize={screenSize}
+            />
+          </div>
         )}
       </div>
     </div>
