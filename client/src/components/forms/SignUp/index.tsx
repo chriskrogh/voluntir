@@ -17,7 +17,7 @@ import GoogleLogin from 'components/buttons/GoogleLogin';
 import ParagraphText from 'components/typography/ParagraphText';
 import ErrorText from 'components/typography/ErrorText';
 import { isValidEmail, isValidPassword, isEmpty } from 'utils/validator';
-import { signup } from 'utils/data/user';
+import { signup } from 'utils/api/user';
 import { Routes } from 'utils/constants';
 
 const innerContainerWidth = 230;

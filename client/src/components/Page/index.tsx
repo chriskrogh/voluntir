@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
-import { getUser } from 'utils/data/user';
+import { getUser } from 'utils/api/user';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { Routes } from 'utils/constants';

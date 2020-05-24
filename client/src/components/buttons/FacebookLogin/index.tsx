@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { User, UserData } from 'types/user';
 import { AuthMode } from 'types/network';
-import { thirdPartyAuth } from 'utils/data/user';
+import { thirdPartyAuth } from 'utils/api/user';
 import { Routes } from 'utils/constants';
 import Icon from './icon';
 import './fb.css';
