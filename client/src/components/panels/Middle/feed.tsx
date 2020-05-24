@@ -5,7 +5,7 @@ import { Event } from 'types/event';
 import { Feeds } from 'utils/constants';
 import events from 'data/events';
 import Title from 'components/typography/Title';
-import EventCard from 'components/cards/EventCard';
+import EventList from 'components/lists/EventList';
 
 const styles = (theme: Theme) => createStyles({
   feed: {
@@ -53,15 +53,7 @@ function Feed({ classes, feed }: Props) {
       <div className={classes.titleContainer}>
         <Title text={feed} />
       </div>
-      <div className={classes.eventContainer}>
-        {getEvents(feed).map((event, index) => (
-          <EventCard
-            key={event._id}
-            event={event}
-            className={index === 0 ? classes.firstChild : undefined}
-          />
-        ))}
-      </div>
+      <EventList events={getEvents(feed)}/>
     </div>
   );
 }

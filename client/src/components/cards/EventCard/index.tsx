@@ -8,10 +8,13 @@ import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PlayArrow from '@material-ui/icons/PlayArrow';
+import StopIcon from '@material-ui/icons/Stop';
 import Slider from 'components/Slider';
 import useScreenSize from 'utils/hooks/useScreenSize';
 import { Routes } from 'utils/constants';
 import { getCommunityLogo } from 'utils/api/community';
+import { getLocalTime } from 'utils';
 
 const styles = (theme: Theme) => createStyles({
   container: {
@@ -66,27 +69,56 @@ const styles = (theme: Theme) => createStyles({
   locationContainer: {
     display: 'flex',
     alignItems: 'center',
-    width: 'calc(100% - 70px)',
-    marginTop: -24,
+    width: '100%',
     marginBottom: theme.spacing(1),
     cursor: 'pointer'
   },
   locationIcon: {
     color: theme.palette.error.main
+  },
+  dateContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    marginBottom: theme.spacing(1),
+  },
+  timeContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '50%'
+  },
+  startIcon: {
+    color: theme.palette.success.main,
+    marginRight: theme.spacing(1)
+  },
+  stopIcon: {
+    color: theme.palette.error.main,
+    marginRight: theme.spacing(1)
   }
 });
 
 interface Props extends WithStyles<typeof styles> {
-    theme: Theme;
-    event: Event;
-    className?: string;
+  theme: Theme;
+  event: Event;
+  className?: string;
 }
 
 function EventCard({ classes, theme, className, event }: Props) {
   const screenSize = useScreenSize();
   const history = useHistory();
 
-  const { title, community, communityName, description, location, media, _id } = event;
+  const {
+    _id,
+    title,
+    description,
+    location,
+    media,
+    start,
+    end,
+    community,
+    communityName
+  } = event;
 
   const goToEvent = () => {
     history.push(Routes.EVENT + '?id=' + _id);
@@ -132,6 +164,34 @@ function EventCard({ classes, theme, className, event }: Props) {
             text={location}
             color={theme.palette.text.secondary}
           />
+        </div>
+        <div className={classes.dateContainer}>
+          <div className={classes.timeContainer}>
+            <PlayArrow className={classes.startIcon} />
+            <div>
+              <ParagraphText
+                text={start.toDateString()}
+                color={theme.palette.text.secondary}
+              />
+              <ParagraphText
+                text={getLocalTime(start)}
+                color={theme.palette.text.secondary}
+              />
+            </div>
+          </div>
+          <div className={classes.timeContainer}>
+            <StopIcon className={classes.stopIcon} />
+            <div>
+              <ParagraphText
+                text={end.toDateString()}
+                color={theme.palette.text.secondary}
+              />
+              <ParagraphText
+                text={getLocalTime(end)}
+                color={theme.palette.text.secondary}
+              />
+            </div>
+          </div>
         </div>
         {media && (
           <Slider

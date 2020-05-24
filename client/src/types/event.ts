@@ -6,7 +6,8 @@ export type EventData = {
     description: string;
     media?: Media[];
     location: string;
-    date: Date;
+    start: Date;
+    end: Date;
 
     community: string;
     communityName: string;
