@@ -5,7 +5,7 @@ import { Event } from 'types/event';
 import { Feeds } from 'utils/constants';
 import events from 'data/events';
 import Title from 'components/typography/Title';
-import EventCard from 'components/EventCard';
+import EventCard from 'components/cards/EventCard';
 
 const styles = (theme: Theme) => createStyles({
   feed: {
@@ -44,7 +44,7 @@ const getEvents = (feed: Feeds): Event[] => {
 }
 
 interface Props extends WithStyles<typeof styles> {
-    feed: Feeds;
+  feed: Feeds;
 }
 
 function Feed({ classes, feed }: Props) {
