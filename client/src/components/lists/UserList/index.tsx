@@ -1,15 +1,23 @@
 import React from 'react';
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import /*type*/ { WithStyles } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 import { User } from 'types/user';
 import UserCard from 'components/cards/UserCard';
 
-const styles = (theme: Theme) => createStyles({
-  eventContainer: {
-    margin: `0 ${theme.spacing(2)}px`,
+const numUsersInRow = 2;
+
+const styles = () => createStyles({
+  list: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '100%'
   },
   firstChild: {
     marginTop: 0
+  },
+  lastInRow: {
+    marginRight: 0
   }
 });
 
@@ -19,12 +27,15 @@ interface Props extends WithStyles<typeof styles> {
 
 function UserList({classes, users}: Props) {
   return (
-    <div className={classes.eventContainer}>
+    <div className={classes.list}>
       {users.map((user, index) => (
         <UserCard
           key={user._id}
           user={user}
-          className={index === 0 ? classes.firstChild : undefined}
+          className={classnames(
+            { [classes.firstChild] : index === 0 },
+            { [classes.lastInRow] : index % numUsersInRow !== 0 }
+          )}
         />
       ))}
     </div>

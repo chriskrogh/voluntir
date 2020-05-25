@@ -3,6 +3,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import /*type*/ { History } from 'history';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import classnames from 'classnames';
 import { ButtonGroup } from '@material-ui/core';
 import EventList from 'components/lists/EventList';
 import UserList from 'components/lists/UserList';
@@ -81,8 +82,10 @@ const styles = (theme: Theme) => createStyles({
   },
   middleContainer: {
     margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`,
-    padding: theme.spacing(2),
+  },
+  aboutContainer: {
     backgroundColor: theme.palette.primary.main,
+    padding: theme.spacing(2),
     borderRadius: theme.spacing(1)
   }
 });
@@ -168,7 +171,7 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
       )}
       {section === Sections.ABOUT && description && (
         <>
-          <div className={classes.middleContainer}>
+          <div className={classnames(classes.middleContainer, classes.aboutContainer)}>
             <ParagraphText text={description} />
           </div>
           <div className={classes.middleContainer}>

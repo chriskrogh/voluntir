@@ -7,6 +7,7 @@ export default [
     updatedAt: new Date(),
     name: 'Chris Krogh',
     email: 'a@b.com',
+    picture: '/assets/default-user.png'
   },
   {
     _id: '1',
@@ -14,6 +15,7 @@ export default [
     updatedAt: new Date(),
     name: 'Jane Doe',
     email: 'a@b.com',
+    picture: '/assets/default-user.png'
   },
   {
     _id: '2',
@@ -21,5 +23,6 @@ export default [
     updatedAt: new Date(),
     name: 'John Smith',
     email: 'a@b.com',
+    picture: '/assets/default-user.png'
   }
 ] as User[];
