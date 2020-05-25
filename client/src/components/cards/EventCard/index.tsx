@@ -214,14 +214,16 @@ function EventCard({ classes, theme, className, event }: Props) {
             </div>
           </div>
         </div>
-        <CollapsableContainer
-          containerClassName={classes.textContainer}
-          maxHeight={100}
-        >
-          <div className={classes.clickableContainer} onClick={goToEvent}>
-            <ParagraphText text={description} />
-          </div>
-        </CollapsableContainer>
+        <div className={classes.textContainer}>
+          <CollapsableContainer
+            containerClassName={classes.textContainer}
+            maxHeight={100}
+          >
+            <div className={classes.clickableContainer} onClick={goToEvent}>
+              <ParagraphText text={description} />
+            </div>
+          </CollapsableContainer>
+        </div>
         {media && (
           <div className={classes.sliderContainer}>
             <Slider

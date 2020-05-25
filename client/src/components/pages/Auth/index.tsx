@@ -30,7 +30,7 @@ const styles = (theme: Theme) => createStyles({
   },
   button: {
     color: theme.palette.text.primary,
-    borderColor: theme.palette.text.secondary,
+    border: 'none',
     width: 200
   },
   formContainer: {

@@ -72,25 +72,25 @@ const styles = (theme: Theme) => createStyles({
     marginTop: theme.spacing(2)
   },
   buttonGroup: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
   button: {
     color: theme.palette.text.primary,
-    borderColor: theme.palette.text.secondary,
+    border: 'none',
     width: '100%'
   },
   selectedButton: {
     backgroundColor: theme.palette.secondary.main
   },
   sectionContainer: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(2)
   }
 });
 
 enum Sections {
-    GALLERY = 'Gallery',
-    LOCATION = 'Location',
-    GOING = 'Going'
+  GALLERY = 'Gallery',
+  LOCATION = 'Location',
+  GOING = 'Going'
 }
 
 const getEvent = (id: string | null, history: History) => {
@@ -150,18 +150,16 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
               )}
               onClick={() => setSection(Sections.GALLERY)}
             >
-                            Gallery
+              Gallery
             </Button>
             <Button
               className={classnames(
                 classes.button,
-                {
-                  [classes.selectedButton]: section === Sections.LOCATION
-                }
+                { [classes.selectedButton]: section === Sections.LOCATION }
               )}
               onClick={() => setSection(Sections.LOCATION)}
             >
-                            Location
+              Location
             </Button>
             <Button
               className={classnames(
@@ -170,7 +168,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
               )}
               onClick={() => setSection(Sections.GOING)}
             >
-                            Going
+              Going
             </Button>
           </ButtonGroup>
           <div className={classes.sectionContainer}>
