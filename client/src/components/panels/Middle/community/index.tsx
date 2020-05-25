@@ -5,6 +5,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { ButtonGroup } from '@material-ui/core';
 import EventList from 'components/lists/EventList';
+import UserList from 'components/lists/UserList';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import SelectableButton from './SelectableButton';
@@ -14,6 +15,7 @@ import useQuery from 'utils/hooks/useQuery';
 import { Routes } from 'utils/constants';
 import Sections from './sections';
 import events from 'data/events';
+import users from 'data/users';
 
 const bannerHeight = 240;
 const logoSize = bannerHeight / 2;
@@ -77,7 +79,7 @@ const styles = (theme: Theme) => createStyles({
   buttonContainer: {
     marginBottom: theme.spacing(1)
   },
-  aboutContainer: {
+  middleContainer: {
     margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`,
     padding: theme.spacing(2),
     backgroundColor: theme.palette.primary.main,
@@ -93,6 +95,11 @@ const getUpcomingEvents = (eventIds: string[]) => {
 const getCompletedEvents = (eventIds: string[]) => {
   // replace with special request to db
   return [events[parseInt(eventIds[1])]];
+}
+
+const getAdmins = (admins: string[]) => {
+  // replace with special request to db
+  return users;
 }
 
 const getCommnity = (id: string | null, history: History) => {
@@ -111,7 +118,7 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
   const id = useQuery().get('id');
   const community = getCommnity(id, history);
 
-  const { banner, logo, name, description, events } = community;
+  const { banner, logo, name, description, events, admins } = community;
 
   const [section, setSection] = useState(Sections.HOME);
 
@@ -160,9 +167,14 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
         <EventList events={getCompletedEvents(events)} />
       )}
       {section === Sections.ABOUT && description && (
-        <div className={classes.aboutContainer}>
-          <ParagraphText text={description} />
-        </div>
+        <>
+          <div className={classes.middleContainer}>
+            <ParagraphText text={description} />
+          </div>
+          <div className={classes.middleContainer}>
+            <UserList users={getAdmins(admins)} />
+          </div>
+        </>
       )}
       {section === Sections.UPCOMING && (
         <EventList events={getUpcomingEvents(events)} />
