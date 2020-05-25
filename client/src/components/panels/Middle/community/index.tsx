@@ -175,6 +175,9 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
             <ParagraphText text={description} />
           </div>
           <div className={classes.middleContainer}>
+            <Title text="Admins" />
+          </div>
+          <div className={classes.middleContainer}>
             <UserList users={getAdmins(admins)} />
           </div>
         </>

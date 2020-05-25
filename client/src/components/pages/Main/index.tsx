@@ -27,28 +27,28 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface PanelProps {
-    panel: Panels;
+  panel: Panels;
 }
 
 const Panel = ({ panel }: PanelProps) => {
   switch (panel) {
-  case Panels.HOME:
-    return <FeedPanel feed={Feeds.HOME} />;
-  case Panels.EXPLORE:
-    return <FeedPanel feed={Feeds.EXPLORE} />;
-  case Panels.PROFILE:
-    return <ProfilePanel />;
-  case Panels.COMMUNITY:
-    return <CommunityPanel />;
-  case Panels.EVENT:
-    return <EventPanel />;
-  default:
-    return <FeedPanel feed={Feeds.HOME} />;
+    case Panels.HOME:
+      return <FeedPanel feed={Feeds.HOME} />;
+    case Panels.EXPLORE:
+      return <FeedPanel feed={Feeds.EXPLORE} />;
+    case Panels.PROFILE:
+      return <ProfilePanel />;
+    case Panels.COMMUNITY:
+      return <CommunityPanel />;
+    case Panels.EVENT:
+      return <EventPanel />;
+    default:
+      return <FeedPanel feed={Feeds.HOME} />;
   }
 }
 
 interface Props extends WithStyles<typeof styles> {
-    panel: Panels;
+  panel: Panels;
 }
 
 function Main({ classes, panel }: Props) {

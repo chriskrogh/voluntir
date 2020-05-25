@@ -2,6 +2,8 @@ import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
+import { useHistory } from 'react-router-dom';
+import { Routes } from 'utils/constants';
 import { User } from 'types/user';
 import ParagraphText from 'components/typography/ParagraphText';
 
@@ -13,7 +15,8 @@ const styles = (theme: Theme) => createStyles({
     padding: theme.spacing(1),
     margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px 0`,
     backgroundColor: theme.palette.primary.main,
-    borderRadius: theme.spacing(1)
+    borderRadius: theme.spacing(1),
+    cursor: 'pointer'
   },
   pictureContainer: {
     marginRight: theme.spacing(2),
@@ -33,10 +36,19 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function UserCard({ classes, className, user }: Props) {
-  const { name, picture } = user;
+  const history = useHistory();
+
+  const { name, picture, _id } = user;
+
+  const goToProfile = () => {
+    history.push(Routes.PROFILE + '?id=' + _id);
+  }
 
   return (
-    <div className={classnames(className, classes.container)}>
+    <div
+      className={classnames(className, classes.container)}
+      onClick={goToProfile}
+    >
       <div className={classes.pictureContainer}>
         <img
           src={picture}
