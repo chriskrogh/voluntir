@@ -3,21 +3,12 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { Event } from 'types/event';
 import { Feeds } from 'utils/constants';
-import events from 'data/events';
+import Panel from '.';
 import Title from 'components/typography/Title';
 import EventList from 'components/lists/EventList';
+import events from 'data/events';
 
 const styles = (theme: Theme) => createStyles({
-  feed: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    width: 600,
-    backgroundColor: theme.palette.background.default,
-    [theme.breakpoints.down('sm')]: {
-      width: 440
-    }
-  },
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -49,12 +40,12 @@ interface Props extends WithStyles<typeof styles> {
 
 function Feed({ classes, feed }: Props) {
   return (
-    <div className={classes.feed}>
+    <Panel>
       <div className={classes.titleContainer}>
         <Title text={feed} />
       </div>
       <EventList events={getEvents(feed)}/>
-    </div>
+    </Panel>
   );
 }
 
