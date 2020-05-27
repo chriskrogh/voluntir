@@ -8,26 +8,26 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Panels, Routes } from 'utils/constants';
 
 interface IconProps {
-    panel: Panels;
-    className?: string;
+  panel: Panels;
+  className?: string;
 }
 
 const Icon = ({ panel, className }: IconProps) => {
   switch (panel) {
-  case Panels.HOME:
-    return <HomeIcon className={className} />;
-  case Panels.EXPLORE:
-    return <ExploreIcon className={className} />;
-  case Panels.PROFILE:
-    return <AccountCircleIcon className={className} />;
-  default:
-    return <div />;
+    case Panels.HOME:
+      return <HomeIcon className={className} />;
+    case Panels.EXPLORE:
+      return <ExploreIcon className={className} />;
+    case Panels.PROFILE:
+      return <AccountCircleIcon className={className} />;
+    default:
+      return <div />;
   }
 }
 
 interface Props {
-    styles: LeftPanelRowStyles;
-    panel: Panels;
+  styles: LeftPanelRowStyles;
+  panel: Panels;
 }
 
 function NavButton({ styles, panel }: Props) {
@@ -36,23 +36,23 @@ function NavButton({ styles, panel }: Props) {
 
   const navigate = () => {
     switch (panel) {
-    case Panels.HOME:
-      if (location.pathname !== Routes.HOME) {
-        history.push(Routes.HOME);
-      }
-      break;
-    case Panels.EXPLORE:
-      if (location.pathname !== Routes.EXPLORE) {
-        history.push(Routes.EXPLORE);
-      }
-      break;
-    case Panels.PROFILE:
-      if (location.pathname !== Routes.PROFILE) {
-        history.push(Routes.PROFILE);
-      }
-      break;
-    default:
-      break;
+      case Panels.HOME:
+        if (location.pathname !== Routes.HOME) {
+          history.push(Routes.HOME);
+        }
+        break;
+      case Panels.EXPLORE:
+        if (location.pathname !== Routes.EXPLORE) {
+          history.push(Routes.EXPLORE);
+        }
+        break;
+      case Panels.PROFILE:
+        if (location.pathname !== Routes.PROFILE) {
+          history.push(Routes.PROFILE);
+        }
+        break;
+      default:
+        break;
     }
   }
 
