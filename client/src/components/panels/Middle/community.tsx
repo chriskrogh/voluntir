@@ -16,9 +16,7 @@ import useQuery from 'utils/hooks/useQuery';
 import { Routes } from 'utils/constants';
 import events from 'data/events';
 import users from 'data/users';
-
-const bannerHeight = 240;
-const logoSize = bannerHeight / 2;
+import { BANNER_HEIGHT, PICTURE_SIZE } from './styles';
 
 const styles = (theme: Theme) => createStyles({
   container: {
@@ -31,13 +29,13 @@ const styles = (theme: Theme) => createStyles({
   },
   bannerLogoContainer: {
     display: 'flex',
-    height: bannerHeight,
+    height: BANNER_HEIGHT,
     marginBottom: theme.spacing(1),
     position: 'relative'
   },
   banner: {
     width: '100%',
-    height: bannerHeight - logoSize / 2,
+    height: BANNER_HEIGHT - PICTURE_SIZE / 2,
     overflow: 'hidden',
     backgroundSize: 'cover',
     backgroundPosition: '50% 50%',
@@ -54,10 +52,10 @@ const styles = (theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: logoSize,
-    height: logoSize,
+    width: PICTURE_SIZE,
+    height: PICTURE_SIZE,
     marginLeft: theme.spacing(2),
-    borderRadius: logoSize / 2,
+    borderRadius: PICTURE_SIZE / 2,
     overflow: 'hidden'
   },
   logo: {
