@@ -4,17 +4,16 @@ import /*type*/ { History } from 'history';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
-import { ButtonGroup } from '@material-ui/core';
+import { ButtonGroup, Button } from '@material-ui/core';
+import Panel from '.';
 import EventList from 'components/lists/EventList';
 import UserList from 'components/lists/UserList';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
-import SelectableButton from './SelectableButton';
 import communities from 'data/communities';
 import M from 'utils/errorMessages';
 import useQuery from 'utils/hooks/useQuery';
 import { Routes } from 'utils/constants';
-import Sections from './sections';
 import events from 'data/events';
 import users from 'data/users';
 
@@ -22,16 +21,6 @@ const bannerHeight = 240;
 const logoSize = bannerHeight / 2;
 
 const styles = (theme: Theme) => createStyles({
-  panel: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    width: 600,
-    backgroundColor: theme.palette.background.default,
-    [theme.breakpoints.down('sm')]: {
-      width: 440
-    }
-  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -80,6 +69,14 @@ const styles = (theme: Theme) => createStyles({
   buttonContainer: {
     marginBottom: theme.spacing(1)
   },
+  button: {
+    color: theme.palette.text.primary,
+    border: 'none',
+    width: '100%'
+  },
+  selectedButton: {
+    backgroundColor: theme.palette.secondary.main
+  },
   middleContainer: {
     margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`,
   },
@@ -90,18 +87,25 @@ const styles = (theme: Theme) => createStyles({
   }
 });
 
+enum Sections {
+  HOME = 'Home',
+  ABOUT = 'About',
+  UPCOMING = 'Upcoming'
+}
+
 const getUpcomingEvents = (eventIds: string[]) => {
-  // replace with special request to db
+  // replace with special request to server
   return [events[parseInt(eventIds[0])]];
 }
 
 const getCompletedEvents = (eventIds: string[]) => {
-  // replace with special request to db
+  // replace with special request to server
   return [events[parseInt(eventIds[1])]];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getAdmins = (admins: string[]) => {
-  // replace with special request to db
+  // replace with special request to server
   return users;
 }
 
@@ -126,7 +130,7 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
   const [section, setSection] = useState(Sections.HOME);
 
   return (
-    <div className={classes.panel}>
+    <Panel>
       <div className={classes.container}>
         <div className={classes.bannerLogoContainer}>
           <div
@@ -147,23 +151,35 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
           <Title text={name} />
         </div>
         <ButtonGroup>
-          <SelectableButton
-            section={Sections.HOME}
-            setSection={setSection}
-            currentSection={section}
-          />
+          <Button
+            className={classnames(
+              classes.button,
+              { [classes.selectedButton]: section === Sections.HOME }
+            )}
+            onClick={() => setSection(Sections.HOME)}
+          >
+            {Sections.HOME}
+          </Button>
           {description && (
-            <SelectableButton
-              section={Sections.ABOUT}
-              setSection={setSection}
-              currentSection={section}
-            />
+            <Button
+              className={classnames(
+                classes.button,
+                { [classes.selectedButton]: section === Sections.ABOUT }
+              )}
+              onClick={() => setSection(Sections.ABOUT)}
+            >
+              {Sections.ABOUT}
+            </Button>
           )}
-          <SelectableButton
-            section={Sections.UPCOMING}
-            setSection={setSection}
-            currentSection={section}
-          />
+          <Button
+            className={classnames(
+              classes.button,
+              { [classes.selectedButton]: section === Sections.UPCOMING }
+            )}
+            onClick={() => setSection(Sections.UPCOMING)}
+          >
+            {Sections.UPCOMING}
+          </Button>
         </ButtonGroup>
       </div>
       {section === Sections.HOME && (
@@ -185,7 +201,7 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
       {section === Sections.UPCOMING && (
         <EventList events={getUpcomingEvents(events)} />
       )}
-    </div>
+    </Panel>
   );
 }
 

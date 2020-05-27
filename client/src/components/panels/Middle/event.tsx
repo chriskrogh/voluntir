@@ -5,6 +5,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { ButtonGroup, Button } from '@material-ui/core';
+import Panel from '.';
 import CollapseableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
@@ -17,16 +18,6 @@ import { Routes } from 'utils/constants';
 import { getCommunityLogo } from 'utils/api/community';
 
 const styles = (theme: Theme) => createStyles({
-  panel: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    width: 600,
-    backgroundColor: theme.palette.background.default,
-    [theme.breakpoints.down('sm')]: {
-      width: 440
-    }
-  },
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -122,7 +113,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
   }
 
   return (
-    <div className={classes.panel}>
+    <Panel>
       <div className={classes.container}>
         <div className={classes.logoContainer} onClick={goToCommunity}>
           <img
@@ -181,7 +172,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
           </div>
         </div>
       </div>
-    </div>
+    </Panel>
   );
 }
 
