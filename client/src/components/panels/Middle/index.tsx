@@ -6,6 +6,7 @@ const  styles = (theme: Theme) => createStyles({
   panel: {
     display: 'flex',
     flexDirection: 'column',
+    marginBottom: theme.spacing(3),
     height: '100%',
     width: 600,
     backgroundColor: theme.palette.background.default,
