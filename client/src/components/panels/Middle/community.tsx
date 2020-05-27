@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 import { ButtonGroup, Button } from '@material-ui/core';
 import Panel from '.';
+import BannerPicture from 'components/BannerPicture';
 import EventList from 'components/lists/EventList';
 import UserList from 'components/lists/UserList';
 import Title from 'components/typography/Title';
@@ -13,53 +14,18 @@ import ParagraphText from 'components/typography/ParagraphText';
 import communities from 'data/communities';
 import M from 'utils/errorMessages';
 import useQuery from 'utils/hooks/useQuery';
-import { Routes } from 'utils/constants';
+import { Routes, Panels } from 'utils/constants';
 import events from 'data/events';
 import users from 'data/users';
-import { BANNER_HEIGHT, PICTURE_SIZE } from './styles';
 
 const styles = (theme: Theme) => createStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    margin: `48px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px`,
+    margin: `48px ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
     padding: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
     borderRadius: theme.spacing(1)
-  },
-  bannerLogoContainer: {
-    display: 'flex',
-    height: BANNER_HEIGHT,
-    marginBottom: theme.spacing(1),
-    position: 'relative'
-  },
-  banner: {
-    width: '100%',
-    height: BANNER_HEIGHT - PICTURE_SIZE / 2,
-    overflow: 'hidden',
-    backgroundSize: 'cover',
-    backgroundPosition: '50% 50%',
-  },
-  logoWrapper: {
-    display: 'flex',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
-    position: 'absolute'
-  },
-  logoContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: PICTURE_SIZE,
-    height: PICTURE_SIZE,
-    marginLeft: theme.spacing(2),
-    borderRadius: PICTURE_SIZE / 2,
-    overflow: 'hidden'
-  },
-  logo: {
-    maxHeight: '100%'
   },
   nameContainer: {
     marginBottom: theme.spacing(1)
@@ -131,21 +97,11 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
   return (
     <Panel>
       <div className={classes.container}>
-        <div className={classes.bannerLogoContainer}>
-          <div
-            className={classes.banner}
-            style={{backgroundImage: `url(${banner})`}}
-          />
-          <div className={classes.logoWrapper}>
-            <div className={classes.logoContainer}>
-              <img
-                src={logo}
-                className={classes.logo}
-                alt="logo"
-              />
-            </div>
-          </div>
-        </div>
+        <BannerPicture
+          banner={banner}
+          picture={logo}
+          panel={Panels.COMMUNITY}
+        />
         <div className={classes.nameContainer}>
           <Title text={name} />
         </div>
