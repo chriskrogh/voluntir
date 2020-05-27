@@ -115,6 +115,7 @@ const getCommnity = (id: string | null, history: History) => {
     history.push(Routes.HOME)
     return communities[0];
   } else {
+    // replace with api call
     return communities[parseInt(id)];
   }
 }

@@ -89,6 +89,7 @@ const getEvent = (id: string | null, history: History) => {
     history.push(Routes.HOME);
     return events[0];
   } else {
+    // replace with api call
     return events[parseInt(id)];
   }
 }
