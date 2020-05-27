@@ -34,12 +34,12 @@ const styles = (theme: Theme) => createStyles({
 
 const getEvents = (feed: Feeds): Event[] => {
   switch (feed) {
-  case Feeds.HOME:
-    return [events[1], events[2]]
-  case Feeds.EXPLORE:
-    return events;
-  default:
-    return [];
+    case Feeds.HOME:
+      return [events[1], events[2]]
+    case Feeds.EXPLORE:
+      return events;
+    default:
+      return [];
   }
 }
 
