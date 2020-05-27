@@ -1,4 +1,5 @@
-import { User } from "types/user";
+import { User } from 'types/user';
+import { StaticAssets } from 'utils/constants';
 
 export default [
   {
@@ -7,8 +8,8 @@ export default [
     updatedAt: new Date(),
     name: 'Chris Krogh',
     email: 'a@b.com',
-    picture: '/assets/user.png',
-    banner: '/assets/banner.jpg'
+    picture: StaticAssets.USER,
+    banner: StaticAssets.BANNER
   },
   {
     _id: '1',
@@ -16,8 +17,8 @@ export default [
     updatedAt: new Date(),
     name: 'Jane Doe',
     email: 'a@b.com',
-    picture: '/assets/user.png',
-    banner: '/assets/banner.jpg'
+    picture: StaticAssets.USER,
+    banner: StaticAssets.BANNER
   },
   {
     _id: '2',
@@ -25,7 +26,7 @@ export default [
     updatedAt: new Date(),
     name: 'John Smith',
     email: 'a@b.com',
-    picture: '/assets/user.png',
-    banner: '/assets/banner.jpg'
+    picture: StaticAssets.USER,
+    banner: StaticAssets.BANNER
   }
 ] as User[];

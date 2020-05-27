@@ -19,3 +19,9 @@ export enum Panels {
   EVENT = 'Event',
   COMMUNITY = 'Community',
 }
+
+export enum StaticAssets {
+  BANNER = '/assets/banner.jpg',
+  USER = '/assets/user.png',
+  COMMUNITY = '/assets/community.png'
+}
