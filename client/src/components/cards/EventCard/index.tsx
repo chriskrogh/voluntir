@@ -90,10 +90,15 @@ const styles = (theme: Theme) => createStyles({
     marginBottom: theme.spacing(2),
     cursor: 'pointer'
   },
+  timesContainer: {
+    display: 'flex',
+    flex: 1
+  },
   timeContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: theme.spacing(1)
   },
   startIcon: {
     color: theme.palette.success.main,
@@ -183,34 +188,36 @@ function EventCard({ classes, theme, className, event }: Props) {
               />
             </div>
           )}
-          <div className={classes.timeContainer}>
-            <PlayArrow className={classes.startIcon} />
-            <div>
-              {!isSameDay && (
+          <div className={classes.timesContainer}>
+            <div className={classes.timeContainer}>
+              <PlayArrow className={classes.startIcon} />
+              <div>
+                {!isSameDay && (
+                  <SubText
+                    text={start.toDateString()}
+                    color={theme.palette.text.secondary}
+                  />
+                )}
                 <SubText
-                  text={start.toDateString()}
+                  text={getLocalTime(start)}
                   color={theme.palette.text.secondary}
                 />
-              )}
-              <SubText
-                text={getLocalTime(start)}
-                color={theme.palette.text.secondary}
-              />
+              </div>
             </div>
-          </div>
-          <div className={classes.timeContainer}>
-            <StopIcon className={classes.redIcon} />
-            <div>
-              {!isSameDay && (
+            <div className={classes.timeContainer}>
+              <StopIcon className={classes.redIcon} />
+              <div>
+                {!isSameDay && (
+                  <SubText
+                    text={end.toDateString()}
+                    color={theme.palette.text.secondary}
+                  />
+                )}
                 <SubText
-                  text={end.toDateString()}
+                  text={getLocalTime(end)}
                   color={theme.palette.text.secondary}
                 />
-              )}
-              <SubText
-                text={getLocalTime(end)}
-                color={theme.palette.text.secondary}
-              />
+              </div>
             </div>
           </div>
         </div>

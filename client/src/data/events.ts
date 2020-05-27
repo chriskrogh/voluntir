@@ -13,7 +13,7 @@ export default [
     ],
     location: 'Frontin Rd, Grand Lagoon, Trinidad',
     start: new Date(),
-    end: new Date(),
+    end: new Date('2020-01-01'),
     community: '0',
     communityName: 'Community A',
     createdAt: new Date(),
