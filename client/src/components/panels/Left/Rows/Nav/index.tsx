@@ -51,7 +51,7 @@ function NavButton({ styles, panel }: Props) {
       case Panels.PROFILE:
         if (location.pathname !== Routes.PROFILE) {
           // replace when api implementation is complete
-          history.push(Routes.PROFILE + '?id=' + '0' /*user._id*/);
+          history.push(Routes.PROFILE + '?id=0' /*user._id*/);
         }
         break;
       default:
