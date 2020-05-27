@@ -24,7 +24,7 @@ const styles = (theme: Theme) => createStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    margin: `48px ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
+    margin: `48px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px`,
     padding: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
     borderRadius: theme.spacing(1)

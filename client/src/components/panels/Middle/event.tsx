@@ -20,7 +20,6 @@ import { getCommunityLogo } from 'utils/api/community';
 const styles = (theme: Theme) => createStyles({
   container: {
     display: 'flex',
-    flexDirection: 'row',
     margin: `48px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px`,
     padding: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
