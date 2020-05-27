@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { UserContext } from 'context/user/state';
 import { LeftPanelRowStyles } from 'types/leftPanelRow';
 import { Button } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
@@ -33,6 +34,7 @@ interface Props {
 function NavButton({ styles, panel }: Props) {
   const history = useHistory();
   const location = useLocation();
+  const { user } = useContext(UserContext);
 
   const navigate = () => {
     switch (panel) {
@@ -48,7 +50,8 @@ function NavButton({ styles, panel }: Props) {
         break;
       case Panels.PROFILE:
         if (location.pathname !== Routes.PROFILE) {
-          history.push(Routes.PROFILE);
+          // replace when api implementation is complete
+          history.push(Routes.PROFILE + '?id=' + '0' /*user._id*/);
         }
         break;
       default:
