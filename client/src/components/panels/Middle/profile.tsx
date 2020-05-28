@@ -4,6 +4,7 @@ import /*type*/ { History } from 'history';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import Panel from './common/panel';
+import Container from './common/container';
 import BannerPicture from 'components/BannerPicture';
 import Title from 'components/typography/Title';
 import EventList from 'components/lists/EventList';
@@ -14,14 +15,6 @@ import M from 'utils/errorMessages';
 import useQuery from 'utils/hooks/useQuery';
 
 const styles = (theme: Theme) => createStyles({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: `48px ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
-    padding: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: theme.spacing(1)
-  },
   nameContainer: {
     marginBottom: theme.spacing(1)
   },
@@ -55,7 +48,7 @@ function ProfilePanel({ classes }: WithStyles<typeof styles>) {
 
   return (
     <Panel>
-      <div className={classes.container}>
+      <Container>
         <BannerPicture
           banner={banner}
           picture={picture}
@@ -64,7 +57,7 @@ function ProfilePanel({ classes }: WithStyles<typeof styles>) {
         <div className={classes.nameContainer}>
           <Title text={name} />
         </div>
-      </div>
+      </Container>
       <EventList events={getCompletedEvents()} />
     </Panel>
   );

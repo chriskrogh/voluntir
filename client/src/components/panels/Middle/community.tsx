@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 import { ButtonGroup, Button } from '@material-ui/core';
 import Panel from './common/panel';
+import Container from './common/container';
 import BannerPicture from 'components/BannerPicture';
 import EventList from 'components/lists/EventList';
 import UserList from 'components/lists/UserList';
@@ -19,14 +20,6 @@ import events from 'data/events';
 import users from 'data/users';
 
 const styles = (theme: Theme) => createStyles({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: `48px ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
-    padding: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: theme.spacing(1)
-  },
   nameContainer: {
     marginBottom: theme.spacing(1)
   },
@@ -86,17 +79,14 @@ const getCommnity = (id: string | null, history: History) => {
 
 function CommunityPanel({ classes }: WithStyles<typeof styles>) {
   const history = useHistory();
-
   const id = useQuery().get('id');
   const community = getCommnity(id, history);
-
   const { banner, logo, name, description, events, admins } = community;
-
   const [section, setSection] = useState(Sections.HOME);
 
   return (
     <Panel>
-      <div className={classes.container}>
+      <Container>
         <BannerPicture
           banner={banner}
           picture={logo}
@@ -136,7 +126,7 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
             {Sections.UPCOMING}
           </Button>
         </ButtonGroup>
-      </div>
+      </Container>
       {section === Sections.HOME && (
         <EventList events={getCompletedEvents(events)} />
       )}
