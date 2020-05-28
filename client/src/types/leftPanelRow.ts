@@ -1,6 +1,6 @@
 export type LeftPanelRowStyles = {
-    button?: string;
-    iconContainer?: string;
-    icon?: string;
-    labelContainer?: string;
+  button?: string;
+  iconContainer?: string;
+  icon?: string;
+  labelContainer?: string;
 }
