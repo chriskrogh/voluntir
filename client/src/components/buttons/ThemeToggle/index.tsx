@@ -7,7 +7,7 @@ import LightTheme from 'theme/themes/light';
 import DarkTheme from 'theme/themes/dark';
 
 interface Props {
-    styles: LeftPanelRowStyles;
+  styles: LeftPanelRowStyles;
 }
 
 function ThemeToggleButton({ styles }: Props) {
@@ -23,7 +23,7 @@ function ThemeToggleButton({ styles }: Props) {
         <Brightness4Icon className={styles.icon} />
       </div>
       <div className={styles.labelContainer}>
-                Theme
+        Theme
       </div>
     </Button>
   );
