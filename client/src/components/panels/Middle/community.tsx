@@ -5,7 +5,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 import { ButtonGroup, Button } from '@material-ui/core';
-import Panel from '.';
+import Panel from './common/panel';
 import BannerPicture from 'components/BannerPicture';
 import EventList from 'components/lists/EventList';
 import UserList from 'components/lists/UserList';

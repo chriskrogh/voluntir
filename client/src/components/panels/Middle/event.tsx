@@ -5,7 +5,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { ButtonGroup, Button } from '@material-ui/core';
-import Panel from '.';
+import Panel from './common/panel';
 import CollapseableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';

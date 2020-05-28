@@ -3,7 +3,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import /*type*/ { History } from 'history';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import Panel from '.';
+import Panel from './common/panel';
 import BannerPicture from 'components/BannerPicture';
 import Title from 'components/typography/Title';
 import EventList from 'components/lists/EventList';
