@@ -9,6 +9,8 @@ import EventPanel from 'components/panels/Middle/event';
 import FeedPanel from 'components/panels/Middle/feed';
 import ProfilePanel from 'components/panels/Middle/profile';
 import CommunityPanel from 'components/panels/Middle/community';
+import SettingsPanel from 'components/panels/Middle/settings';
+import MorePanel from 'components/panels/Middle/more';
 
 const styles = (theme: Theme) => createStyles({
   container: {
@@ -42,6 +44,10 @@ const Panel = ({ panel }: PanelProps) => {
       return <CommunityPanel />;
     case Panels.EVENT:
       return <EventPanel />;
+    case Panels.SETTINGS:
+      return <SettingsPanel />;
+    case Panels.MORE:
+      return <MorePanel />;
     default:
       return <FeedPanel feed={Feeds.HOME} />;
   }

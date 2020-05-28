@@ -3,6 +3,8 @@ export enum Routes {
   HOME = '/',
   EXPLORE = '/explore',
   PROFILE = '/profile',
+  SETTINGS = '/settings',
+  MORE = '/more',
   EVENT = '/event',
   COMMUNITY = '/community'
 }
@@ -16,6 +18,8 @@ export enum Panels {
   HOME = 'Home',
   EXPLORE = 'Explore',
   PROFILE = 'Profile',
+  SETTINGS = 'Settings',
+  MORE = 'More',
   EVENT = 'Event',
   COMMUNITY = 'Community',
 }

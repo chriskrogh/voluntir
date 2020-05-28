@@ -5,7 +5,7 @@ import ThemeProvider from 'theme/themeProvider';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Main from 'components/pages/Main';
 import Auth from 'components/pages/Auth';
-import { Panels } from 'utils/constants';
+import { Routes, Panels } from 'utils/constants';
 
 function App() {
   return (
@@ -13,12 +13,43 @@ function App() {
       <ThemeContextProvider>
         <ThemeProvider>
           <BrowserRouter>
-            <Route path='/auth' component={Auth}></Route>
-            <Route path='/' exact render={() => <Main panel={Panels.HOME} />}></Route>
-            <Route path='/explore' render={() => <Main panel={Panels.EXPLORE} />}></Route>
-            <Route path='/event' render={() => <Main panel={Panels.EVENT} />}></Route>
-            <Route path='/community' render={() => <Main panel={Panels.COMMUNITY} />}></Route>
-            <Route path='/profile' render={() => <Main panel={Panels.PROFILE} />}></Route>
+            <Route
+              path={Routes.AUTH}
+              component={Auth}>
+            </Route>
+            <Route
+              path={Routes.HOME}
+              exact
+              render={() => <Main panel={Panels.HOME} />}>
+            </Route>
+            <Route
+              path={Routes.EXPLORE}
+              render={() => <Main panel={Panels.EXPLORE} />}>
+
+            </Route>
+            <Route
+              path={Routes.EVENT}
+              render={() => <Main panel={Panels.EVENT} />}>
+
+            </Route>
+            <Route
+              path={Routes.COMMUNITY}
+              render={() => <Main panel={Panels.COMMUNITY} />}>
+
+            </Route>
+            <Route
+              path={Routes.PROFILE}
+              render={() => <Main panel={Panels.PROFILE} />}>
+
+            </Route>
+            <Route
+              path={Routes.SETTINGS}
+              render={() => <Main panel={Panels.SETTINGS} />}>
+            </Route>
+            <Route
+              path={Routes.MORE}
+              render={() => <Main panel={Panels.MORE} />}>
+            </Route>
           </BrowserRouter>
         </ThemeProvider>
       </ThemeContextProvider>

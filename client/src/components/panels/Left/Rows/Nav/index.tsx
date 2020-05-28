@@ -6,6 +6,8 @@ import { Button } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Explore';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SettingsIcon from '@material-ui/icons/Settings';
+import MoreIcon from '@material-ui/icons/More';
 import { Panels, Routes } from 'utils/constants';
 
 interface IconProps {
@@ -21,6 +23,10 @@ const Icon = ({ panel, className }: IconProps) => {
       return <ExploreIcon className={className} />;
     case Panels.PROFILE:
       return <AccountCircleIcon className={className} />;
+    case Panels.SETTINGS:
+      return <SettingsIcon className={className} />;
+    case Panels.MORE:
+      return <MoreIcon className={className} />;
     default:
       return <div />;
   }
@@ -52,6 +58,16 @@ function NavButton({ styles, panel }: Props) {
         if (location.pathname !== Routes.PROFILE) {
           // replace when api implementation is complete
           history.push(Routes.PROFILE + '?id=0' /*user._id*/);
+        }
+        break;
+      case Panels.SETTINGS:
+        if (location.pathname !== Routes.SETTINGS) {
+          history.push(Routes.SETTINGS);
+        }
+        break;
+      case Panels.MORE:
+        if (location.pathname !== Routes.MORE) {
+          history.push(Routes.MORE);
         }
         break;
       default:

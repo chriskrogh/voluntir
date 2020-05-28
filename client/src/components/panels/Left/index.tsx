@@ -99,6 +99,18 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
           />
         </div>
         <div className={classes.row}>
+          <NavButton
+            styles={rowStyles}
+            panel={Panels.SETTINGS}
+          />
+        </div>
+        <div className={classes.row}>
+          <NavButton
+            styles={rowStyles}
+            panel={Panels.MORE}
+          />
+        </div>
+        <div className={classes.row}>
           <ThemeToggleButton styles={rowStyles} />
         </div>
         <div className={classes.row}>
