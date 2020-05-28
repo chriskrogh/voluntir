@@ -67,13 +67,6 @@ const styles = (theme: Theme) => createStyles({
 });
 
 function LeftPanel({ classes }: WithStyles<typeof styles>) {
-  const rowStyles = {
-    button: classes.button,
-    iconContainer: classes.iconContainer,
-    icon: classes.iconSize,
-    labelContainer: classes.labelContainer
-  };
-
   return (
     <div className={classes.panel}>
       <div className={classes.row}>
@@ -82,39 +75,39 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
       <div className={classes.table}>
         <div className={classes.row}>
           <NavButton
-            styles={rowStyles}
+            styles={classes}
             panel={Panels.HOME}
           />
         </div>
         <div className={classes.row}>
           <NavButton
-            styles={rowStyles}
+            styles={classes}
             panel={Panels.EXPLORE}
           />
         </div>
         <div className={classes.row}>
           <NavButton
-            styles={rowStyles}
+            styles={classes}
             panel={Panels.PROFILE}
           />
         </div>
         <div className={classes.row}>
           <NavButton
-            styles={rowStyles}
+            styles={classes}
             panel={Panels.SETTINGS}
           />
         </div>
         <div className={classes.row}>
           <NavButton
-            styles={rowStyles}
+            styles={classes}
             panel={Panels.MORE}
           />
         </div>
         <div className={classes.row}>
-          <ThemeToggleButton styles={rowStyles} />
+          <ThemeToggleButton styles={classes} />
         </div>
         <div className={classes.row}>
-          <LogoutButton styles={rowStyles} />
+          <LogoutButton styles={classes} />
         </div>
       </div>
     </div>
