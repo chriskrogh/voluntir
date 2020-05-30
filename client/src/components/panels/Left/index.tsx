@@ -3,7 +3,6 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Logo from 'components/buttons/Logo';
 import NavButton from './Rows/Nav';
-import ThemeToggleButton from '../../buttons/ThemeToggle';
 import LogoutButton from './Rows/Logout';
 import { Panels } from 'utils/constants';
 
@@ -102,9 +101,6 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
             styles={classes}
             panel={Panels.MORE}
           />
-        </div>
-        <div className={classes.row}>
-          <ThemeToggleButton styles={classes} />
         </div>
         <div className={classes.row}>
           <LogoutButton styles={classes} />

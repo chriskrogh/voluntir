@@ -8,7 +8,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Routes } from 'utils/constants';
 
 interface Props {
-    styles: LeftPanelRowStyles;
+  styles: LeftPanelRowStyles;
 }
 
 function LogoutButton({ styles }: Props) {
@@ -34,7 +34,7 @@ function LogoutButton({ styles }: Props) {
         <ExitToAppIcon className={styles.icon} />
       </div>
       <div className={styles.labelContainer}>
-                Sign out
+        Sign out
       </div>
     </Button>
   );

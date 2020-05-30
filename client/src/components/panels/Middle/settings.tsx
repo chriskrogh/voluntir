@@ -1,18 +1,34 @@
 import React from 'react';
+import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import Panel from './common/panel';
 import Container from './common/container';
 import Title from 'components/typography/Title';
+import ThemeToggleButton from 'components/buttons/ThemeToggle';
 
-function Settings() {
+const styles = (theme: Theme) => createStyles({
+  container: {
+    margin: `0 ${theme.spacing(2)}px`
+  },
+  titleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: `0 ${theme.spacing(2)}px`,
+    height: 48
+  }
+});
+
+function Settings({ classes }: WithStyles<typeof styles>) {
   return (
     <Panel>
-      <Container>
-        <div>
-          <Title text="Settings" />
-        </div>
+      <div className={classes.titleContainer}>
+        <Title text="Settings" />
+      </div>
+      <Container className={classes.container}>
+        <ThemeToggleButton />
       </Container>
     </Panel>
   );
 }
 
-export default Settings;
+export default withStyles(styles)(Settings);
