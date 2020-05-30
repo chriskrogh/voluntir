@@ -5,8 +5,9 @@ import { Button } from '@material-ui/core';
 import Panel from './common/panel';
 import Container from './common/container';
 import Title from 'components/typography/Title';
-import AddIcon from '@material-ui/icons/Add';
+import Subtitle from 'components/typography/Subtitle';
 import ParagraphText from 'components/typography/ParagraphText';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = (theme: Theme) => createStyles({
   container: {
@@ -17,6 +18,9 @@ const styles = (theme: Theme) => createStyles({
     alignItems: 'center',
     margin: `0 ${theme.spacing(2)}px`,
     height: 48
+  },
+  subtitleContainer: {
+    marginBottom: theme.spacing(1)
   },
   button: {
     height: '100%',
@@ -46,14 +50,15 @@ function More({ classes }: WithStyles<typeof styles>) {
         <Title text="More" />
       </div>
       <Container className={classes.container}>
-        <div>
-          <Button className={classes.button}>
-            <div className={classes.iconContainer}>
-              <AddIcon className={classes.icon} />
-            </div>
-            <ParagraphText text='Create a community' />
-          </Button>
+        <div className={classes.subtitleContainer}>
+          <Subtitle text="Communities" />
         </div>
+        <Button className={classes.button}>
+          <div className={classes.iconContainer}>
+            <AddIcon className={classes.icon} />
+          </div>
+          <ParagraphText text='Create a community' />
+        </Button>
       </Container>
     </Panel>
   );

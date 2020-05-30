@@ -4,6 +4,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import Panel from './common/panel';
 import Container from './common/container';
 import Title from 'components/typography/Title';
+import Subtitle from 'components/typography/Subtitle';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';
 
 const styles = (theme: Theme) => createStyles({
@@ -15,6 +16,9 @@ const styles = (theme: Theme) => createStyles({
     alignItems: 'center',
     margin: `0 ${theme.spacing(2)}px`,
     height: 48
+  },
+  subtitleContainer: {
+    marginBottom: theme.spacing(1)
   }
 });
 
@@ -25,6 +29,9 @@ function Settings({ classes }: WithStyles<typeof styles>) {
         <Title text="Settings" />
       </div>
       <Container className={classes.container}>
+        <div className={classes.subtitleContainer}>
+          <Subtitle text="Theme" />
+        </div>
         <ThemeToggleButton />
       </Container>
     </Panel>
