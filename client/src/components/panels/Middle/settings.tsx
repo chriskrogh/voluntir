@@ -14,7 +14,7 @@ const styles = (theme: Theme) => createStyles({
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
-    margin: `0 ${theme.spacing(2)}px`,
+    margin: `0 ${theme.spacing(3)}px`,
     height: 48
   },
   subtitleContainer: {
