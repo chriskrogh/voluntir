@@ -25,6 +25,11 @@ const styles = (theme: Theme) => createStyles({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
+  iconContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginRight: theme.spacing(2)
+  },
   icon: {
     color: theme.palette.text.primary,
     fontSize: 30,
@@ -43,7 +48,9 @@ function More({ classes }: WithStyles<typeof styles>) {
       <Container className={classes.container}>
         <div>
           <Button className={classes.button}>
-            <AddIcon className={classes.icon} />
+            <div className={classes.iconContainer}>
+              <AddIcon className={classes.icon} />
+            </div>
             <ParagraphText text='Create a community' />
           </Button>
         </div>
