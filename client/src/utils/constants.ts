@@ -6,7 +6,9 @@ export enum Routes {
   SETTINGS = '/settings',
   MORE = '/more',
   EVENT = '/event',
-  COMMUNITY = '/community'
+  COMMUNITY = '/community',
+  CREATE_EVENT = '/create/event',
+  CREATE_COMMUNITY = '/create/community'
 }
 
 export enum Feeds {
@@ -22,6 +24,8 @@ export enum Panels {
   MORE = 'More',
   EVENT = 'Event',
   COMMUNITY = 'Community',
+  CREATE_EVENT = 'Create Event',
+  CREATE_COMMUNITY = 'Create Community'
 }
 
 export enum StaticAssets {

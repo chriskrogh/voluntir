@@ -6,11 +6,11 @@ import Page from 'components/Page';
 import Left from 'components/panels/Left';
 import Right from 'components/panels/Right';
 import EventPanel from 'components/panels/Middle/event';
-import FeedPanel from 'components/panels/Middle/feed';
-import ProfilePanel from 'components/panels/Middle/profile';
+import FeedPanel from 'components/panels/Middle/Feed';
+import ProfilePanel from 'components/panels/Middle/Profile';
 import CommunityPanel from 'components/panels/Middle/community';
-import SettingsPanel from 'components/panels/Middle/settings';
-import MorePanel from 'components/panels/Middle/more';
+import SettingsPanel from 'components/panels/Middle/Settings';
+import MorePanel from 'components/panels/Middle/More';
 
 const styles = (theme: Theme) => createStyles({
   container: {

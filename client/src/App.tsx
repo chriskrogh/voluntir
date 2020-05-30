@@ -50,6 +50,10 @@ function App() {
               path={Routes.MORE}
               render={() => <Main panel={Panels.MORE} />}>
             </Route>
+            <Route
+              path={Routes.CREATE_COMMUNITY}
+              render={() => <Main panel={Panels.CREATE_COMMUNITY} />}>
+            </Route>
           </BrowserRouter>
         </ThemeProvider>
       </ThemeContextProvider>
