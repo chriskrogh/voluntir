@@ -48,22 +48,22 @@ const styles = () => createStyles({
 
 const getContainerWidth = (screenSize: ScreenSize): number => {
   switch (screenSize) {
-  case ScreenSize.MD:
-    return 502;
-  case ScreenSize.SM:
-    return 356;
-  case ScreenSize.XS:
-    return Math.min(356, window.innerWidth - 48);
-  default:
-    return 502;
+    case ScreenSize.MD:
+      return 502;
+    case ScreenSize.SM:
+      return 356;
+    case ScreenSize.XS:
+      return Math.min(356, window.innerWidth - 48);
+    default:
+      return 502;
   }
 }
 
 const getIndex = (translateValue: number) => ((translateValue / 100) * -1);
 
 interface Props extends WithStyles<typeof styles> {
-    media: Media[];
-    screenSize: ScreenSize;
+  media: Media[];
+  screenSize: ScreenSize;
 }
 
 function Slider({ classes, media, screenSize }: Props) {
