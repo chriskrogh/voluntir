@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
+import isEqual from 'react-fast-compare';
 import { LeftPanelRowStyles } from 'types/leftPanelRow';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
@@ -40,4 +41,4 @@ function LogoutButton({ styles }: Props) {
   );
 }
 
-export default LogoutButton;
+export default memo(LogoutButton, isEqual);

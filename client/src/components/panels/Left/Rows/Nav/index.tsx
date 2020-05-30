@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
+import isEqual from 'react-fast-compare';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { LeftPanelRowStyles } from 'types/leftPanelRow';
@@ -87,4 +88,4 @@ function NavButton({ styles, panel }: Props) {
   );
 }
 
-export default NavButton;
+export default memo(NavButton, isEqual);

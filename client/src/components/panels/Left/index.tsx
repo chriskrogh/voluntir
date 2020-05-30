@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
+import isEqual from 'react-fast-compare';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Logo from 'components/buttons/Logo';
@@ -110,4 +111,4 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
   );
 }
 
-export default withStyles(styles)(LeftPanel);
+export default memo(withStyles(styles)(LeftPanel), isEqual);
