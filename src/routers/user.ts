@@ -8,7 +8,7 @@ import '../db/mongoose';
 const router = express.Router();
 
 // sign up
-router.post('/api/users/signup', async (req: Request, res: Response) => {
+router.post('/api/user/signup', async (req: Request, res: Response) => {
   try {
     const user = new UserModel(req.body);
     const token = await user.generateAuthToken();
@@ -20,7 +20,7 @@ router.post('/api/users/signup', async (req: Request, res: Response) => {
 });
 
 // login
-router.post('/api/users', async (req: Request, res: Response) => {
+router.post('/api/user', async (req: Request, res: Response) => {
   try {
     const { email, secret } = req.body;
     const user = await UserModel.findByCredentials(email, secret);
@@ -32,7 +32,7 @@ router.post('/api/users', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/api/users/thirdPartyAuth', async (req: Request, res: Response) => {
+router.post('/api/user/thirdPartyAuth', async (req: Request, res: Response) => {
   try {
     const { email, secret } = req.body;
     const user = await UserModel.findOne({ email });
@@ -52,7 +52,7 @@ router.post('/api/users/thirdPartyAuth', async (req: Request, res: Response) => 
 });
 
 // logout
-router.post('/api/users/logout', auth, async (req: UserRequest, res: Response) => {
+router.post('/api/user/logout', auth, async (req: UserRequest, res: Response) => {
   try {
     if (req.user == null) {
       throw new Error();
@@ -69,7 +69,7 @@ router.post('/api/users/logout', auth, async (req: UserRequest, res: Response) =
 });
 
 // logout all
-router.post('/api/users/logoutAll', auth, async (req: UserRequest, res: Response) => {
+router.post('/api/user/logoutAll', auth, async (req: UserRequest, res: Response) => {
   try {
     if (req.user == null) {
       throw new Error();
@@ -84,12 +84,12 @@ router.post('/api/users/logoutAll', auth, async (req: UserRequest, res: Response
 });
 
 // get me
-router.get('/api/users/me', auth, async (req: UserRequest, res: Response) => {
+router.get('/api/user/me', auth, async (req: UserRequest, res: Response) => {
   res.send(req.user);
 });
 
 // get someone
-router.get('/api/users', auth, async (req: Request, res: Response) => {
+router.get('/api/user', auth, async (req: Request, res: Response) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email });
     if (!user) {
@@ -103,7 +103,7 @@ router.get('/api/users', auth, async (req: Request, res: Response) => {
 });
 
 // get avatar
-router.get('/api/users/:id/picture', async (req: Request, res: Response) => {
+router.get('/api/user/:id/picture', async (req: Request, res: Response) => {
   try {
     const user = await UserModel.findById(req.params.id);
     if (!user || !user.picture) {
@@ -118,7 +118,7 @@ router.get('/api/users/:id/picture', async (req: Request, res: Response) => {
 });
 
 // update me
-router.patch('/api/users/me', auth, async (req: UserRequest, res: Response) => {
+router.patch('/api/user/me', auth, async (req: UserRequest, res: Response) => {
   try {
     const source = req.body as UserDoc;
     if (!req.user) throw new Error();
@@ -132,7 +132,7 @@ router.patch('/api/users/me', auth, async (req: UserRequest, res: Response) => {
 });
 
 // update someone
-router.patch('/api/users/:id', auth, async (req: Request, res: Response) => {
+router.patch('/api/user/:id', auth, async (req: Request, res: Response) => {
   const source = req.body as UserDoc;
   try {
     const user = await UserModel.findById(req.params.id);
@@ -151,7 +151,7 @@ router.patch('/api/users/:id', auth, async (req: Request, res: Response) => {
 });
 
 // delete me
-router.delete('/api/users/me', auth, async (req: UserRequest, res: Response) => {
+router.delete('/api/user/me', auth, async (req: UserRequest, res: Response) => {
   try {
     if (!req.user) throw new Error();
     await req.user.remove();
@@ -163,7 +163,7 @@ router.delete('/api/users/me', auth, async (req: UserRequest, res: Response) => 
 });
 
 // delete someone
-router.delete('/api/users/:id', auth, async (req: Request, res: Response) => {
+router.delete('/api/user/:id', auth, async (req: Request, res: Response) => {
   try {
     const user = await UserModel.findById(req.params.id);
     if (user != null) {
