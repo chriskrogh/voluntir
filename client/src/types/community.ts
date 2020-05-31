@@ -6,6 +6,5 @@ export type Community = ModelMetadata & {
   logo?: string;
   banner?: string;
   admins: string[];
-
   events: string[];
 }
