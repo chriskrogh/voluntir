@@ -9,8 +9,8 @@ import { Writable } from 'stream';
 const blobService = storage.createBlobService();
 
 type ListContainersResult = {
-    message: string;
-    containers: BlobService.ContainerResult[];
+  message: string;
+  containers: BlobService.ContainerResult[];
 }
 
 const listContainers = async (): Promise<ListContainersResult> => {
