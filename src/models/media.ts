@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export interface MediaDoc extends mongoose.Document {
-    AR: number;
+  AR: number;
 }
 
 const MediaSchema = new mongoose.Schema({
