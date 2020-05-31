@@ -15,7 +15,7 @@ type ListContainersResult = {
 
 const listContainers = async (): Promise<ListContainersResult> => {
   return new Promise((resolve, reject) => {
-    blobService.listContainersSegmented({ nextMarker: "" },
+    blobService.listContainersSegmented(null,
       (err: Error, data: BlobService.ListContainerResult) => {
         if (err) {
           reject(err);
