@@ -15,7 +15,7 @@ const containerName = process.env.NODE_ENV === 'production' ? 'prod-media' : 'me
 
 // set media
 router.post(
-  Routes.MEDIA + '',
+  Routes.MEDIA,
   auth,
   upload.single('media'),
   async (req: UserRequest, res: Response) => {
