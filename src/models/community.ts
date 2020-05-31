@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 export interface CommunityData extends mongoose.Document {
-    title: string;
-    description: string;
-    admins?: mongoose.Schema.Types.ObjectId[];
+  title: string;
+  description: string;
+  admins?: mongoose.Schema.Types.ObjectId[];
 }
 
 const CommunitySchema = new mongoose.Schema({
