@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
 
-export interface CommunityData extends mongoose.Document {
+export interface CommunityDoc extends mongoose.Document {
   title: string;
   description: string;
-  admins?: mongoose.Schema.Types.ObjectId[];
+  logo?: string;
+  banner?: string;
+  admins: mongoose.Schema.Types.ObjectId[];
 }
 
 const CommunitySchema = new mongoose.Schema({
@@ -17,6 +19,12 @@ const CommunitySchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  logo: {
+    type: String
+  },
+  banner: {
+    type: String
+  },
   admins: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -25,4 +33,6 @@ const CommunitySchema = new mongoose.Schema({
   timestamps: true
 });
 
-export const CommunityModel = mongoose.model<CommunityData>('Community', CommunitySchema);
+const CommunityModel = mongoose.model<CommunityDoc>('Community', CommunitySchema);
+
+export default CommunityModel;

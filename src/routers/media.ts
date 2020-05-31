@@ -1,11 +1,12 @@
 import express, { Request, Response } from 'express';
+import { PassThrough } from 'stream';
 import { UserRequest } from '../types/network';
 import MediaModel, { MediaDoc } from '../models/media';
 import upload from '../utils/upload';
 import auth from '../middleware/auth';
 import compress from '../utils/compress';
 import blobService from '../utils/blobstorage';
-import { PassThrough } from 'stream';
+import { Routes } from '../utils/constants';
 import '../db/mongoose';
 
 const router = express.Router();
@@ -14,7 +15,7 @@ const containerName = process.env.NODE_ENV === 'production' ? 'prod-media' : 'me
 
 // set media
 router.post(
-  '/api/media',
+  Routes.MEDIA + '',
   auth,
   upload.single('media'),
   async (req: UserRequest, res: Response) => {
@@ -36,7 +37,7 @@ router.post(
 );
 
 // get media by id
-router.get('/api/media/:id', async (req: Request, res: Response) => {
+router.get(Routes.MEDIA + '/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -56,7 +57,7 @@ router.get('/api/media/:id', async (req: Request, res: Response) => {
 });
 
 // update media
-router.patch('/api/media/:id', auth, async (req: Request, res: Response) => {
+router.patch(Routes.MEDIA + '/:id', auth, async (req: Request, res: Response) => {
   const updates = req.body as MediaDoc;
   try {
     const media = await MediaModel.findById(req.params.id);
@@ -75,7 +76,7 @@ router.patch('/api/media/:id', auth, async (req: Request, res: Response) => {
 });
 
 // delete media
-router.delete('/api/media/:id', auth, async (req: UserRequest, res: Response) => {
+router.delete(Routes.MEDIA + '/:id', auth, async (req: UserRequest, res: Response) => {
   try {
     const media = await MediaModel.findById(req.params.id);
     if (!media) {
