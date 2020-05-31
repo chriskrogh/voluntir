@@ -1,6 +1,7 @@
 import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom'
 import { Button } from '@material-ui/core';
 import Panel from './common/Panel';
 import Container from './common/Container';
@@ -8,6 +9,7 @@ import Title from 'components/typography/Title';
 import Subtitle from 'components/typography/Subtitle';
 import ParagraphText from 'components/typography/ParagraphText';
 import AddIcon from '@material-ui/icons/Add';
+import { Routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
   container: {
@@ -44,6 +46,12 @@ const styles = (theme: Theme) => createStyles({
 });
 
 function More({ classes }: WithStyles<typeof styles>) {
+  const history = useHistory();
+
+  const createCommunity = () => {
+    history.push(Routes.CREATE_COMMUNITY);
+  }
+
   return (
     <Panel>
       <div className={classes.titleContainer}>
@@ -53,7 +61,7 @@ function More({ classes }: WithStyles<typeof styles>) {
         <div className={classes.subtitleContainer}>
           <Subtitle text="Communities" />
         </div>
-        <Button className={classes.button}>
+        <Button className={classes.button} onClick={createCommunity}>
           <div className={classes.iconContainer}>
             <AddIcon className={classes.icon} />
           </div>

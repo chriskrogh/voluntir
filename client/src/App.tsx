@@ -54,6 +54,10 @@ function App() {
               path={Routes.CREATE_COMMUNITY}
               render={() => <Main panel={Panels.CREATE_COMMUNITY} />}>
             </Route>
+            <Route
+              path={Routes.CREATE_EVENT}
+              render={() => <Main panel={Panels.CREATE_EVENT} />}>
+            </Route>
           </BrowserRouter>
         </ThemeProvider>
       </ThemeContextProvider>
