@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 export interface EventData extends mongoose.Document {
-    title: string;
-    description: string;
-    community: mongoose.Schema.Types.ObjectId;
-    owner: mongoose.Schema.Types.ObjectId;
+  title: string;
+  description: string;
+  community: mongoose.Schema.Types.ObjectId;
+  owner: mongoose.Schema.Types.ObjectId;
 }
 
 const EventSchema = new mongoose.Schema({
