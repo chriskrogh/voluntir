@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import UserModel, { UserDoc } from "../models/user";
-import { UserRequest } from '../types/network';
+import { AuthenticatedRequest } from '../types/network';
 import auth from '../middleware/auth';
 import { Routes } from '../utils/constants';
 import * as M from '../utils/errorMessages';
@@ -53,7 +53,7 @@ router.post(Routes.USER + '/thirdPartyAuth', async (req: Request, res: Response)
 });
 
 // logout
-router.post(Routes.USER + '/logout', auth, async (req: UserRequest, res: Response) => {
+router.post(Routes.USER + '/logout', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     if (req.user == null) {
       throw new Error();
@@ -70,7 +70,7 @@ router.post(Routes.USER + '/logout', auth, async (req: UserRequest, res: Respons
 });
 
 // logout all
-router.post(Routes.USER + '/logoutAll', auth, async (req: UserRequest, res: Response) => {
+router.post(Routes.USER + '/logoutAll', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     if (req.user == null) {
       throw new Error();
@@ -85,7 +85,7 @@ router.post(Routes.USER + '/logoutAll', auth, async (req: UserRequest, res: Resp
 });
 
 // get me
-router.get(Routes.USER + '/me', auth, async (req: UserRequest, res: Response) => {
+router.get(Routes.USER + '/me', auth, async (req: AuthenticatedRequest, res: Response) => {
   res.send(req.user);
 });
 
@@ -119,7 +119,7 @@ router.get(Routes.USER + '/:id/picture', async (req: Request, res: Response) => 
 });
 
 // update me
-router.patch(Routes.USER + '/me', auth, async (req: UserRequest, res: Response) => {
+router.patch(Routes.USER + '/me', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const source = req.body as UserDoc;
     if (!req.user) throw new Error();
@@ -152,7 +152,7 @@ router.patch(Routes.USER + '/:id', auth, async (req: Request, res: Response) => 
 });
 
 // delete me
-router.delete(Routes.USER + '/me', auth, async (req: UserRequest, res: Response) => {
+router.delete(Routes.USER + '/me', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     if (!req.user) throw new Error();
     await req.user.remove();

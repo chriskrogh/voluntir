@@ -77,17 +77,17 @@ UserSchema.pre('save', async function (next) {
 });
 
 export interface UserDoc extends mongoose.Document {
-    name: string;
-    email: string;
-    secret: string;
-    picture?: string;
-    tokens: string[];
-    generateAuthToken: () => Promise<string>;
+  name: string;
+  email: string;
+  secret: string;
+  picture?: string;
+  tokens: string[];
+  generateAuthToken: () => Promise<string>;
 }
 
 interface User extends mongoose.Model<UserDoc> {
-    findByCredentials: (email: string, secret: string) => Promise<UserDoc>;
-    validateSecret: (user: UserDoc, secret: string) => Promise<UserDoc>;
+  findByCredentials: (email: string, secret: string) => Promise<UserDoc>;
+  validateSecret: (user: UserDoc, secret: string) => Promise<UserDoc>;
 }
 
 const UserModel: User = mongoose.model<UserDoc, User>('User', UserSchema);

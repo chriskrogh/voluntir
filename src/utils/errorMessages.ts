@@ -9,3 +9,6 @@ export const AR = 'Could not get aspect ratio from image buffer';
 
 // COMMUNITY
 export const CREATE_COMMUNITY = 'Could not create community';
+export const GET_COMMUNITY = 'Could not get community';
+export const ADMIN_UPDATE_COMMUNITY = 'Only admins can update communities';
+export const ADMIN_DELETE_COMMUNITY = 'Only admins can delete communities';

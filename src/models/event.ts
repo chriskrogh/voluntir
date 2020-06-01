@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 export interface EventData extends mongoose.Document {
   title: string;
   description: string;
-  community: mongoose.Schema.Types.ObjectId;
-  owner: mongoose.Schema.Types.ObjectId;
+  community: mongoose.Types.ObjectId;
+  owner: mongoose.Types.ObjectId;
 }
 
 const EventSchema = new mongoose.Schema({
@@ -19,12 +19,12 @@ const EventSchema = new mongoose.Schema({
     trim: true
   },
   community: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true,
     ref: 'Community'
   },
   owner: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true,
     ref: 'User'
   }

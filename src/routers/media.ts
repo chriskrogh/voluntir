@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { PassThrough } from 'stream';
 import { imageSize } from 'image-size';
-import { UserRequest } from '../types/network';
+import { AuthenticatedRequest } from '../types/network';
 import MediaModel, { MediaDoc } from '../models/media';
 import upload from '../utils/upload';
 import auth from '../middleware/auth';
@@ -20,7 +20,7 @@ router.post(
   Routes.MEDIA,
   auth,
   upload.single('media'),
-  async (req: UserRequest, res: Response) => {
+  async (req: AuthenticatedRequest, res: Response) => {
     try {
       await blobService.createContainerIfDoesNotExist(containerName);
       if (!req.file || !req.file.buffer) throw new Error;
@@ -81,8 +81,8 @@ router.get(Routes.MEDIA + '/image/:id', async (req: Request, res: Response) => {
 
 // update media
 router.patch(Routes.MEDIA + '/:id', auth, async (req: Request, res: Response) => {
-  const updates = req.body as MediaDoc;
   try {
+    const updates = req.body as MediaDoc;
     const media = await MediaModel.findById(req.params.id);
     if (!media) {
       throw new Error;
@@ -99,7 +99,7 @@ router.patch(Routes.MEDIA + '/:id', auth, async (req: Request, res: Response) =>
 });
 
 // delete media
-router.delete(Routes.MEDIA + '/:id', auth, async (req: UserRequest, res: Response) => {
+router.delete(Routes.MEDIA + '/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const media = await MediaModel.findById(req.params.id);
     if (!media) {
