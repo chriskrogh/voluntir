@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { PassThrough } from 'stream';
+import { imageSize } from 'image-size';
 import { UserRequest } from '../types/network';
 import MediaModel, { MediaDoc } from '../models/media';
 import upload from '../utils/upload';
@@ -7,6 +8,7 @@ import auth from '../middleware/auth';
 import compress from '../utils/compress';
 import blobService from '../utils/blobstorage';
 import { Routes } from '../utils/constants';
+import * as M from '../utils/errorMessages';
 import '../db/mongoose';
 
 const router = express.Router();
@@ -24,7 +26,12 @@ router.post(
       if (!req.file || !req.file.buffer) throw new Error;
 
       const newBuffer = await compress(req.file.buffer);
-      const media = new MediaModel({ ...req.body });
+
+      const { width, height } = imageSize(newBuffer);
+      if(!width || !height) throw new Error(M.AR);
+      const AR = width / height;
+
+      const media = new MediaModel({ AR });
 
       await blobService.uploadString(containerName, media._id + '.jpg', newBuffer);
       await media.save();
@@ -38,6 +45,22 @@ router.post(
 
 // get media by id
 router.get(Routes.MEDIA + '/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const media = await MediaModel.findById(id);
+    if (media == null) {
+      res.status(404).send();
+    } else {
+      res.send(media);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+// get image by id
+router.get(Routes.MEDIA + '/image/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
