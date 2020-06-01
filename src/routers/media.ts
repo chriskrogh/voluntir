@@ -35,7 +35,7 @@ router.post(
 
       await blobService.uploadString(containerName, media._id + '.jpg', newBuffer);
       await media.save();
-      res.status(201).send();
+      res.status(201).send(media);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
