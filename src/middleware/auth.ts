@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import UserModel from '../models/user';
 
 type TokenVerification = {
-    id: string;
+  id: string;
 }
 
 const auth = async (req: UserRequest, res: Response, next: NextFunction) => {
