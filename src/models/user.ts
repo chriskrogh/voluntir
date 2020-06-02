@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { Schema, Document, model, Model } from 'mongoose';
+import { Schema, Document, model, Model, Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { MediaDoc } from './media';
 import { ObjectRefs } from '../utils/constants';
 
 const UserSchema = new Schema({
@@ -22,7 +23,10 @@ const UserSchema = new Schema({
     required: true
   },
   picture: {
-    type: String
+    type: Types.ObjectId
+  },
+  banner: {
+    type: Types.ObjectId
   },
   tokens: [{
     type: String,
@@ -82,7 +86,8 @@ export interface UserDoc extends Document {
   name: string;
   email: string;
   secret: string;
-  picture?: string;
+  picture?: Types.ObjectId | MediaDoc;
+  banner?: Types.ObjectId | MediaDoc;
   tokens: string[];
   generateAuthToken: () => Promise<string>;
 }
