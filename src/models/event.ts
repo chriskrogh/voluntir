@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
+import { CommunityDoc } from './community';
 
-export interface EventData extends mongoose.Document {
+export interface EventDoc extends mongoose.Document {
   title: string;
   description: string;
-  community: mongoose.Types.ObjectId;
-  owner: mongoose.Types.ObjectId;
+  community: mongoose.Types.ObjectId | CommunityDoc;
 }
 
 const EventSchema = new mongoose.Schema({
@@ -22,14 +22,11 @@ const EventSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true,
     ref: 'Community'
-  },
-  owner: {
-    type: mongoose.Types.ObjectId,
-    required: true,
-    ref: 'User'
   }
 }, {
   timestamps: true
 });
 
-export const EventModel = mongoose.model<EventData>('Event', EventSchema);
+const EventModel = mongoose.model<EventDoc>('Event', EventSchema);
+
+export default EventModel;
