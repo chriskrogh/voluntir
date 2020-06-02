@@ -12,7 +12,6 @@ const MediaSchema = new Schema({
   },
   event: {
     type: Types.ObjectId,
-    required: true,
     ref: ObjectRefs.EVENT
   }
 }, {
