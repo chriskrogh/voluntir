@@ -1,13 +1,15 @@
-import mongoose from 'mongoose';
+import { Types, Schema, Document, model } from 'mongoose';
 import { CommunityDoc } from './community';
+import { MediaDoc } from './media';
 
-export interface EventDoc extends mongoose.Document {
+export interface EventDoc extends Document {
   title: string;
   description: string;
-  community: mongoose.Types.ObjectId | CommunityDoc;
+  community: Types.ObjectId | CommunityDoc;
+  media: Types.ObjectId | MediaDoc;
 }
 
-const EventSchema = new mongoose.Schema({
+const EventSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -19,14 +21,18 @@ const EventSchema = new mongoose.Schema({
     trim: true
   },
   community: {
-    type: mongoose.Types.ObjectId,
+    type: Types.ObjectId,
     required: true,
     ref: 'Community'
-  }
+  },
+  media: [{
+    type: Types.ObjectId,
+    ref: 'Media'
+  }]
 }, {
   timestamps: true
 });
 
-const EventModel = mongoose.model<EventDoc>('Event', EventSchema);
+const EventModel = model<EventDoc>('Event', EventSchema);
 
 export default EventModel;
