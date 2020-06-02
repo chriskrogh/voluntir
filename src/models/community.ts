@@ -7,7 +7,6 @@ export interface CommunityDoc extends Document {
   logo?: Types.ObjectId;
   banner?: Types.ObjectId;
   admins: Types.ObjectId[];
-  events?: Types.ObjectId[];
 }
 
 const CommunitySchema = new Schema({
@@ -30,14 +29,16 @@ const CommunitySchema = new Schema({
   admins: [{
     type: Types.ObjectId,
     ref: ObjectRefs.USER
-  }],
-  events: [{
-    type: Types.ObjectId,
-    ref: ObjectRefs.EVENT
   }]
 }, {
   timestamps: true
 });
+
+CommunitySchema.virtual('event', {
+  ref: ObjectRefs.EVENT,
+  localField: '_id',
+  foreignField: 'community'
+})
 
 const CommunityModel = model<CommunityDoc>(ObjectRefs.COMMUNITY, CommunitySchema);
 

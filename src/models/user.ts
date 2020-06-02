@@ -32,11 +32,11 @@ const UserSchema = new Schema({
   timestamps: true
 });
 
-UserSchema.virtual('event', {
-  ref: ObjectRefs.EVENT,
+UserSchema.virtual('admin', {
+  ref: ObjectRefs.COMMUNITY,
   localField: '_id',
-  foreignField: 'owner'
-});
+  foreignField: 'admins'
+})
 
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();

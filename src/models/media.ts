@@ -1,4 +1,4 @@
-import { Schema, Document, model } from 'mongoose';
+import { Types, Schema, Document, model } from 'mongoose';
 import { ObjectRefs } from '../utils/constants';
 
 export interface MediaDoc extends Document {
@@ -9,6 +9,11 @@ const MediaSchema = new Schema({
   AR: {
     type: Number,
     required: true
+  },
+  event: {
+    type: Types.ObjectId,
+    required: true,
+    ref: ObjectRefs.EVENT
   }
 }, {
   timestamps: true

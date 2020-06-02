@@ -1,13 +1,11 @@
 import { Types, Schema, Document, model } from 'mongoose';
 import { CommunityDoc } from './community';
-import { MediaDoc } from './media';
 import { ObjectRefs } from '../utils/constants';
 
 export interface EventDoc extends Document {
   title: string;
   description: string;
   community: Types.ObjectId | CommunityDoc;
-  media: Types.ObjectId | MediaDoc;
 }
 
 const EventSchema = new Schema({
@@ -25,14 +23,16 @@ const EventSchema = new Schema({
     type: Types.ObjectId,
     required: true,
     ref: ObjectRefs.COMMUNITY
-  },
-  media: [{
-    type: Types.ObjectId,
-    ref: ObjectRefs.MEDIA
-  }]
+  }
 }, {
   timestamps: true
 });
+
+EventSchema.virtual('media', {
+  ref: ObjectRefs.MEDIA,
+  localField: '_id',
+  foreignField: 'event'
+})
 
 const EventModel = model<EventDoc>(ObjectRefs.EVENT, EventSchema);
 
