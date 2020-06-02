@@ -1,22 +1,13 @@
 import express, { Request, Response } from 'express';
-import { Types } from 'mongoose';
 import Community, { CommunityDoc } from "../models/community";
 import { AuthenticatedRequest } from '../types/network';
 import auth from '../middleware/auth';
 import * as M from '../utils/errorMessages';
 import { Routes } from '../utils/constants';
+import { isAdmin } from './utils';
 import '../db/mongoose';
 
 const router = express.Router();
-
-const isAdmin = (userId: Types.ObjectId, community: CommunityDoc) => {
-  for(const adminId of community.admins) {
-    if(adminId.equals(userId)) {
-      return true;
-    }
-  }
-  return false;
-}
 
 // create community
 router.post(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Response) => {
