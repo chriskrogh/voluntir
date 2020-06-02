@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import mongoose from 'mongoose';
+import { Schema, Document, model, Model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { ObjectRefs } from '../utils/constants';
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -32,7 +33,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.virtual('event', {
-  ref: 'Event',
+  ref: ObjectRefs.EVENT,
   localField: '_id',
   foreignField: 'owner'
 });
@@ -77,7 +78,7 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-export interface UserDoc extends mongoose.Document {
+export interface UserDoc extends Document {
   name: string;
   email: string;
   secret: string;
@@ -86,11 +87,11 @@ export interface UserDoc extends mongoose.Document {
   generateAuthToken: () => Promise<string>;
 }
 
-interface User extends mongoose.Model<UserDoc> {
+interface User extends Model<UserDoc> {
   findByCredentials: (email: string, secret: string) => Promise<UserDoc>;
   validateSecret: (user: UserDoc, secret: string) => Promise<UserDoc>;
 }
 
-const UserModel: User = mongoose.model<UserDoc, User>('User', UserSchema);
+const UserModel: User = model<UserDoc, User>(ObjectRefs.USER, UserSchema);
 
 export default UserModel;

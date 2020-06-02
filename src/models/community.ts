@@ -1,15 +1,16 @@
-import mongoose from 'mongoose';
+import { Types, Schema, Document, model } from 'mongoose';
+import { ObjectRefs } from '../utils/constants';
 
-export interface CommunityDoc extends mongoose.Document {
+export interface CommunityDoc extends Document {
   name: string;
   description: string;
-  logo?: mongoose.Types.ObjectId;
-  banner?: mongoose.Types.ObjectId;
-  admins: mongoose.Types.ObjectId[];
-  events?: mongoose.Types.ObjectId[];
+  logo?: Types.ObjectId;
+  banner?: Types.ObjectId;
+  admins: Types.ObjectId[];
+  events?: Types.ObjectId[];
 }
 
-const CommunitySchema = new mongoose.Schema({
+const CommunitySchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -27,17 +28,17 @@ const CommunitySchema = new mongoose.Schema({
     type: String
   },
   admins: [{
-    type: mongoose.Types.ObjectId,
-    ref: 'User'
+    type: Types.ObjectId,
+    ref: ObjectRefs.USER
   }],
   events: [{
-    type: mongoose.Types.ObjectId,
-    ref: 'Event'
+    type: Types.ObjectId,
+    ref: ObjectRefs.EVENT
   }]
 }, {
   timestamps: true
 });
 
-const CommunityModel = mongoose.model<CommunityDoc>('Community', CommunitySchema);
+const CommunityModel = model<CommunityDoc>(ObjectRefs.COMMUNITY, CommunitySchema);
 
 export default CommunityModel;
