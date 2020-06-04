@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { ThemeContext } from 'context/theme/state';
 
 interface Props {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 function CustomThemeProvider({ children }: Props) {
