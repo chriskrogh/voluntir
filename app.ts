@@ -4,6 +4,7 @@ import path from 'path';
 import UserRouter from './src/routers/user';
 import MediaRouter from './src/routers/media';
 import CommunityRouter from './src/routers/community';
+import EventRouter from './src/routers/event';
 import 'dotenv/config';
 
 // create server
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(UserRouter);
 app.use(MediaRouter);
 app.use(CommunityRouter);
+app.use(EventRouter);
 
 // The "catchall" handler: for a request that doesn't
 // match one above, send back React's index.html file.
