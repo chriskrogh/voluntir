@@ -31,7 +31,7 @@ const loginUser = async (
 }
 
 interface Props {
-    mode: AuthMode;
+  mode: AuthMode;
 }
 
 const FB = ({ mode }: Props) => {

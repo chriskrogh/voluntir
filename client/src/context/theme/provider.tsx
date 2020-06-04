@@ -5,7 +5,7 @@ import Reducer from './reducer';
 import ActionTypes from './actions';
 
 interface Props {
-    children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[];
 }
 
 const Provider = ({ children }: Props) => {

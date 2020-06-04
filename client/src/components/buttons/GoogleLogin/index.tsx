@@ -51,7 +51,7 @@ const loginUser = async (
 }
 
 interface Props extends WithStyles<typeof styles> {
-    mode: AuthMode;
+  mode: AuthMode;
 }
 
 const Google = ({ classes, mode }: Props) => {

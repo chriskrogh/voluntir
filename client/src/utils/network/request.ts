@@ -27,16 +27,16 @@ export const makeRequest = async <R, D = {}>(
 
   try {
     switch (method) {
-    case Method.GET:
-      return await (await axios.get(url, options)).data as R;
-    case Method.POST:
-      return await (await axios.post(url, data, options)).data as R;
-    case Method.PATCH:
-      return await (await axios.patch(url, data, options)).data as R;
-    case Method.DELETE:
-      return await (await axios.delete(url, options)).data as R;
-    default:
-      return {} as R;
+      case Method.GET:
+        return await (await axios.get(url, options)).data as R;
+      case Method.POST:
+        return await (await axios.post(url, data, options)).data as R;
+      case Method.PATCH:
+        return await (await axios.patch(url, data, options)).data as R;
+      case Method.DELETE:
+        return await (await axios.delete(url, options)).data as R;
+      default:
+        return {} as R;
     }
   } catch (error) {
     throw new Error(errorMessage);

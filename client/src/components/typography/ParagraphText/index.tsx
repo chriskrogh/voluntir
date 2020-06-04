@@ -18,9 +18,9 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    text: string;
-    color?: string;
-    underline?: boolean;
+  text: string;
+  color?: string;
+  underline?: boolean;
 }
 
 function ParagraphText({ classes, color, text, underline }: Props) {
