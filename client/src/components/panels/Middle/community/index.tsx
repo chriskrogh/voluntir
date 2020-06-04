@@ -50,14 +50,14 @@ enum Sections {
   UPCOMING = 'Upcoming'
 }
 
-const getUpcomingEvents = (eventIds: string[]) => {
+const getUpcomingEvents = () => {
   // replace with special request to server
-  return [events[parseInt(eventIds[0])]];
+  return events;
 }
 
-const getCompletedEvents = (eventIds: string[]) => {
+const getCompletedEvents = () => {
   // replace with special request to server
-  return [events[parseInt(eventIds[1])]];
+  return events;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -128,7 +128,7 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
         </ButtonGroup>
       </Container>
       {section === Sections.HOME && (
-        <EventList events={getCompletedEvents(events)} />
+        <EventList events={getCompletedEvents()} />
       )}
       {section === Sections.ABOUT && description && (
         <>
@@ -144,7 +144,7 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
         </>
       )}
       {section === Sections.UPCOMING && (
-        <EventList events={getUpcomingEvents(events)} />
+        <EventList events={getUpcomingEvents()} />
       )}
     </Panel>
   );
