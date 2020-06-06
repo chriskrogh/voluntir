@@ -29,7 +29,7 @@ router.post(
       if(!width || !height) throw new Error(M.AR);
       const AR = width / height;
 
-      const media = new MediaModel({ AR });
+      const media = new MediaModel({ AR, ...req.body });
 
       await blobService.uploadString(CONTAINER_NAME, media._id + '.jpg', newBuffer);
       await media.save();
