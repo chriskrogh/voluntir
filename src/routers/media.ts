@@ -7,13 +7,11 @@ import upload from '../utils/upload';
 import auth from '../middleware/auth';
 import compress from '../utils/compress';
 import blobService from '../utils/blobstorage';
-import { Routes } from '../utils/constants';
+import { Routes, CONTAINER_NAME } from '../utils/constants';
 import * as M from '../utils/errorMessages';
 import '../db/mongoose';
 
 const router = express.Router();
-
-const containerName = process.env.NODE_ENV === 'production' ? 'prod-media' : 'media';
 
 // set media
 router.post(
@@ -22,7 +20,7 @@ router.post(
   upload.single('media'),
   async (req: AuthenticatedRequest, res: Response) => {
     try {
-      await blobService.createContainerIfDoesNotExist(containerName);
+      await blobService.createContainerIfDoesNotExist(CONTAINER_NAME);
       if (!req.file || !req.file.buffer) throw new Error;
 
       const newBuffer = await compress(req.file.buffer);
@@ -33,7 +31,7 @@ router.post(
 
       const media = new MediaModel({ AR });
 
-      await blobService.uploadString(containerName, media._id + '.jpg', newBuffer);
+      await blobService.uploadString(CONTAINER_NAME, media._id + '.jpg', newBuffer);
       await media.save();
       res.status(201).send(media);
     } catch (err) {
@@ -68,7 +66,7 @@ router.get(Routes.MEDIA + '/image/:id', async (req: Request, res: Response) => {
     const data: Uint8Array[] = [];
 
     stream.on('data', d => data.push(d));
-    await blobService.downloadBlob(containerName, id + '.jpg', stream);
+    await blobService.downloadBlob(CONTAINER_NAME, id + '.jpg', stream);
     const mergedBuffer = Buffer.concat(data);
 
     res.set('Content-Type', 'image/jpg');
@@ -105,7 +103,7 @@ router.delete(Routes.MEDIA + '/:id', auth, async (req: AuthenticatedRequest, res
     if (!media) {
       throw new Error;
     }
-    await blobService.deleteBlob(containerName, media._id + '.jpg');
+    await blobService.deleteBlob(CONTAINER_NAME, media._id + '.jpg');
     await media.remove();
     res.send();
   } catch (err) {

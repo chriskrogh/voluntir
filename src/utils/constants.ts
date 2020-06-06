@@ -11,3 +11,5 @@ export enum ObjectRefs {
   COMMUNITY = 'Community',
   EVENT = 'Event'
 }
+
+export const CONTAINER_NAME = process.env.NODE_ENV === 'production' ? 'prod-media' : 'media';
