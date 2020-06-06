@@ -52,6 +52,12 @@ UserSchema.virtual('admin', {
   foreignField: 'admins'
 })
 
+UserSchema.virtual('member', {
+  ref: ObjectRefs.COMMUNITY,
+  localField: '_id',
+  foreignField: 'members'
+})
+
 UserSchema.virtual('attendee', {
   ref: ObjectRefs.EVENT,
   localField: '_id',
