@@ -3,6 +3,8 @@ import { Schema, Document, model, Model, Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { MediaDoc } from './media';
+import Community from './community';
+import Event from './event';
 import { ObjectRefs } from '../utils/constants';
 
 const UserSchema = new Schema({
@@ -113,6 +115,34 @@ UserSchema.pre('save', async function (next) {
   if (user.isModified('secret')) {
     user.secret = await bcrypt.hash(user.secret, 8);
   }
+  next();
+});
+
+UserSchema.pre('remove', async function (next) {
+  // remove from attendees
+  const events = await Event.find({ attendees: this._id });
+  events.forEach(async (event) => {
+    event.attendees.pull(this._id);
+    await event.save();
+  });
+  // remove from admins
+  const adminCommunities = await Community.find({ admins: this._id });
+  adminCommunities.forEach(async (community) => {
+    community.admins.pull(this._id);
+    await community.save();
+  });
+  // remove from members
+  const memberCommunities = await Community.find({ members: this._id });
+  memberCommunities.forEach(async (community) => {
+    community.members.pull(this._id);
+    await community.save();
+  });
+  // remove from followers
+  const usersIFollow = await UserModel.find({ followers: this._id });
+  usersIFollow.forEach(async (user) => {
+    user.followers.pull(this._id);
+    await user.save();
+  });
   next();
 });
 
