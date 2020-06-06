@@ -33,4 +33,4 @@ const theme = createMuiTheme({
   }
 });
 
-export default { ...theme, name: 'light' };
+export default { ...theme, name: 'Light' };

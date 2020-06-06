@@ -41,7 +41,7 @@ function ThemeToggleButton({ classes }: WithStyles<typeof styles>) {
   const { theme, setTheme } = useContext(ThemeContext);
 
   const toggleTheme = () => {
-    setTheme(theme.name === 'light' ? DarkTheme : LightTheme);
+    setTheme(theme.name === LightTheme.name ? DarkTheme : LightTheme);
   }
 
   return (
@@ -50,7 +50,7 @@ function ThemeToggleButton({ classes }: WithStyles<typeof styles>) {
         <Brightness4Icon className={classes.iconSize} />
       </div>
       <div className={classes.labelContainer}>
-        <ParagraphText text='Toggle theme' />
+        <ParagraphText text={`${theme.name} mode`} />
       </div>
     </Button>
   );
