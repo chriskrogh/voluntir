@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Provider = ({ children }: Props) => {
-  const [state, dispatch] = useReducer(Reducer, initialState);
+  const [ state, dispatch ] = useReducer(Reducer, initialState);
 
   const setUser = (user: User) => {
     dispatch({ type: ActionTypes.SET_USER, payload: user });

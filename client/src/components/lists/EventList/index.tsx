@@ -17,7 +17,7 @@ interface Props extends WithStyles<typeof styles> {
   events: Event[];
 }
 
-function EventList({classes, events}: Props) {
+function EventList({ classes, events }: Props) {
   return (
     <div className={classes.eventContainer}>
       {events.map((event, index) => (

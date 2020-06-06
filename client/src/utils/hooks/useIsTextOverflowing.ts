@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, RefObject } from 'react';
 
 export default function useIsTextOverflowing(): [boolean, RefObject<HTMLDivElement>] {
-  const [isTextOverflowing, setIsTextOverflowing] = useState(false);
+  const [ isTextOverflowing, setIsTextOverflowing ] = useState(false);
   const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function useIsTextOverflowing(): [boolean, RefObject<HTMLDivEleme
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [textRef]);
+  }, [ textRef ]);
 
-  return [isTextOverflowing, textRef];
+  return [ isTextOverflowing, textRef ];
 }

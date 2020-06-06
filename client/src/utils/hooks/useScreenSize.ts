@@ -12,7 +12,7 @@ const getScreenSize = () => {
 }
 
 function useScreenSize() {
-  const [ss, setSS] = useState(getScreenSize());
+  const [ ss, setSS ] = useState(getScreenSize());
   useLayoutEffect(() => {
     function updateSize() {
       const currentSS = getScreenSize();
@@ -23,7 +23,7 @@ function useScreenSize() {
     window.addEventListener('resize', updateSize);
     updateSize();
     return () => window.removeEventListener('resize', updateSize);
-  }, [ss]);
+  }, [ ss ]);
   return ss;
 }
 

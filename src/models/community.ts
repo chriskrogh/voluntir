@@ -29,16 +29,16 @@ const CommunitySchema = new Schema({
   banner: {
     type: String
   },
-  admins: [{
+  admins: [ {
     type: Types.ObjectId,
     required: true,
     ref: ObjectRefs.USER
-  }],
-  members: [{
+  } ],
+  members: [ {
     type: Types.ObjectId,
     required: true,
     ref: ObjectRefs.USER
-  }]
+  } ]
 }, {
   timestamps: true
 });

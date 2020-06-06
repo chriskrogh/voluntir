@@ -58,7 +58,7 @@ function BannerPicture({ classes, banner, picture, panel }: Props) {
     <div className={classes.bannerPictureContainer}>
       <div
         className={classes.banner}
-        style={{backgroundImage: `url(${bannerAsset})`}}
+        style={{ backgroundImage: `url(${bannerAsset})` }}
       />
       <div className={classes.pictureWrapper}>
         <div className={classes.pictureContainer}>

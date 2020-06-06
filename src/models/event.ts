@@ -41,11 +41,11 @@ const EventSchema = new Schema({
     required: true,
     ref: ObjectRefs.COMMUNITY
   },
-  attendees: [{
+  attendees: [ {
     type: Types.ObjectId,
     required: true,
     ref: ObjectRefs.USER
-  }]
+  } ]
 }, {
   timestamps: true
 });

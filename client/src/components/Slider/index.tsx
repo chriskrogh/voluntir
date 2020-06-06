@@ -67,11 +67,11 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function Slider({ classes, media, screenSize }: Props) {
-  const [translateValue, setTranslateValue] = useState(0);
+  const [ translateValue, setTranslateValue ] = useState(0);
 
   const containerWidth = getContainerWidth(screenSize);
   const slideHeight = (containerWidth / media[getIndex(translateValue)].AR);
-  const [sliderHeight, setSliderHeight] = useState(slideHeight);
+  const [ sliderHeight, setSliderHeight ] = useState(slideHeight);
 
   const hasManyItems = media.length > 0;
   const lastItemPosition = -100 * (media.length - 1);
@@ -93,7 +93,7 @@ function Slider({ classes, media, screenSize }: Props) {
 
   useEffect(() => {
     setSliderHeight(slideHeight);
-  }, [slideHeight])
+  }, [ slideHeight ])
 
   return (
     <div className={classes.slider} style={{ height: sliderHeight }}>

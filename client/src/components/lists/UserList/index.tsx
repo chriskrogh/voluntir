@@ -25,7 +25,7 @@ interface Props extends WithStyles<typeof styles> {
   users: User[];
 }
 
-function UserList({classes, users}: Props) {
+function UserList({ classes, users }: Props) {
   return (
     <div className={classes.list}>
       {users.map((user, index) => (

@@ -15,7 +15,7 @@ router.post(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Respo
   try {
     const community = new Community({
       ...req.body,
-      admins: [req.user?._id],
+      admins: [ req.user?._id ],
       members: []
     });
     await community.save();

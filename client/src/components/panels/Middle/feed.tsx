@@ -27,7 +27,7 @@ const getEvents = (feed: Feeds): Event[] => {
   // replace with api calls
   switch (feed) {
     case Feeds.HOME:
-      return [events[1], events[2]]
+      return [ events[1], events[2] ]
     case Feeds.EXPLORE:
       return events;
     default:

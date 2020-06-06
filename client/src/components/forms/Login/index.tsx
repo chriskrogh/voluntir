@@ -91,12 +91,12 @@ function LoginForm({ classes, theme }: Props) {
   const { setUser, setToken } = useContext(UserContext);
   const history = useHistory();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [invalidRequest, setInvalidRequest] = useState(false);
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ rememberMe, setRememberMe ] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(false);
+  const [ submitted, setSubmitted ] = useState(false);
+  const [ invalidRequest, setInvalidRequest ] = useState(false);
 
   const helpEmail = () => {
     return !isValidEmail(email);

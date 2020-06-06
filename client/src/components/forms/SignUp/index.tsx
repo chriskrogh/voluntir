@@ -100,14 +100,14 @@ function SignUpForm({ classes, theme }: Props) {
   const { setUser, setToken } = useContext(UserContext);
   const history = useHistory();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cPassword, setCPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [invalidRequest, setInvalidRequest] = useState(false);
+  const [ name, setName ] = useState('');
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ cPassword, setCPassword ] = useState('');
+  const [ rememberMe, setRememberMe ] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(false);
+  const [ submitted, setSubmitted ] = useState(false);
+  const [ invalidRequest, setInvalidRequest ] = useState(false);
 
   const helpEmail = () => {
     return !isValidEmail(email);

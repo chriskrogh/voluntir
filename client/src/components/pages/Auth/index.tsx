@@ -43,13 +43,13 @@ function Auth({ classes }: WithStyles<typeof styles>) {
   const history = useHistory();
   const { user } = useContext(UserContext);
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [ isLogin, setIsLogin ] = useState(true);
 
   useEffect(() => {
     if (user._id !== '0') {
       history.push(Routes.HOME);
     }
-  }, [user._id, history]);
+  }, [ user._id, history ]);
 
   return (
     <Page>

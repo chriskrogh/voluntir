@@ -58,8 +58,8 @@ function CollapseableContainer({
   maxHeight,
   children
 }: Props) {
-  const [expanded, setExpanded] = useState(false);
-  const [isTextOverflowing, textRef] = useIsTextOverflowing();
+  const [ expanded, setExpanded ] = useState(false);
+  const [ isTextOverflowing, textRef ] = useIsTextOverflowing();
 
   const toggleExpanded = () => setExpanded(!expanded);
 

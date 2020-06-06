@@ -16,7 +16,7 @@ router.post(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response)
   try {
     const event = new Event({
       ...req.body,
-      admins: [req.user?._id],
+      admins: [ req.user?._id ],
       attendees: []
     });
     await event.save();

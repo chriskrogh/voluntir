@@ -100,7 +100,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
 
   const { title, community, communityName, description, media } = event;
 
-  const [section, setSection] = useState(media != null
+  const [ section, setSection ] = useState(media != null
     ? Sections.GALLERY
     : Sections.LOCATION
   );

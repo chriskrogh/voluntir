@@ -36,7 +36,7 @@ const getUser = (id: string | null, history: History) => {
 
 const getCompletedEvents = () => {
   // replace with special request to server
-  return [events[0], events[1]];
+  return [ events[0], events[1] ];
 }
 
 function ProfilePanel({ classes }: WithStyles<typeof styles>) {
