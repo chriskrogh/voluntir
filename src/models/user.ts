@@ -31,6 +31,16 @@ const UserSchema = new Schema({
   tokens: [{
     type: String,
     required: true
+  }],
+  followers: [{
+    type: Types.ObjectId,
+    required: true,
+    ref: ObjectRefs.USER
+  }],
+  following: [{
+    type: Types.ObjectId,
+    required: true,
+    ref: ObjectRefs.USER
   }]
 }, {
   timestamps: true
@@ -46,6 +56,18 @@ UserSchema.virtual('attendee', {
   ref: ObjectRefs.EVENT,
   localField: '_id',
   foreignField: 'attendees'
+})
+
+UserSchema.virtual('follower', {
+  ref: ObjectRefs.USER,
+  localField: '_id',
+  foreignField: 'followers'
+})
+
+UserSchema.virtual('followee', {
+  ref: ObjectRefs.USER,
+  localField: '_id',
+  foreignField: 'following'
 })
 
 UserSchema.methods.toJSON = function () {
@@ -95,8 +117,8 @@ export interface UserDoc extends Document {
   picture?: Types.ObjectId | MediaDoc;
   banner?: Types.ObjectId | MediaDoc;
   tokens: string[];
-  followers: Types.ObjectId[] | UserDoc[];
-  following: Types.ObjectId[] | UserDoc[];
+  followers: Types.Array<Types.ObjectId> | Types.Array<UserDoc>;
+  following: Types.Array<Types.ObjectId> | Types.Array<UserDoc>;
   generateAuthToken: () => Promise<string>;
 }
 
