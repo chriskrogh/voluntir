@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { Types } from 'mongoose';
 import Community, { CommunityDoc } from "../models/community";
 import { AuthenticatedRequest } from '../types/network';
 import auth from '../middleware/auth';
@@ -14,7 +15,8 @@ router.post(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Respo
   try {
     const community = new Community({
       ...req.body,
-      admins: [req.user?._id]
+      admins: [req.user?._id],
+      members: []
     });
     await community.save();
     res.status(201).send(community);
@@ -75,6 +77,82 @@ router.delete(Routes.COMMUNITY + '/:id', auth, async (req: AuthenticatedRequest,
 
       await community.remove();
       res.send();
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+router.patch(Routes.COMMUNITY + 'add/admin/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { userId } = req.body;
+    const community = await Community.findById(req.params.id);
+
+    if(!userId) throw new Error('User id not specified');
+
+    if (!community) {
+      res.status(404).send();
+    } else {
+      if(!isAdmin(req.user?._id, community)) {
+        throw new Error(M.ADMIN_ADD_ADMIN);
+      }
+      community.members.pull(Types.ObjectId(userId));
+      community.admins.push(userId);
+      community.save();
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+router.patch(Routes.COMMUNITY + 'remove/admin/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { userId } = req.body;
+    const community = await Community.findById(req.params.id);
+
+    if(!userId) throw new Error('User id not specified');
+
+    if (!community) {
+      res.status(404).send();
+    } else {
+      if(!isAdmin(req.user?._id, community)) {
+        throw new Error(M.ADMIN_REMOVE_ADMIN);
+      }
+
+      community.admins.pull(userId);
+      community.save();
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+router.patch(Routes.COMMUNITY + 'add/member/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const community = await Community.findById(req.params.id);
+    if (!community) {
+      res.status(404).send();
+    } else {
+      community.members.push(req.user?._id);
+      community.save();
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+router.patch(Routes.COMMUNITY + 'remove/member/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const community = await Community.findById(req.params.id);
+    if (!community) {
+      res.status(404).send();
+    } else {
+      community.admins.pull(req.user?._id);
+      community.save();
     }
   } catch (err) {
     console.log(err);

@@ -1,12 +1,15 @@
 import { Types, Schema, Document, model } from 'mongoose';
+import { MediaDoc } from './media';
+import { UserDoc } from './user';
 import { ObjectRefs } from '../utils/constants';
 
 export interface CommunityDoc extends Document {
   name: string;
   description: string;
-  logo?: Types.ObjectId;
-  banner?: Types.ObjectId;
-  admins: Types.ObjectId[];
+  logo?: Types.ObjectId | MediaDoc;
+  banner?: Types.ObjectId | MediaDoc;
+  admins: Types.Array<Types.ObjectId> | Types.Array<UserDoc>;
+  members: Types.Array<Types.ObjectId> | Types.Array<UserDoc>;
 }
 
 const CommunitySchema = new Schema({
@@ -28,6 +31,12 @@ const CommunitySchema = new Schema({
   },
   admins: [{
     type: Types.ObjectId,
+    required: true,
+    ref: ObjectRefs.USER
+  }],
+  members: [{
+    type: Types.ObjectId,
+    required: true,
     ref: ObjectRefs.USER
   }]
 }, {

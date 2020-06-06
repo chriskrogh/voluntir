@@ -12,6 +12,8 @@ export const CREATE_COMMUNITY = 'Could not create community';
 export const GET_COMMUNITY = 'Could not get community';
 export const ADMIN_UPDATE_COMMUNITY = 'Only admins can update communities';
 export const ADMIN_DELETE_COMMUNITY = 'Only admins can delete communities';
+export const ADMIN_ADD_ADMIN = 'Only admins can add admins';
+export const ADMIN_REMOVE_ADMIN = 'Only admins can remove admins';
 
 // EVENT
 export const CREATE_EVENT = 'Could not create event';
