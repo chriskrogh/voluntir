@@ -1,8 +1,10 @@
 import { Types, Schema, Document, model } from 'mongoose';
+import { EventDoc } from './event';
 import { ObjectRefs } from '../utils/constants';
 
 export interface MediaDoc extends Document {
   AR: number;
+  event: Types.ObjectId | EventDoc;
 }
 
 const MediaSchema = new Schema({
@@ -12,6 +14,7 @@ const MediaSchema = new Schema({
   },
   event: {
     type: Types.ObjectId,
+    required: true,
     ref: ObjectRefs.EVENT
   }
 }, {
