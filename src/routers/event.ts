@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { Types } from 'mongoose';
 import Event, { EventDoc } from "../models/event";
 import { CommunityDoc } from '../models/community';
 import { AuthenticatedRequest } from '../types/network';
@@ -15,7 +16,8 @@ router.post(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response)
   try {
     const event = new Event({
       ...req.body,
-      admins: [req.user?._id]
+      admins: [req.user?._id],
+      attendees: []
     });
     await event.save();
     res.status(201).send(event);
@@ -82,6 +84,43 @@ router.delete(Routes.EVENT + '/:id', auth, async (req: AuthenticatedRequest, res
   } catch (err) {
     console.log(err);
     res.status(400).send(err);
+  }
+});
+
+router.patch(Routes.EVENT + '/attend/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if(!event) {
+      res.status(404).send();
+    } else {
+      event.attendees.push(req.user?._id);
+      event.save();
+      res.send();
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(404).send(error);
+  }
+});
+
+router.patch(Routes.EVENT + '/unattend/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if(!event) {
+      res.status(404).send();
+    } else {
+      const attendees = event.attendees as Types.ObjectId[];
+      for(let i = 0; i < attendees.length; ++i) {
+        if(attendees[i].equals(req.user?._id)) {
+          attendees.splice(i, 1);
+        }
+      }
+      event.save();
+      res.send();
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(404).send(error);
   }
 });
 

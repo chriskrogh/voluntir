@@ -42,6 +42,12 @@ UserSchema.virtual('admin', {
   foreignField: 'admins'
 })
 
+UserSchema.virtual('attendee', {
+  ref: ObjectRefs.EVENT,
+  localField: '_id',
+  foreignField: 'attendees'
+})
+
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();
 
@@ -89,6 +95,8 @@ export interface UserDoc extends Document {
   picture?: Types.ObjectId | MediaDoc;
   banner?: Types.ObjectId | MediaDoc;
   tokens: string[];
+  followers: Types.ObjectId[] | UserDoc[];
+  following: Types.ObjectId[] | UserDoc[];
   generateAuthToken: () => Promise<string>;
 }
 

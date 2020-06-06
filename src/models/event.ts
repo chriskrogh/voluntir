@@ -1,5 +1,6 @@
 import { Types, Schema, Document, model } from 'mongoose';
 import { CommunityDoc } from './community';
+import { UserDoc } from './user';
 import { ObjectRefs } from '../utils/constants';
 
 export interface EventDoc extends Document {
@@ -9,6 +10,7 @@ export interface EventDoc extends Document {
   start: Date;
   end: Date;
   community: Types.ObjectId | CommunityDoc;
+  attendees: Types.ObjectId[] | UserDoc[];
 }
 
 const EventSchema = new Schema({
@@ -38,7 +40,11 @@ const EventSchema = new Schema({
     type: Types.ObjectId,
     required: true,
     ref: ObjectRefs.COMMUNITY
-  }
+  },
+  attendees: [{
+    type: Types.ObjectId,
+    ref: ObjectRefs.USER
+  }]
 }, {
   timestamps: true
 });
