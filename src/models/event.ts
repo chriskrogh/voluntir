@@ -1,7 +1,9 @@
 import { Types, Schema, Document, model } from 'mongoose';
 import { CommunityDoc } from './community';
 import { UserDoc } from './user';
-import { ObjectRefs } from '../utils/constants';
+import Media from './media';
+import blobService from '../utils/blobstorage';
+import { ObjectRefs, CONTAINER_NAME } from '../utils/constants';
 
 export interface EventDoc extends Document {
   title: string;
@@ -55,6 +57,15 @@ EventSchema.virtual('media', {
   localField: '_id',
   foreignField: 'event'
 })
+
+EventSchema.pre('remove', async function(next) {
+  const media = await Media.find({ event: this._id });
+  media.forEach(async (item) => {
+    await blobService.deleteBlob(CONTAINER_NAME, item._id + '.jpg');
+    await Media.findByIdAndDelete(item._id);
+  });
+  next();
+});
 
 const EventModel = model<EventDoc>(ObjectRefs.EVENT, EventSchema);
 

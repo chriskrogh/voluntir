@@ -1,6 +1,7 @@
 import { Types, Schema, Document, model } from 'mongoose';
 import { MediaDoc } from './media';
 import { UserDoc } from './user';
+import Event from './event';
 import { ObjectRefs } from '../utils/constants';
 
 export interface CommunityDoc extends Document {
@@ -48,6 +49,11 @@ CommunitySchema.virtual('event', {
   localField: '_id',
   foreignField: 'community'
 })
+
+CommunitySchema.pre('remove', async function(next) {
+  await Event.deleteMany({ community: this._id });
+  next();
+});
 
 const CommunityModel = model<CommunityDoc>(ObjectRefs.COMMUNITY, CommunitySchema);
 
