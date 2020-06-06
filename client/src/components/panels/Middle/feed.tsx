@@ -8,24 +8,24 @@ import Title from 'components/typography/Title';
 import EventList from 'components/lists/EventList';
 import events from 'data/events';
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
     height: 48,
-    margin: `0 ${theme.spacing(3)}px`,
+    margin: `0 ${theme.spacing( 3 )}px`,
   },
   eventContainer: {
-    margin: `0 ${theme.spacing(2)}px`,
+    margin: `0 ${theme.spacing( 2 )}px`,
   },
   firstChild: {
     marginTop: 0
   }
-});
+} );
 
-const getEvents = (feed: Feeds): Event[] => {
+const getEvents = ( feed: Feeds ): Event[] => {
   // replace with api calls
-  switch (feed) {
+  switch ( feed ) {
     case Feeds.HOME:
       return [ events[1], events[2] ]
     case Feeds.EXPLORE:
@@ -39,15 +39,15 @@ interface Props extends WithStyles<typeof styles> {
   feed: Feeds;
 }
 
-function Feed({ classes, feed }: Props) {
+function Feed( { classes, feed }: Props ) {
   return (
     <Panel>
       <div className={classes.titleContainer}>
         <Title text={feed} />
       </div>
-      <EventList events={getEvents(feed)}/>
+      <EventList events={getEvents( feed )}/>
     </Panel>
   );
 }
 
-export default withStyles(styles)(Feed);
+export default withStyles( styles )( Feed );

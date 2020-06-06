@@ -6,7 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { Routes } from 'utils/constants';
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   page: {
     display: 'flex',
     flex: 1,
@@ -16,26 +16,26 @@ const styles = (theme: Theme) => createStyles({
     backgroundColor: theme.palette.background.default,
     minHeight: '100vh',
   }
-});
+} );
 
 interface Props extends WithStyles<typeof styles> {
   theme: Theme;
   children: React.ReactNode;
 }
 
-function Page({ classes, children }: Props) {
-  const { user, token, setUser } = useContext(UserContext);
+function Page( { classes, children }: Props ) {
+  const { user, token, setUser } = useContext( UserContext );
   const history = useHistory();
   const location = useLocation();
 
-  useEffect(() => {
+  useEffect( () => {
     async function fetchUser() {
-      if (user._id === '0' && location.pathname !== Routes.AUTH) {
-        if (token !== '') {
-          const user = await getUser(token);
-          setUser(user);
+      if ( user._id === '0' && location.pathname !== Routes.AUTH ) {
+        if ( token !== '' ) {
+          const user = await getUser( token );
+          setUser( user );
         } else {
-          history.push(Routes.AUTH);
+          history.push( Routes.AUTH );
         }
       }
     }
@@ -52,4 +52,4 @@ function Page({ classes, children }: Props) {
   );
 }
 
-export default withStyles(styles, { withTheme: true })(Page);
+export default withStyles( styles, { withTheme: true } )( Page );

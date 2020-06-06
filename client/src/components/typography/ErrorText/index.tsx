@@ -2,18 +2,18 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 
-const styles = (theme: Theme) => ({
+const styles = ( theme: Theme ) => ( {
   text: {
     color: theme.palette.error.main,
     margin: 0,
   }
-});
+} );
 
 interface Props extends WithStyles<typeof styles> {
   text: string;
 }
 
-function ErrorText({ classes, text }: Props) {
+function ErrorText( { classes, text }: Props ) {
   return (
     <p className={classes.text}>
       {text}
@@ -21,4 +21,4 @@ function ErrorText({ classes, text }: Props) {
   );
 }
 
-export default withStyles(styles)(ErrorText);
+export default withStyles( styles )( ErrorText );

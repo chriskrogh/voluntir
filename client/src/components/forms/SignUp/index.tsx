@@ -22,32 +22,32 @@ import { Routes } from 'utils/constants';
 
 const innerContainerWidth = 230;
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: 400,
     backgroundColor: theme.palette.primary.main,
-    borderRadius: theme.spacing(1)
+    borderRadius: theme.spacing( 1 )
   },
   topSpacing: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing( 3 )
   },
   orContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing( 2 )
   },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing( 1 ),
     width: innerContainerWidth,
   },
   lastElement: {
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing( 3 )
   },
   textColor: {
     color: theme.palette.text.primary,
@@ -58,12 +58,12 @@ const styles = (theme: Theme) => createStyles({
   errorList: {
     color: theme.palette.error.main,
     width: innerContainerWidth,
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing( 2 )
   },
   activityIndicator: {
     color: theme.palette.text.primary
   }
-});
+} );
 
 const validate = (
   name: string,
@@ -72,10 +72,10 @@ const validate = (
   cPassword: string
 ) => {
   return (
-    !isEmpty(name)
-        && isValidEmail(email)
-        && isValidPassword(password)
-        && (password === cPassword)
+    !isEmpty( name )
+        && isValidEmail( email )
+        && isValidPassword( password )
+        && ( password === cPassword )
   );
 }
 
@@ -85,8 +85,8 @@ const authenticate = async (
   password: string,
   cPassword: string,
 ) => {
-  if (validate(name, email, password, cPassword)) {
-    return await signup({ name, email, secret: password });
+  if ( validate( name, email, password, cPassword ) ) {
+    return await signup( { name, email, secret: password } );
   } else {
     throw new Error();
   }
@@ -96,47 +96,47 @@ interface Props extends WithStyles<typeof styles> {
   theme: Theme;
 }
 
-function SignUpForm({ classes, theme }: Props) {
-  const { setUser, setToken } = useContext(UserContext);
+function SignUpForm( { classes, theme }: Props ) {
+  const { setUser, setToken } = useContext( UserContext );
   const history = useHistory();
 
-  const [ name, setName ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ cPassword, setCPassword ] = useState('');
-  const [ rememberMe, setRememberMe ] = useState(true);
-  const [ isLoading, setIsLoading ] = useState(false);
-  const [ submitted, setSubmitted ] = useState(false);
-  const [ invalidRequest, setInvalidRequest ] = useState(false);
+  const [ name, setName ] = useState( '' );
+  const [ email, setEmail ] = useState( '' );
+  const [ password, setPassword ] = useState( '' );
+  const [ cPassword, setCPassword ] = useState( '' );
+  const [ rememberMe, setRememberMe ] = useState( true );
+  const [ isLoading, setIsLoading ] = useState( false );
+  const [ submitted, setSubmitted ] = useState( false );
+  const [ invalidRequest, setInvalidRequest ] = useState( false );
 
   const helpEmail = () => {
-    return !isValidEmail(email);
+    return !isValidEmail( email );
   }
 
   const helpPassword = () => {
-    return !isValidPassword(password);
+    return !isValidPassword( password );
   }
 
   const helpCPassword = () => {
-    return !(cPassword === password);
+    return !( cPassword === password );
   }
 
   const submit = async () => {
-    setIsLoading(true);
-    setSubmitted(true);
+    setIsLoading( true );
+    setSubmitted( true );
     try {
-      const { user, token } = await authenticate(name, email, password, cPassword);
-      if (user && token) {
-        setUser(user);
-        setToken(token);
-        if (rememberMe) {
-          localStorage.setItem('token', token);
+      const { user, token } = await authenticate( name, email, password, cPassword );
+      if ( user && token ) {
+        setUser( user );
+        setToken( token );
+        if ( rememberMe ) {
+          localStorage.setItem( 'token', token );
         }
-        history.push(Routes.HOME);
+        history.push( Routes.HOME );
       } else throw new Error();
-    } catch (error) {
-      setInvalidRequest(true);
-      setIsLoading(false);
+    } catch ( error ) {
+      setInvalidRequest( true );
+      setIsLoading( false );
     }
   }
 
@@ -156,17 +156,17 @@ function SignUpForm({ classes, theme }: Props) {
       </div>
       {submitted && (
         <ul className={classes.errorList} >
-          {isEmpty(name) && (
+          {isEmpty( name ) && (
             <li>
               <ErrorText text="Name cannot be empty" />
             </li>
           )}
-          {!isValidEmail(email) && (
+          {!isValidEmail( email ) && (
             <li>
               <ErrorText text="Invalid email" />
             </li>
           )}
-          {(!isValidPassword(password) || password !== cPassword) && (
+          {( !isValidPassword( password ) || password !== cPassword ) && (
             <li>
               {/* eslint-disable-next-line max-len */}
               <ErrorText text="Passwords must be at least 6 characters long and must match" />
@@ -183,7 +183,7 @@ function SignUpForm({ classes, theme }: Props) {
         <TextField
           value={name}
           label='Name'
-          onChange={e => setName(e.target.value)}
+          onChange={e => setName( e.target.value )}
           required
           className={classes.textField}
           type='text'
@@ -193,7 +193,7 @@ function SignUpForm({ classes, theme }: Props) {
         <TextField
           value={email}
           label='Email'
-          onChange={e => setEmail(e.target.value)}
+          onChange={e => setEmail( e.target.value )}
           required
           className={classes.textField}
           type='email'
@@ -209,7 +209,7 @@ function SignUpForm({ classes, theme }: Props) {
         <TextField
           value={password}
           label='Password'
-          onChange={e => setPassword(e.target.value)}
+          onChange={e => setPassword( e.target.value )}
           required
           className={classes.textField}
           type='password'
@@ -223,7 +223,7 @@ function SignUpForm({ classes, theme }: Props) {
         <TextField
           value={cPassword}
           label='Confirm Password'
-          onChange={e => setCPassword(e.target.value)}
+          onChange={e => setCPassword( e.target.value )}
           required
           className={classes.textField}
           type='password'
@@ -238,7 +238,7 @@ function SignUpForm({ classes, theme }: Props) {
               <Checkbox
                 size='small'
                 checked={rememberMe}
-                onChange={() => setRememberMe(!rememberMe)}
+                onChange={() => setRememberMe( !rememberMe )}
                 style={{ color: theme.palette.success.main }}
               />
             }
@@ -248,7 +248,7 @@ function SignUpForm({ classes, theme }: Props) {
         </FormGroup>
       </div>
       <div className={
-        classnames(classes.buttonContainer, !isLoading && classes.lastElement)
+        classnames( classes.buttonContainer, !isLoading && classes.lastElement )
       }>
         <Button
           className={classes.textColor}
@@ -260,7 +260,7 @@ function SignUpForm({ classes, theme }: Props) {
       {isLoading && (
         <div
           className={classes.lastElement}
-          style={{ marginTop: theme.spacing(2) }}
+          style={{ marginTop: theme.spacing( 2 ) }}
         >
           <CircularProgress className={classes.activityIndicator} />
         </div>
@@ -269,4 +269,4 @@ function SignUpForm({ classes, theme }: Props) {
   );
 }
 
-export default withStyles(styles, { withTheme: true })(SignUpForm);
+export default withStyles( styles, { withTheme: true } )( SignUpForm );

@@ -9,13 +9,13 @@ export const initialState = {
     name: 'Anonymous',
     email: 'a@b.com'
   },
-  token: localStorage.getItem('token') || '',
+  token: localStorage.getItem( 'token' ) || '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setUser: (user: User) => { },
+  setUser: ( user: User ) => { },
   unsetUser: () => { },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setToken: (token: string) => { },
+  setToken: ( token: string ) => { },
   unsetToken: () => { },
 };
 
-export const UserContext = createContext(initialState);
+export const UserContext = createContext( initialState );

@@ -6,10 +6,10 @@ import { Button } from '@material-ui/core';
 import BlurOnIcon from '@material-ui/icons/BlurOn';
 import { Routes } from 'utils/constants';
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   iconSize: {
     fontSize: 30,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       fontSize: 25
     }
   },
@@ -17,19 +17,19 @@ const styles = (theme: Theme) => createStyles({
     height: '100%',
     color: theme.palette.text.primary,
     fontSize: 20,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       fontSize: 15
     }
   }
-});
+} );
 
-function Logo({ classes }: WithStyles<typeof styles>) {
+function Logo( { classes }: WithStyles<typeof styles> ) {
   const history = useHistory();
   const location = useLocation();
 
   const handleClick = () => {
-    if (location.pathname !== Routes.HOME) {
-      history.push(Routes.HOME)
+    if ( location.pathname !== Routes.HOME ) {
+      history.push( Routes.HOME )
     }
   }
 
@@ -43,4 +43,4 @@ function Logo({ classes }: WithStyles<typeof styles>) {
   );
 }
 
-export default withStyles(styles)(Logo);
+export default withStyles( styles )( Logo );

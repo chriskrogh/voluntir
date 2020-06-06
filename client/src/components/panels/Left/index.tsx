@@ -7,7 +7,7 @@ import NavButton from './Rows/Nav';
 import LogoutButton from './Rows/Logout';
 import { Panels } from 'utils/constants';
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   panel: {
     display: 'flex',
     flexDirection: 'column',
@@ -17,19 +17,19 @@ const styles = (theme: Theme) => createStyles({
     width: 180,
     justifyContent: 'center',
     backgroundColor: theme.palette.background.default,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       width: 40
     },
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down( 'xs' )]: {
       display: 'none'
     }
   },
   table: {
     backgroundColor: theme.palette.secondary.main,
-    borderRadius: theme.spacing(1)
+    borderRadius: theme.spacing( 1 )
   },
   row: {
-    height: theme.spacing(6),
+    height: theme.spacing( 6 ),
     width: '100%'
   },
   button: {
@@ -38,7 +38,7 @@ const styles = (theme: Theme) => createStyles({
     justifyContent: 'left',
     color: theme.palette.text.primary,
     fontSize: 20,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       width: 40,
       justifyContent: 'center',
       fontSize: 15
@@ -48,8 +48,8 @@ const styles = (theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
+    marginRight: theme.spacing( 2 ),
+    [theme.breakpoints.down( 'sm' )]: {
       marginRight: 0,
     }
   },
@@ -60,13 +60,13 @@ const styles = (theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       display: 'none'
     }
   }
-});
+} );
 
-function LeftPanel({ classes }: WithStyles<typeof styles>) {
+function LeftPanel( { classes }: WithStyles<typeof styles> ) {
   return (
     <div className={classes.panel}>
       <div className={classes.row}>
@@ -111,4 +111,4 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
   );
 }
 
-export default memo(withStyles(styles)(LeftPanel), isEqual);
+export default memo( withStyles( styles )( LeftPanel ), isEqual );

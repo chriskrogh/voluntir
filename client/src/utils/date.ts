@@ -3,7 +3,7 @@ export enum Period {
   PM = 'PM'
 }
 
-export const getLocalTime = (date: Date) => {
+export const getLocalTime = ( date: Date ) => {
   const hoursIn24HourFormat = date.getHours();
 
   let period = Period.AM;
@@ -11,13 +11,13 @@ export const getLocalTime = (date: Date) => {
   const minutes = date.getMinutes()
 
   // period
-  if(hoursIn24HourFormat >= 12) {
+  if( hoursIn24HourFormat >= 12 ) {
     period = Period.PM;
   }
   // hours
-  if(hoursIn24HourFormat === 0) {
+  if( hoursIn24HourFormat === 0 ) {
     hours = 12;
-  } else if(hoursIn24HourFormat > 12) {
+  } else if( hoursIn24HourFormat > 12 ) {
     hours = hoursIn24HourFormat - 12;
   }
 

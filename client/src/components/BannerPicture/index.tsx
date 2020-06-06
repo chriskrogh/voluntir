@@ -5,11 +5,11 @@ import { StaticAssets, Panels } from 'utils/constants';
 export const BANNER_HEIGHT = 240;
 export const PICTURE_SIZE = BANNER_HEIGHT / 2;
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   bannerPictureContainer: {
     display: 'flex',
     height: BANNER_HEIGHT,
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing( 1 ),
     position: 'relative'
   },
   banner: {
@@ -33,14 +33,14 @@ const styles = (theme: Theme) => createStyles({
     alignItems: 'center',
     width: PICTURE_SIZE,
     height: PICTURE_SIZE,
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing( 2 ),
     borderRadius: PICTURE_SIZE / 2,
     overflow: 'hidden'
   },
   picture: {
     maxHeight: '100%'
   },
-});
+} );
 
 interface Props extends WithStyles<typeof styles> {
   banner?: string;
@@ -48,10 +48,10 @@ interface Props extends WithStyles<typeof styles> {
   panel: Panels.PROFILE | Panels.COMMUNITY;
 }
 
-function BannerPicture({ classes, banner, picture, panel }: Props) {
+function BannerPicture( { classes, banner, picture, panel }: Props ) {
   const bannerAsset = banner || StaticAssets.BANNER;
   const pictureAsset = picture || (
-    (panel === Panels.PROFILE) ? StaticAssets.USER : StaticAssets.COMMUNITY
+    ( panel === Panels.PROFILE ) ? StaticAssets.USER : StaticAssets.COMMUNITY
   );
 
   return (
@@ -73,4 +73,4 @@ function BannerPicture({ classes, banner, picture, panel }: Props) {
   );
 }
 
-export default withStyles(styles)(BannerPicture);
+export default withStyles( styles )( BannerPicture );

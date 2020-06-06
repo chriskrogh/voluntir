@@ -8,12 +8,12 @@ interface Props {
   children: React.ReactNode | React.ReactNode[];
 }
 
-const Provider = ({ children }: Props) => {
-  const [ state, dispatch ] = useReducer(Reducer, initialState);
+const Provider = ( { children }: Props ) => {
+  const [ state, dispatch ] = useReducer( Reducer, initialState );
 
-  const setTheme = (theme: NamedTheme) => {
-    localStorage.setItem('theme', theme.name);
-    dispatch({ type: ActionTypes.SET_THEME, payload: theme });
+  const setTheme = ( theme: NamedTheme ) => {
+    localStorage.setItem( 'theme', theme.name );
+    dispatch( { type: ActionTypes.SET_THEME, payload: theme } );
   }
 
   return (

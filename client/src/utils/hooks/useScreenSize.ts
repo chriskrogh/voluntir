@@ -3,27 +3,27 @@ import { ScreenSize } from 'types/theme';
 
 const getScreenSize = () => {
   const width = window.innerWidth;
-  if (width >= 960) {
+  if ( width >= 960 ) {
     return ScreenSize.MD;
-  } else if (width >= 600) {
+  } else if ( width >= 600 ) {
     return ScreenSize.SM;
   }
   return ScreenSize.XS;
 }
 
 function useScreenSize() {
-  const [ ss, setSS ] = useState(getScreenSize());
-  useLayoutEffect(() => {
+  const [ ss, setSS ] = useState( getScreenSize() );
+  useLayoutEffect( () => {
     function updateSize() {
       const currentSS = getScreenSize();
-      if (currentSS !== ss) {
-        setSS(currentSS);
+      if ( currentSS !== ss ) {
+        setSS( currentSS );
       }
     }
-    window.addEventListener('resize', updateSize);
+    window.addEventListener( 'resize', updateSize );
     updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, [ ss ]);
+    return () => window.removeEventListener( 'resize', updateSize );
+  }, [ ss ] );
   return ss;
 }
 

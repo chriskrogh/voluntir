@@ -13,7 +13,7 @@ export interface EventDoc extends Document {
   attendees: Types.Array<Types.ObjectId> | Types.Array<UserDoc>;
 }
 
-const EventSchema = new Schema({
+const EventSchema = new Schema( {
   title: {
     type: String,
     required: true,
@@ -48,14 +48,14 @@ const EventSchema = new Schema({
   } ]
 }, {
   timestamps: true
-});
+} );
 
-EventSchema.virtual('media', {
+EventSchema.virtual( 'media', {
   ref: ObjectRefs.MEDIA,
   localField: '_id',
   foreignField: 'event'
-})
+} )
 
-const EventModel = model<EventDoc>(ObjectRefs.EVENT, EventSchema);
+const EventModel = model<EventDoc>( ObjectRefs.EVENT, EventSchema );
 
 export default EventModel;

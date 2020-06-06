@@ -8,7 +8,7 @@ import LightTheme from 'theme/themes/light';
 import DarkTheme from 'theme/themes/dark';
 import ParagraphText from 'components/typography/ParagraphText';
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   button: {
     height: '100%',
     width: '100%',
@@ -19,14 +19,14 @@ const styles = (theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      marginRight: theme.spacing(1),
+    marginRight: theme.spacing( 2 ),
+    [theme.breakpoints.down( 'sm' )]: {
+      marginRight: theme.spacing( 1 ),
     }
   },
   iconSize: {
     fontSize: 30,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       fontSize: 24
     }
   },
@@ -35,13 +35,13 @@ const styles = (theme: Theme) => createStyles({
     justifyContent: 'center',
     alignItems: 'center',
   }
-});
+} );
 
-function ThemeToggleButton({ classes }: WithStyles<typeof styles>) {
-  const { theme, setTheme } = useContext(ThemeContext);
+function ThemeToggleButton( { classes }: WithStyles<typeof styles> ) {
+  const { theme, setTheme } = useContext( ThemeContext );
 
   const toggleTheme = () => {
-    setTheme(theme.name === LightTheme.name ? DarkTheme : LightTheme);
+    setTheme( theme.name === LightTheme.name ? DarkTheme : LightTheme );
   }
 
   return (
@@ -56,4 +56,4 @@ function ThemeToggleButton({ classes }: WithStyles<typeof styles>) {
   );
 }
 
-export default withStyles(styles)(ThemeToggleButton);
+export default withStyles( styles )( ThemeToggleButton );

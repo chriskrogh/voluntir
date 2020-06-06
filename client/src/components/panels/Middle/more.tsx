@@ -11,18 +11,18 @@ import ParagraphText from 'components/typography/ParagraphText';
 import AddIcon from '@material-ui/icons/Add';
 import { Routes } from 'utils/constants';
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   container: {
-    margin: `0 ${theme.spacing(2)}px`
+    margin: `0 ${theme.spacing( 2 )}px`
   },
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
-    margin: `0 ${theme.spacing(3)}px`,
+    margin: `0 ${theme.spacing( 3 )}px`,
     height: 48
   },
   subtitleContainer: {
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing( 1 )
   },
   button: {
     height: '100%',
@@ -34,22 +34,22 @@ const styles = (theme: Theme) => createStyles({
   iconContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing( 2 )
   },
   icon: {
     color: theme.palette.text.primary,
     fontSize: 30,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       fontSize: 24
     }
   }
-});
+} );
 
-function More({ classes }: WithStyles<typeof styles>) {
+function More( { classes }: WithStyles<typeof styles> ) {
   const history = useHistory();
 
   const createCommunity = () => {
-    history.push(Routes.CREATE_COMMUNITY);
+    history.push( Routes.CREATE_COMMUNITY );
   }
 
   return (
@@ -72,4 +72,4 @@ function More({ classes }: WithStyles<typeof styles>) {
   );
 }
 
-export default withStyles(styles)(More);
+export default withStyles( styles )( More );

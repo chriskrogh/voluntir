@@ -12,20 +12,20 @@ interface Props {
   styles: LeftPanelRowStyles;
 }
 
-function LogoutButton({ styles }: Props) {
-  const { token, unsetUser, unsetToken } = useContext(UserContext);
+function LogoutButton( { styles }: Props ) {
+  const { token, unsetUser, unsetToken } = useContext( UserContext );
   const history = useHistory();
 
   const signOut = async () => {
     try {
       unsetUser();
-      await logout(token);
+      await logout( token );
       unsetToken();
-      localStorage.removeItem('token');
-      history.push(Routes.AUTH);
-    } catch (error) {
+      localStorage.removeItem( 'token' );
+      history.push( Routes.AUTH );
+    } catch ( error ) {
       // TODO replace with helpful message 2 user
-      console.error(error);
+      console.error( error );
     }
   }
 
@@ -41,4 +41,4 @@ function LogoutButton({ styles }: Props) {
   );
 }
 
-export default memo(LogoutButton, isEqual);
+export default memo( LogoutButton, isEqual );

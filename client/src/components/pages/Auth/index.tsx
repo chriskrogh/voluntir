@@ -11,7 +11,7 @@ import LoginForm from 'components/forms/Login';
 import SignUpForm from 'components/forms/SignUp';
 import { Routes } from 'utils/constants';
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -19,14 +19,14 @@ const styles = (theme: Theme) => createStyles({
     alignItems: 'center',
   },
   titleContainer: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing( 2 ),
   },
   subtitleContainer: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing( 3 ),
   },
   buttonGroup: {
     backgroundColor: theme.palette.background.default,
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing( 3 ),
   },
   button: {
     color: theme.palette.text.primary,
@@ -34,22 +34,22 @@ const styles = (theme: Theme) => createStyles({
     width: 200
   },
   formContainer: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3)
+    marginTop: theme.spacing( 3 ),
+    marginBottom: theme.spacing( 3 )
   }
-});
+} );
 
-function Auth({ classes }: WithStyles<typeof styles>) {
+function Auth( { classes }: WithStyles<typeof styles> ) {
   const history = useHistory();
-  const { user } = useContext(UserContext);
+  const { user } = useContext( UserContext );
 
-  const [ isLogin, setIsLogin ] = useState(true);
+  const [ isLogin, setIsLogin ] = useState( true );
 
-  useEffect(() => {
-    if (user._id !== '0') {
-      history.push(Routes.HOME);
+  useEffect( () => {
+    if ( user._id !== '0' ) {
+      history.push( Routes.HOME );
     }
-  }, [ user._id, history ]);
+  }, [ user._id, history ] );
 
   return (
     <Page>
@@ -63,13 +63,13 @@ function Auth({ classes }: WithStyles<typeof styles>) {
         <ButtonGroup className={classes.buttonGroup}>
           <Button
             className={classes.button}
-            onClick={() => setIsLogin(true)}
+            onClick={() => setIsLogin( true )}
           >
                         LOG IN
           </Button>
           <Button
             className={classes.button}
-            onClick={() => setIsLogin(false)}
+            onClick={() => setIsLogin( false )}
           >
                         SIGN UP
           </Button>
@@ -82,4 +82,4 @@ function Auth({ classes }: WithStyles<typeof styles>) {
   );
 }
 
-export default withStyles(styles)(Auth);
+export default withStyles( styles )( Auth );

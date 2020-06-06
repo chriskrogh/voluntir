@@ -18,7 +18,7 @@ import M from 'utils/errorMessages';
 import { Routes } from 'utils/constants';
 import { getCommunityLogo } from 'utils/api/community';
 
-const styles = (theme: Theme) => createStyles({
+const styles = ( theme: Theme ) => createStyles( {
   container: {
     flexDirection: 'row'
   },
@@ -26,24 +26,24 @@ const styles = (theme: Theme) => createStyles({
     display: 'flex',
     flexDirection: 'column',
     width: 502,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       width: 356
     },
-    [theme.breakpoints.down('xs')]: {
-      width: Math.min(356, window.innerWidth - 48)
+    [theme.breakpoints.down( 'xs' )]: {
+      width: Math.min( 356, window.innerWidth - 48 )
     }
   },
   logoContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing( 1 ),
     overflow: 'hidden',
     cursor: 'pointer',
     width: 32,
     height: 32,
     borderRadius: 16,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down( 'sm' )]: {
       width: 28,
       height: 28,
       borderRadius: 14,
@@ -56,10 +56,10 @@ const styles = (theme: Theme) => createStyles({
     cursor: 'pointer'
   },
   descriptionContainer: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing( 2 )
   },
   buttonGroup: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing( 2 ),
   },
   button: {
     color: theme.palette.text.primary,
@@ -70,9 +70,9 @@ const styles = (theme: Theme) => createStyles({
     backgroundColor: theme.palette.secondary.main
   },
   sectionContainer: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing( 2 )
   }
-});
+} );
 
 enum Sections {
   GALLERY = 'Gallery',
@@ -80,33 +80,33 @@ enum Sections {
   GOING = 'Going'
 }
 
-const getEvent = (id: string | null, history: History) => {
-  if (id == null) {
-    console.warn(M.EVENT_PAGE_ID);
-    history.push(Routes.HOME);
+const getEvent = ( id: string | null, history: History ) => {
+  if ( id == null ) {
+    console.warn( M.EVENT_PAGE_ID );
+    history.push( Routes.HOME );
     return events[0];
   } else {
     // replace with api call
-    return events[parseInt(id)];
+    return events[parseInt( id )];
   }
 }
 
-function EventPanel({ classes }: WithStyles<typeof styles>) {
+function EventPanel( { classes }: WithStyles<typeof styles> ) {
   const history = useHistory();
 
   const screenSize = useScreenSize();
-  const eventId = useQuery().get('id');
-  const event = getEvent(eventId, history);
+  const eventId = useQuery().get( 'id' );
+  const event = getEvent( eventId, history );
 
   const { title, community, communityName, description, media } = event;
 
-  const [ section, setSection ] = useState(media != null
+  const [ section, setSection ] = useState( media != null
     ? Sections.GALLERY
     : Sections.LOCATION
   );
 
   const goToCommunity = () => {
-    history.push(Routes.COMMUNITY + '?id=' + community);
+    history.push( Routes.COMMUNITY + '?id=' + community );
   }
 
   return (
@@ -114,7 +114,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
       <Container className={classes.container} >
         <div className={classes.logoContainer} onClick={goToCommunity}>
           <img
-            src={getCommunityLogo(community)}
+            src={getCommunityLogo( community )}
             className={classes.logo}
             alt="logo"
           />
@@ -136,7 +136,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
                 classes.button,
                 { [classes.selectedButton]: section === Sections.GALLERY }
               )}
-              onClick={() => setSection(Sections.GALLERY)}
+              onClick={() => setSection( Sections.GALLERY )}
             >
               Gallery
             </Button>
@@ -145,7 +145,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
                 classes.button,
                 { [classes.selectedButton]: section === Sections.LOCATION }
               )}
-              onClick={() => setSection(Sections.LOCATION)}
+              onClick={() => setSection( Sections.LOCATION )}
             >
               Location
             </Button>
@@ -154,7 +154,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
                 classes.button,
                 { [classes.selectedButton]: section === Sections.GOING }
               )}
-              onClick={() => setSection(Sections.GOING)}
+              onClick={() => setSection( Sections.GOING )}
             >
               Going
             </Button>
@@ -173,4 +173,4 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
   );
 }
 
-export default withStyles(styles)(EventPanel);
+export default withStyles( styles )( EventPanel );

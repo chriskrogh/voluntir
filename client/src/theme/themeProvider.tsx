@@ -6,8 +6,8 @@ interface Props {
   children: React.ReactNode;
 }
 
-function CustomThemeProvider({ children }: Props) {
-  const { theme } = useContext(ThemeContext);
+function CustomThemeProvider( { children }: Props ) {
+  const { theme } = useContext( ThemeContext );
 
   return (
     <ThemeProvider theme={theme}>
