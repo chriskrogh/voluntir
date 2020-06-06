@@ -153,7 +153,7 @@ router.patch(Routes.COMMUNITY + '/remove/member/:id', auth, async (req: Authenti
     if (!community) {
       res.status(404).send();
     } else {
-      community.admins.pull(req.user?._id);
+      community.members.pull(req.user?._id);
       community.save();
       res.send();
     }
