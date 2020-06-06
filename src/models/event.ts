@@ -10,7 +10,7 @@ export interface EventDoc extends Document {
   start: Date;
   end: Date;
   community: Types.ObjectId | CommunityDoc;
-  attendees: Types.ObjectId[] | UserDoc[];
+  attendees: Types.Array<Types.ObjectId> | Types.Array<UserDoc>;
 }
 
 const EventSchema = new Schema({
@@ -43,6 +43,7 @@ const EventSchema = new Schema({
   },
   attendees: [{
     type: Types.ObjectId,
+    required: true,
     ref: ObjectRefs.USER
   }]
 }, {

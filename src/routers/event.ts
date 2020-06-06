@@ -109,12 +109,8 @@ router.patch(Routes.EVENT + '/unattend/:id', auth, async (req: AuthenticatedRequ
     if(!event) {
       res.status(404).send();
     } else {
-      const attendees = event.attendees as Types.ObjectId[];
-      for(let i = 0; i < attendees.length; ++i) {
-        if(attendees[i].equals(req.user?._id)) {
-          attendees.splice(i, 1);
-        }
-      }
+      const attendees = event.attendees as Types.Array<Types.ObjectId>;
+      attendees.pull(req.user?._id);
       event.save();
       res.send();
     }
