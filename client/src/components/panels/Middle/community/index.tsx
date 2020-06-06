@@ -19,12 +19,12 @@ import { Routes, Panels } from 'utils/constants';
 import events from 'data/events';
 import users from 'data/users';
 
-const styles = ( theme: Theme ) => createStyles( {
+const styles = (theme: Theme) => createStyles({
   nameContainer: {
-    marginBottom: theme.spacing( 1 )
+    marginBottom: theme.spacing(1)
   },
   buttonContainer: {
-    marginBottom: theme.spacing( 1 )
+    marginBottom: theme.spacing(1)
   },
   button: {
     color: theme.palette.text.primary,
@@ -35,14 +35,14 @@ const styles = ( theme: Theme ) => createStyles( {
     backgroundColor: theme.palette.secondary.main
   },
   middleContainer: {
-    margin: `0 ${theme.spacing( 2 )}px ${theme.spacing( 2 )}px`,
+    margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`,
   },
   aboutContainer: {
     backgroundColor: theme.palette.primary.main,
-    padding: theme.spacing( 2 ),
-    borderRadius: theme.spacing( 1 )
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(1)
   }
-} );
+});
 
 enum Sections {
   HOME = 'Home',
@@ -61,28 +61,28 @@ const getCompletedEvents = () => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getAdmins = ( admins: string[] ) => {
+const getAdmins = (admins: string[]) => {
   // replace with special request to server
   return users;
 }
 
-const getCommnity = ( id: string | null, history: History ) => {
-  if ( id == null ) {
-    console.error( M.COMMUNITY_PAGE_ID );
-    history.push( Routes.HOME )
+const getCommnity = (id: string | null, history: History) => {
+  if (id == null) {
+    console.error(M.COMMUNITY_PAGE_ID);
+    history.push(Routes.HOME)
     return communities[0];
   } else {
     // replace with api call
-    return communities[parseInt( id )];
+    return communities[parseInt(id)];
   }
 }
 
-function CommunityPanel( { classes }: WithStyles<typeof styles> ) {
+function CommunityPanel({ classes }: WithStyles<typeof styles>) {
   const history = useHistory();
-  const id = useQuery().get( 'id' );
-  const community = getCommnity( id, history );
+  const id = useQuery().get('id');
+  const community = getCommnity(id, history);
   const { banner, logo, name, description, events, admins } = community;
-  const [ section, setSection ] = useState( Sections.HOME );
+  const [ section, setSection ] = useState(Sections.HOME);
 
   return (
     <Panel>
@@ -101,7 +101,7 @@ function CommunityPanel( { classes }: WithStyles<typeof styles> ) {
               classes.button,
               { [classes.selectedButton]: section === Sections.HOME }
             )}
-            onClick={() => setSection( Sections.HOME )}
+            onClick={() => setSection(Sections.HOME)}
           >
             {Sections.HOME}
           </Button>
@@ -111,7 +111,7 @@ function CommunityPanel( { classes }: WithStyles<typeof styles> ) {
                 classes.button,
                 { [classes.selectedButton]: section === Sections.ABOUT }
               )}
-              onClick={() => setSection( Sections.ABOUT )}
+              onClick={() => setSection(Sections.ABOUT)}
             >
               {Sections.ABOUT}
             </Button>
@@ -121,7 +121,7 @@ function CommunityPanel( { classes }: WithStyles<typeof styles> ) {
               classes.button,
               { [classes.selectedButton]: section === Sections.UPCOMING }
             )}
-            onClick={() => setSection( Sections.UPCOMING )}
+            onClick={() => setSection(Sections.UPCOMING)}
           >
             {Sections.UPCOMING}
           </Button>
@@ -132,14 +132,14 @@ function CommunityPanel( { classes }: WithStyles<typeof styles> ) {
       )}
       {section === Sections.ABOUT && description && (
         <>
-          <div className={classnames( classes.middleContainer, classes.aboutContainer )}>
+          <div className={classnames(classes.middleContainer, classes.aboutContainer)}>
             <ParagraphText text={description} />
           </div>
           <div className={classes.middleContainer}>
             <Title text="Admins" />
           </div>
           <div className={classes.middleContainer}>
-            <UserList users={getAdmins( admins )} />
+            <UserList users={getAdmins(admins)} />
           </div>
         </>
       )}
@@ -150,4 +150,4 @@ function CommunityPanel( { classes }: WithStyles<typeof styles> ) {
   );
 }
 
-export default withStyles( styles )( CommunityPanel );
+export default withStyles(styles)(CommunityPanel);

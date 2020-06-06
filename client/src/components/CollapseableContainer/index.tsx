@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useIsTextOverflowing from 'utils/hooks/useIsTextOverflowing';
 
-const styles = ( theme: Theme ) => ( {
+const styles = (theme: Theme) => ({
   container: {
     transition: 'max-height .25s linear',
     overflow: 'hidden',
@@ -24,7 +24,7 @@ const styles = ( theme: Theme ) => ( {
     backgroundColor: 'transparent',
   },
   buttonTextContainer: {
-    marginRight: theme.spacing( 1 ) / 2,
+    marginRight: theme.spacing(1) / 2,
   },
   icon: {
     fontSize: 20,
@@ -43,7 +43,7 @@ const styles = ( theme: Theme ) => ( {
     fontSize: 12,
     color: theme.palette.text.secondary
   }
-} );
+});
 
 interface Props extends WithStyles<typeof styles> {
   theme: Theme;
@@ -52,23 +52,23 @@ interface Props extends WithStyles<typeof styles> {
   children?: React.ReactNode;
 }
 
-function CollapseableContainer( {
+function CollapseableContainer({
   classes,
   containerClassName,
   maxHeight,
   children
-}: Props ) {
-  const [ expanded, setExpanded ] = useState( false );
+}: Props) {
+  const [ expanded, setExpanded ] = useState(false);
   const [ isTextOverflowing, textRef ] = useIsTextOverflowing();
 
-  const toggleExpanded = () => setExpanded( !expanded );
+  const toggleExpanded = () => setExpanded(!expanded);
 
   return (
     <>
       <div
-        className={classnames( classes.container, containerClassName )}
+        className={classnames(classes.container, containerClassName)}
         style={{
-          maxHeight: ( expanded && textRef.current )
+          maxHeight: (expanded && textRef.current)
             ? textRef.current.scrollHeight
             : maxHeight
         }}
@@ -99,4 +99,4 @@ function CollapseableContainer( {
   );
 }
 
-export default withStyles( styles, { withTheme: true } )( CollapseableContainer );
+export default withStyles(styles, { withTheme: true })(CollapseableContainer);

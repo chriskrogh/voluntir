@@ -1,8 +1,8 @@
 import { initialState } from 'context/user/state';
 import ActionTypes, { Action } from 'context/user/actions';
 
-export default ( state = initialState, action: Action ) => {
-  switch ( action.type ) {
+export default (state = initialState, action: Action) => {
+  switch (action.type) {
     case ActionTypes.SET_USER:
       return {
         ...state,

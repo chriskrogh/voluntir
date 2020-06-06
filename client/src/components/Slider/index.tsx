@@ -10,7 +10,7 @@ import { Media } from 'types/media';
 
 const transitionTime = '0.3s';
 
-const styles = () => createStyles( {
+const styles = () => createStyles({
   slider: {
     display: 'flex',
     width: '100%',
@@ -44,60 +44,60 @@ const styles = () => createStyles( {
   icon: {
     fontSize: 24,
   }
-} );
+});
 
-const getContainerWidth = ( screenSize: ScreenSize ): number => {
-  switch ( screenSize ) {
+const getContainerWidth = (screenSize: ScreenSize): number => {
+  switch (screenSize) {
     case ScreenSize.MD:
       return 502;
     case ScreenSize.SM:
       return 356;
     case ScreenSize.XS:
-      return Math.min( 356, window.innerWidth - 48 );
+      return Math.min(356, window.innerWidth - 48);
     default:
       return 502;
   }
 }
 
-const getIndex = ( translateValue: number ) => ( ( translateValue / 100 ) * -1 );
+const getIndex = (translateValue: number) => ((translateValue / 100) * -1);
 
 interface Props extends WithStyles<typeof styles> {
   media: Media[];
   screenSize: ScreenSize;
 }
 
-function Slider( { classes, media, screenSize }: Props ) {
-  const [ translateValue, setTranslateValue ] = useState( 0 );
+function Slider({ classes, media, screenSize }: Props) {
+  const [ translateValue, setTranslateValue ] = useState(0);
 
-  const containerWidth = getContainerWidth( screenSize );
-  const slideHeight = ( containerWidth / media[getIndex( translateValue )].AR );
-  const [ sliderHeight, setSliderHeight ] = useState( slideHeight );
+  const containerWidth = getContainerWidth(screenSize);
+  const slideHeight = (containerWidth / media[getIndex(translateValue)].AR);
+  const [ sliderHeight, setSliderHeight ] = useState(slideHeight);
 
   const hasManyItems = media.length > 0;
-  const lastItemPosition = -100 * ( media.length - 1 );
+  const lastItemPosition = -100 * (media.length - 1);
   const firstItemPosition = 0;
 
   const goLeft = () => {
-    setTranslateValue( ( translateValue === firstItemPosition )
+    setTranslateValue((translateValue === firstItemPosition)
       ? lastItemPosition
       : translateValue + 100
     );
   }
 
   const goRight = () => {
-    setTranslateValue( ( translateValue === lastItemPosition )
+    setTranslateValue((translateValue === lastItemPosition)
       ? firstItemPosition
       : translateValue - 100
     );
   }
 
-  useEffect( () => {
-    setSliderHeight( slideHeight );
-  }, [ slideHeight ] )
+  useEffect(() => {
+    setSliderHeight(slideHeight);
+  }, [ slideHeight ])
 
   return (
     <div className={classes.slider} style={{ height: sliderHeight }}>
-      {media.map( ( medium ) => (
+      {media.map((medium) => (
         <div
           key={medium._id}
           className={classes.slide}
@@ -109,10 +109,10 @@ function Slider( { classes, media, screenSize }: Props ) {
             className={classes.image}
           />
         </div>
-      ) )}
+      ))}
       {hasManyItems && (
         <Button
-          className={classnames( classes.button, classes.leftButton )}
+          className={classnames(classes.button, classes.leftButton)}
           onClick={goLeft}
         >
           <NavigatePreviousIcon className={classes.icon} />
@@ -120,7 +120,7 @@ function Slider( { classes, media, screenSize }: Props ) {
       )}
       {hasManyItems && (
         <Button
-          className={classnames( classes.button, classes.rightButton )}
+          className={classnames(classes.button, classes.rightButton)}
           onClick={goRight}
         >
           <NavigateNextIcon className={classes.icon} />
@@ -130,4 +130,4 @@ function Slider( { classes, media, screenSize }: Props ) {
   );
 }
 
-export default withStyles( styles )( Slider );
+export default withStyles(styles)(Slider);

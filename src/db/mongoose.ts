@@ -3,9 +3,9 @@ import { port, host, dbName } from './config';
 
 const mongoUrl = process.env.MONGO_URL || `mongodb://${host}:${port}/${dbName}`;
 
-mongoose.set( 'useUnifiedTopology', true );
+mongoose.set('useUnifiedTopology', true);
 
-mongoose.connect( mongoUrl, {
+mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
   useCreateIndex: true
-} );
+});

@@ -5,7 +5,7 @@ import { Method } from 'types/network';
 import { USERS } from 'utils/network/endpoints';
 import M from 'utils/errorMessages';
 
-export const login = async ( data: Credentials ) => {
+export const login = async (data: Credentials) => {
   return await makeRequest<AuthResponse, Credentials>(
     Method.POST,
     USERS,
@@ -14,7 +14,7 @@ export const login = async ( data: Credentials ) => {
   );
 }
 
-export const signup = async ( data: UserData ) => {
+export const signup = async (data: UserData) => {
   return await makeRequest<AuthResponse, UserData>(
     Method.POST,
     USERS + '/signup',
@@ -23,7 +23,7 @@ export const signup = async ( data: UserData ) => {
   );
 }
 
-export const thirdPartyAuth = async ( data: UserData ) => {
+export const thirdPartyAuth = async (data: UserData) => {
   return await makeRequest<AuthResponse, UserData>(
     Method.POST,
     USERS + '/thirdPartyAuth',
@@ -32,7 +32,7 @@ export const thirdPartyAuth = async ( data: UserData ) => {
   );
 }
 
-export const logout = async ( token: string ) => {
+export const logout = async (token: string) => {
   return await makeRequest(
     Method.POST,
     USERS + '/logout',
@@ -42,7 +42,7 @@ export const logout = async ( token: string ) => {
   );
 }
 
-export const getUser = async ( token: string ) => {
+export const getUser = async (token: string) => {
   return await makeRequest<User>(
     Method.GET,
     USERS + '/me',

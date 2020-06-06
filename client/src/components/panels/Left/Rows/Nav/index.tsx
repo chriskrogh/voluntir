@@ -16,8 +16,8 @@ interface IconProps {
   className?: string;
 }
 
-const Icon = ( { panel, className }: IconProps ) => {
-  switch ( panel ) {
+const Icon = ({ panel, className }: IconProps) => {
+  switch (panel) {
     case Panels.HOME:
       return <HomeIcon className={className} />;
     case Panels.EXPLORE:
@@ -38,37 +38,37 @@ interface Props {
   panel: Panels;
 }
 
-function NavButton( { styles, panel }: Props ) {
+function NavButton({ styles, panel }: Props) {
   const history = useHistory();
   const location = useLocation();
-  const { user } = useContext( UserContext );
+  const { user } = useContext(UserContext);
 
   const navigate = () => {
-    switch ( panel ) {
+    switch (panel) {
       case Panels.HOME:
-        if ( location.pathname !== Routes.HOME ) {
-          history.push( Routes.HOME );
+        if (location.pathname !== Routes.HOME) {
+          history.push(Routes.HOME);
         }
         break;
       case Panels.EXPLORE:
-        if ( location.pathname !== Routes.EXPLORE ) {
-          history.push( Routes.EXPLORE );
+        if (location.pathname !== Routes.EXPLORE) {
+          history.push(Routes.EXPLORE);
         }
         break;
       case Panels.PROFILE:
-        if ( location.pathname !== Routes.PROFILE ) {
+        if (location.pathname !== Routes.PROFILE) {
           // replace when api implementation is complete
-          history.push( Routes.PROFILE + '?id=0' /*user._id*/ );
+          history.push(Routes.PROFILE + '?id=0' /*user._id*/);
         }
         break;
       case Panels.SETTINGS:
-        if ( location.pathname !== Routes.SETTINGS ) {
-          history.push( Routes.SETTINGS );
+        if (location.pathname !== Routes.SETTINGS) {
+          history.push(Routes.SETTINGS);
         }
         break;
       case Panels.MORE:
-        if ( location.pathname !== Routes.MORE ) {
-          history.push( Routes.MORE );
+        if (location.pathname !== Routes.MORE) {
+          history.push(Routes.MORE);
         }
         break;
       default:
@@ -88,4 +88,4 @@ function NavButton( { styles, panel }: Props ) {
   );
 }
 
-export default memo( NavButton, isEqual );
+export default memo(NavButton, isEqual);

@@ -14,23 +14,23 @@ import { Routes, Panels } from 'utils/constants';
 import M from 'utils/errorMessages';
 import useQuery from 'utils/hooks/useQuery';
 
-const styles = ( theme: Theme ) => createStyles( {
+const styles = (theme: Theme) => createStyles({
   nameContainer: {
-    marginBottom: theme.spacing( 1 )
+    marginBottom: theme.spacing(1)
   },
   middleContainer: {
-    margin: `0 ${theme.spacing( 2 )}px ${theme.spacing( 2 )}px`,
+    margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px`,
   },
-} );
+});
 
-const getUser = ( id: string | null, history: History ) => {
-  if ( id == null ) {
-    console.warn( M.PROFILE_PAGE_ID );
-    history.push( Routes.HOME );
+const getUser = (id: string | null, history: History) => {
+  if (id == null) {
+    console.warn(M.PROFILE_PAGE_ID);
+    history.push(Routes.HOME);
     return users[0];
   } else {
     // replace with api call
-    return users[parseInt( id )];
+    return users[parseInt(id)];
   }
 }
 
@@ -39,10 +39,10 @@ const getCompletedEvents = () => {
   return [ events[0], events[1] ];
 }
 
-function ProfilePanel( { classes }: WithStyles<typeof styles> ) {
+function ProfilePanel({ classes }: WithStyles<typeof styles>) {
   const history = useHistory();
-  const id = useQuery().get( 'id' );
-  const user = getUser( id, history );
+  const id = useQuery().get('id');
+  const user = getUser(id, history);
 
   const { picture, banner, name } = user;
 
@@ -63,4 +63,4 @@ function ProfilePanel( { classes }: WithStyles<typeof styles> ) {
   );
 }
 
-export default withStyles( styles )( ProfilePanel );
+export default withStyles(styles)(ProfilePanel);

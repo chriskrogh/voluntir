@@ -7,22 +7,22 @@ import Title from 'components/typography/Title';
 import Subtitle from 'components/typography/Subtitle';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';
 
-const styles = ( theme: Theme ) => createStyles( {
+const styles = (theme: Theme) => createStyles({
   container: {
-    margin: `0 ${theme.spacing( 2 )}px`
+    margin: `0 ${theme.spacing(2)}px`
   },
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
-    margin: `0 ${theme.spacing( 3 )}px`,
+    margin: `0 ${theme.spacing(3)}px`,
     height: 48
   },
   subtitleContainer: {
-    marginBottom: theme.spacing( 1 )
+    marginBottom: theme.spacing(1)
   }
-} );
+});
 
-function Settings( { classes }: WithStyles<typeof styles> ) {
+function Settings({ classes }: WithStyles<typeof styles>) {
   return (
     <Panel>
       <div className={classes.titleContainer}>
@@ -38,4 +38,4 @@ function Settings( { classes }: WithStyles<typeof styles> ) {
   );
 }
 
-export default withStyles( styles )( Settings );
+export default withStyles(styles)(Settings);

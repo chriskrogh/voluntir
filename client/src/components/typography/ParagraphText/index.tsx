@@ -3,19 +3,19 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 
-const styles = ( theme: Theme ) => createStyles( {
+const styles = (theme: Theme) => createStyles({
   text: {
     fontSize: 16,
     color: theme.palette.text.primary,
     margin: 0,
-    [theme.breakpoints.down( 'sm' )]: {
+    [theme.breakpoints.down('sm')]: {
       fontSize: 14
     }
   },
   underline: {
     textDecoration: 'underline'
   }
-} );
+});
 
 interface Props extends WithStyles<typeof styles> {
   text: string;
@@ -23,7 +23,7 @@ interface Props extends WithStyles<typeof styles> {
   underline?: boolean;
 }
 
-function ParagraphText( { classes, color, text, underline }: Props ) {
+function ParagraphText({ classes, color, text, underline }: Props) {
   return (
     <p
       className={classnames(
@@ -37,4 +37,4 @@ function ParagraphText( { classes, color, text, underline }: Props ) {
   );
 }
 
-export default withStyles( styles )( ParagraphText );
+export default withStyles(styles)(ParagraphText);

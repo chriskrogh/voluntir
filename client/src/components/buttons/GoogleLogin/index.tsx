@@ -17,36 +17,36 @@ const clientId = REACT_APP_GOOGLE_CLIENT_ID || '';
 
 const containerWidth = 230;
 
-const styles = createStyles( {
+const styles = createStyles({
   button: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     width: containerWidth
   }
-} );
+});
 
 function isOffline(
   res: GoogleLoginResponse | GoogleLoginResponseOffline
 ): res is GoogleLoginResponseOffline {
-  return ( res as GoogleLoginResponseOffline ).code !== undefined;
+  return (res as GoogleLoginResponseOffline).code !== undefined;
 }
 
 const loginUser = async (
   res: GoogleLoginResponse | GoogleLoginResponseOffline,
-  callback: ( user: User, token: string ) => void
+  callback: (user: User, token: string) => void
 ) => {
-  if ( isOffline( res ) || res.profileObj == null ) {
+  if (isOffline(res) || res.profileObj == null) {
     throw new Error();
   } else {
     const picture = res.profileObj.imageUrl;
-    const secret = res.profileObj.email.split( '@' )[0];
-    const { user, token } = await thirdPartyAuth( {
+    const secret = res.profileObj.email.split('@')[0];
+    const { user, token } = await thirdPartyAuth({
       ...res.profileObj,
       picture,
       secret
-    } as UserData );
-    callback( user, token );
+    } as UserData);
+    callback(user, token);
   }
 }
 
@@ -54,23 +54,23 @@ interface Props extends WithStyles<typeof styles> {
   mode: AuthMode;
 }
 
-const Google = ( { classes, mode }: Props ) => {
-  const { setUser, setToken } = useContext( UserContext );
+const Google = ({ classes, mode }: Props) => {
+  const { setUser, setToken } = useContext(UserContext);
   const history = useHistory();
 
-  const callback = ( user: User, token: string ) => {
-    setUser( user );
-    setToken( token );
-    localStorage.setItem( 'token', token );
-    history.push( Routes.HOME );
+  const callback = (user: User, token: string) => {
+    setUser(user);
+    setToken(token);
+    localStorage.setItem('token', token);
+    history.push(Routes.HOME);
   }
 
   return (
     <GoogleLogin
       clientId={clientId}
       onSuccess={
-        ( res: GoogleLoginResponse | GoogleLoginResponseOffline ) =>
-          loginUser( res, callback )
+        (res: GoogleLoginResponse | GoogleLoginResponseOffline) =>
+          loginUser(res, callback)
       }
       onFailure={() => {
         throw new Error();
@@ -81,4 +81,4 @@ const Google = ( { classes, mode }: Props ) => {
   );
 }
 
-export default withStyles( styles )( Google );
+export default withStyles(styles)(Google);

@@ -18,35 +18,35 @@ import { Routes } from 'utils/constants';
 import { getCommunityLogo } from 'utils/api/community';
 import { getLocalTime } from 'utils/date';
 
-const styles = ( theme: Theme ) => createStyles( {
+const styles = (theme: Theme) => createStyles({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: theme.spacing( 2 ),
-    padding: theme.spacing( 1 ),
-    borderRadius: theme.spacing( 1 ),
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
   },
   contentContainer: {
     width: 502,
-    [theme.breakpoints.down( 'sm' )]: {
+    [theme.breakpoints.down('sm')]: {
       width: 356
     },
-    [theme.breakpoints.down( 'xs' )]: {
-      width: Math.min( 356, window.innerWidth - 48 )
+    [theme.breakpoints.down('xs')]: {
+      width: Math.min(356, window.innerWidth - 48)
     }
   },
   logoContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: theme.spacing( 1 ),
+    marginRight: theme.spacing(1),
     overflow: 'hidden',
     cursor: 'pointer',
     width: 32,
     height: 32,
     borderRadius: 16,
-    [theme.breakpoints.down( 'sm' )]: {
+    [theme.breakpoints.down('sm')]: {
       width: 28,
       height: 28,
       borderRadius: 14,
@@ -56,30 +56,30 @@ const styles = ( theme: Theme ) => createStyles( {
     maxHeight: '100%',
   },
   titleContainer: {
-    marginBottom: theme.spacing( 1 ),
+    marginBottom: theme.spacing(1),
     cursor: 'pointer'
   },
   hostedByContainer: {
-    marginRight: theme.spacing( 1 ) / 2
+    marginRight: theme.spacing(1) / 2
   },
   clickableContainer: {
     cursor: 'pointer'
   },
   textContainer: {
-    marginBottom: theme.spacing( 1 )
+    marginBottom: theme.spacing(1)
   },
   sliderContainer: {
-    marginBottom: theme.spacing( 1 )
+    marginBottom: theme.spacing(1)
   },
   locationContainer: {
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    marginBottom: theme.spacing( 1 ),
+    marginBottom: theme.spacing(1),
     cursor: 'pointer'
   },
   dateContainer: {
-    marginLeft: theme.spacing( 4 )
+    marginLeft: theme.spacing(4)
   },
   dateColumnsContainer: {
     display: 'flex',
@@ -87,7 +87,7 @@ const styles = ( theme: Theme ) => createStyles( {
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: theme.spacing( 2 ),
+    marginBottom: theme.spacing(2),
     cursor: 'pointer'
   },
   timesContainer: {
@@ -98,24 +98,24 @@ const styles = ( theme: Theme ) => createStyles( {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: theme.spacing( 1 )
+    marginRight: theme.spacing(1)
   },
   startIcon: {
     color: theme.palette.success.main,
-    marginRight: theme.spacing( 1 ),
+    marginRight: theme.spacing(1),
     fontSize: 15
   },
   redIcon: {
     color: theme.palette.error.main,
-    marginRight: theme.spacing( 1 ),
+    marginRight: theme.spacing(1),
     fontSize: 15
   },
   calendarIcon: {
     color: theme.palette.text.primary,
-    marginRight: theme.spacing( 1 ),
+    marginRight: theme.spacing(1),
     fontSize: 15
   }
-} );
+});
 
 interface Props extends WithStyles<typeof styles> {
   theme: Theme;
@@ -123,7 +123,7 @@ interface Props extends WithStyles<typeof styles> {
   className?: string;
 }
 
-function EventCard( { classes, theme, className, event }: Props ) {
+function EventCard({ classes, theme, className, event }: Props) {
   const screenSize = useScreenSize();
   const history = useHistory();
 
@@ -140,20 +140,20 @@ function EventCard( { classes, theme, className, event }: Props ) {
   } = event;
 
   const goToEvent = () => {
-    history.push( Routes.EVENT + '?id=' + _id );
+    history.push(Routes.EVENT + '?id=' + _id);
   }
 
   const goToCommunity = () => {
-    history.push( Routes.COMMUNITY + '?id=' + community );
+    history.push(Routes.COMMUNITY + '?id=' + community);
   }
 
   const isSameDay = start.toDateString() === end.toDateString();
 
   return (
-    <div className={classnames( classes.container, className )}>
+    <div className={classnames(classes.container, className)}>
       <div className={classes.logoContainer} onClick={goToCommunity}>
         <img
-          src={getCommunityLogo( community )}
+          src={getCommunityLogo(community)}
           className={classes.logo}
           alt="logo"
         />
@@ -199,7 +199,7 @@ function EventCard( { classes, theme, className, event }: Props ) {
                   />
                 )}
                 <SubText
-                  text={getLocalTime( start )}
+                  text={getLocalTime(start)}
                   color={theme.palette.text.secondary}
                 />
               </div>
@@ -214,7 +214,7 @@ function EventCard( { classes, theme, className, event }: Props ) {
                   />
                 )}
                 <SubText
-                  text={getLocalTime( end )}
+                  text={getLocalTime(end)}
                   color={theme.palette.text.secondary}
                 />
               </div>
@@ -244,4 +244,4 @@ function EventCard( { classes, theme, className, event }: Props ) {
   );
 }
 
-export default withStyles( styles, { withTheme: true } )( EventCard );
+export default withStyles(styles, { withTheme: true })(EventCard);

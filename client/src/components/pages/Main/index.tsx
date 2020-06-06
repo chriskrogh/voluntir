@@ -14,28 +14,28 @@ import MorePanel from 'components/panels/Middle/More';
 import CreateCommunity from 'components/panels/Middle/community/create';
 import CreateEvent from 'components/panels/Middle/event/create';
 
-const styles = ( theme: Theme ) => createStyles( {
+const styles = (theme: Theme) => createStyles({
   container: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'relative',
     width: 960,
-    [theme.breakpoints.down( 'sm' )]: {
+    [theme.breakpoints.down('sm')]: {
       width: 600
     },
-    [theme.breakpoints.down( 'xs' )]: {
+    [theme.breakpoints.down('xs')]: {
       width: '100%'
     }
   }
-} );
+});
 
 interface PanelProps {
   panel: Panels;
 }
 
-const Panel = ( { panel }: PanelProps ) => {
-  switch ( panel ) {
+const Panel = ({ panel }: PanelProps) => {
+  switch (panel) {
     case Panels.HOME:
       return <FeedPanel feed={Feeds.HOME} />;
     case Panels.EXPLORE:
@@ -63,7 +63,7 @@ interface Props extends WithStyles<typeof styles> {
   panel: Panels;
 }
 
-function Main( { classes, panel }: Props ) {
+function Main({ classes, panel }: Props) {
   return (
     <Page>
       <div className={classes.container}>
@@ -75,4 +75,4 @@ function Main( { classes, panel }: Props ) {
   );
 }
 
-export default withStyles( styles )( Main );
+export default withStyles(styles)(Main);

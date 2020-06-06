@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import { MediaDoc } from './media';
 import { ObjectRefs } from '../utils/constants';
 
-const UserSchema = new Schema( {
+const UserSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -44,31 +44,31 @@ const UserSchema = new Schema( {
   } ]
 }, {
   timestamps: true
-} );
+});
 
-UserSchema.virtual( 'admin', {
+UserSchema.virtual('admin', {
   ref: ObjectRefs.COMMUNITY,
   localField: '_id',
   foreignField: 'admins'
-} )
+})
 
-UserSchema.virtual( 'attendee', {
+UserSchema.virtual('attendee', {
   ref: ObjectRefs.EVENT,
   localField: '_id',
   foreignField: 'attendees'
-} )
+})
 
-UserSchema.virtual( 'follower', {
+UserSchema.virtual('follower', {
   ref: ObjectRefs.USER,
   localField: '_id',
   foreignField: 'followers'
-} )
+})
 
-UserSchema.virtual( 'followee', {
+UserSchema.virtual('followee', {
   ref: ObjectRefs.USER,
   localField: '_id',
   foreignField: 'following'
-} )
+})
 
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();
@@ -80,35 +80,35 @@ UserSchema.methods.toJSON = function () {
 }
 
 UserSchema.methods.generateAuthToken = async function () {
-  const token = jwt.sign( { id: this.id.toString() }, process.env.APP_SECRET );
-  this.tokens = this.tokens.concat( token );
+  const token = jwt.sign({ id: this.id.toString() }, process.env.APP_SECRET);
+  this.tokens = this.tokens.concat(token);
   await this.save();
   return token;
 }
 
-UserSchema.statics.validateSecret = async ( user: UserDoc, secret: string ) => {
-  const isMatch = await bcrypt.compare( secret, user.secret );
-  if ( !isMatch ) {
-    throw new Error( 'Unable to login' );
+UserSchema.statics.validateSecret = async (user: UserDoc, secret: string) => {
+  const isMatch = await bcrypt.compare(secret, user.secret);
+  if (!isMatch) {
+    throw new Error('Unable to login');
   }
   return user;
 }
 
-UserSchema.statics.findByCredentials = async ( email: string, secret: string ) => {
-  const user = await UserModel.findOne( { email } );
-  if ( !user ) {
-    throw new Error( 'Unable to login' );
+UserSchema.statics.findByCredentials = async (email: string, secret: string) => {
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    throw new Error('Unable to login');
   }
-  return await UserModel.validateSecret( user, secret );
+  return await UserModel.validateSecret(user, secret);
 };
 
-UserSchema.pre( 'save', async function ( next ) {
+UserSchema.pre('save', async function (next) {
   const user = this as UserDoc;
-  if ( user.isModified( 'secret' ) ) {
-    user.secret = await bcrypt.hash( user.secret, 8 );
+  if (user.isModified('secret')) {
+    user.secret = await bcrypt.hash(user.secret, 8);
   }
   next();
-} );
+});
 
 export interface UserDoc extends Document {
   name: string;
@@ -123,10 +123,10 @@ export interface UserDoc extends Document {
 }
 
 interface User extends Model<UserDoc> {
-  findByCredentials: ( email: string, secret: string ) => Promise<UserDoc>;
-  validateSecret: ( user: UserDoc, secret: string ) => Promise<UserDoc>;
+  findByCredentials: (email: string, secret: string) => Promise<UserDoc>;
+  validateSecret: (user: UserDoc, secret: string) => Promise<UserDoc>;
 }
 
-const UserModel: User = model<UserDoc, User>( ObjectRefs.USER, UserSchema );
+const UserModel: User = model<UserDoc, User>(ObjectRefs.USER, UserSchema);
 
 export default UserModel;

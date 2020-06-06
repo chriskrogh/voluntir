@@ -12,7 +12,7 @@ export interface CommunityDoc extends Document {
   members: Types.Array<Types.ObjectId> | Types.Array<UserDoc>;
 }
 
-const CommunitySchema = new Schema( {
+const CommunitySchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -41,14 +41,14 @@ const CommunitySchema = new Schema( {
   } ]
 }, {
   timestamps: true
-} );
+});
 
-CommunitySchema.virtual( 'event', {
+CommunitySchema.virtual('event', {
   ref: ObjectRefs.EVENT,
   localField: '_id',
   foreignField: 'community'
-} )
+})
 
-const CommunityModel = model<CommunityDoc>( ObjectRefs.COMMUNITY, CommunitySchema );
+const CommunityModel = model<CommunityDoc>(ObjectRefs.COMMUNITY, CommunitySchema);
 
 export default CommunityModel;

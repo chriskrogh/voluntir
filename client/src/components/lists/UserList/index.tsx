@@ -7,7 +7,7 @@ import UserCard from 'components/cards/UserCard';
 
 const numUsersInRow = 2;
 
-const styles = () => createStyles( {
+const styles = () => createStyles({
   list: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -19,16 +19,16 @@ const styles = () => createStyles( {
   lastInRow: {
     marginRight: 0
   }
-} );
+});
 
 interface Props extends WithStyles<typeof styles> {
   users: User[];
 }
 
-function UserList( { classes, users }: Props ) {
+function UserList({ classes, users }: Props) {
   return (
     <div className={classes.list}>
-      {users.map( ( user, index ) => (
+      {users.map((user, index) => (
         <UserCard
           key={user._id}
           user={user}
@@ -37,9 +37,9 @@ function UserList( { classes, users }: Props ) {
             { [classes.lastInRow] : index % numUsersInRow !== 0 }
           )}
         />
-      ) )}
+      ))}
     </div>
   );
 }
 
-export default withStyles( styles )( UserList );
+export default withStyles(styles)(UserList);

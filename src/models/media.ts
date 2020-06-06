@@ -5,7 +5,7 @@ export interface MediaDoc extends Document {
   AR: number;
 }
 
-const MediaSchema = new Schema( {
+const MediaSchema = new Schema({
   AR: {
     type: Number,
     required: true
@@ -16,7 +16,7 @@ const MediaSchema = new Schema( {
   }
 }, {
   timestamps: true
-} );
+});
 
-export default model<MediaDoc>( ObjectRefs.MEDIA, MediaSchema );
+export default model<MediaDoc>(ObjectRefs.MEDIA, MediaSchema);
 
