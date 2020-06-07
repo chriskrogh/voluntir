@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { PassThrough } from 'stream';
 import { imageSize } from 'image-size';
 import { AuthenticatedRequest } from '../types/network';
-import MediaModel, { MediaDoc } from '../models/media';
+import MediaModel from '../models/media';
 import upload from '../utils/upload';
 import auth from '../middleware/auth';
 import compress from '../utils/compress';
@@ -77,25 +77,6 @@ router.get(Routes.MEDIA + '/image/:id', async (req: Request, res: Response) => {
   }
 });
 
-// update media
-router.patch(Routes.MEDIA + '/:id', auth, async (req: Request, res: Response) => {
-  try {
-    const updates = req.body as MediaDoc;
-    const media = await MediaModel.findById(req.params.id);
-    if (!media) {
-      throw new Error;
-    }
-
-    Object.assign(media, updates);
-
-    await media.save();
-    res.send(media);
-  } catch (err) {
-    console.log(err);
-    res.status(400).send(err);
-  }
-});
-
 // delete media
 router.delete(Routes.MEDIA + '/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
@@ -103,7 +84,8 @@ router.delete(Routes.MEDIA + '/:id', auth, async (req: AuthenticatedRequest, res
     if (!media) {
       throw new Error;
     }
-    await blobService.deleteBlob(CONTAINER_NAME, media._id + '.jpg');
+    const fileName = req.params.id + '.jpg';
+    await blobService.deleteBlob(CONTAINER_NAME, fileName);
     await media.remove();
     res.send();
   } catch (err) {

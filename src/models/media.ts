@@ -4,7 +4,7 @@ import { ObjectRefs } from '../utils/constants';
 
 export interface MediaDoc extends Document {
   AR: number;
-  event: Types.ObjectId | EventDoc;
+  event?: Types.ObjectId | EventDoc;
 }
 
 const MediaSchema = new Schema({
@@ -14,7 +14,6 @@ const MediaSchema = new Schema({
   },
   event: {
     type: Types.ObjectId,
-    required: true,
     ref: ObjectRefs.EVENT
   }
 }, {
