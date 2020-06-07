@@ -143,6 +143,12 @@ UserSchema.pre('remove', async function (next) {
     user.followers.pull(this._id);
     await user.save();
   });
+  // remove from following
+  const usersFollowingMe = await UserModel.find({ following: this._id });
+  usersFollowingMe.forEach(async (user) => {
+    user.following.pull(this._id);
+    await user.save();
+  });
   next();
 });
 
