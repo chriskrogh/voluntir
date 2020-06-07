@@ -2,7 +2,8 @@ import { Types } from 'mongoose';
 import { CommunityDoc } from '../models/community';
 
 export const isAdmin = (userId: Types.ObjectId, community: CommunityDoc) => {
-  for(const adminId of community.admins) {
+  const admins = community.admins as Types.ObjectId[];
+  for(const adminId of admins) {
     if(adminId.equals(userId)) {
       return true;
     }
