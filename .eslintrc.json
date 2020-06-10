@@ -27,6 +27,7 @@
     "array-bracket-spacing": [ 1, "always" ],
     "space-in-parens": [ 1, "never" ],
     "no-trailing-spaces": 2,
+    "eol-last": [ 2, "always" ],
     "max-len": [
       2,
       {
