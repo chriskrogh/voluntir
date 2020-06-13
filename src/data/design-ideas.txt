@@ -1,8 +1,12 @@
 Home page
   Events 
     Upcoming
-      that your friends are attending
-      that communities you follow are hosting
-    Recent
-      that your friends have attended
-      that communities you follow have hosted
+      AND [
+        OR [ 
+          that your friends are attending,
+          that communities you follow are hosting
+        ],
+        you are not attending
+      ]
+      .filter(events that are now or later)
+      .sort(by event start time)

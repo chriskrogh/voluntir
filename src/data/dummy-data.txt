@@ -1,0 +1,85 @@
+User 1
+  id: 5ee4e91ca8084f052653d152
+  followers: [User 3, User 2]
+  following: [User 3]
+
+User 2
+  id: 5ee4e92fa8084f052653d153
+  followers: []
+  following: [User 1]
+
+User 3
+  id: 5ee4e93fa8084f052653d154
+  followers: [User 1]
+  following: [User 1] 
+
+Community 1
+  id: 5ee4e9aaa8084f052653d156
+  members: [User 1]
+  admins: [User 2]
+
+Community 2
+  id: 5ee4ef87a8084f052653d15d
+  members: []
+  admins: [User 3]
+
+Community 3
+  id: 5ee4ea1ca8084f052653d157
+  members: []
+  admins: [User 2]
+
+Event 1
+  id: 5ee4ec29a8084f052653d158
+  start: 2020-07-01T09:00:00
+  end: 2020-07-01T10:00:00
+  community: Community 1
+  attendees: [User 1, User 2]
+
+Event 2
+  id: 5ee4efbfa8084f052653d15e
+  start: 2020-07-02T09:00:00
+  end: 2020-07-02T10:00:00
+  community: Community 2
+  attendees: [User 3]
+
+Event 3
+  id: 5ee4efe7a8084f052653d15f
+  start: 2020-07-03T09:00:00
+  end: 2020-07-03T10:00:00
+  community: Community 2
+  attendees: [User 3, User 1]
+
+Event 4
+  id: 5ee4ece2a8084f052653d159
+  start: 2020-07-04T09:00:00
+  end: 2020-07-04T10:00:00
+  community: Community 3
+  attendees: [User 2]
+
+Event 5
+  id: 5ee4ed57a8084f052653d15a
+  start: 2020-07-05T09:00:00
+  end: 2020-07-05T10:00:00
+  community: Community 1
+  attendees: [User 2]
+
+Event 6
+  id: 5ee4ed86a8084f052653d15b
+  start: 2020-07-06T09:00:00
+  end: 2020-07-06T10:00:00
+  community: Community 1
+  attendees: []
+
+Event 7
+  id: 5ee4f01fa8084f052653d160
+  start: 2020-07-07T09:00:00
+  end: 2020-07-07T10:00:00
+  community: Community 2
+  attendees: []
+
+Event 8
+  id: 5ee4edeba8084f052653d15c
+  start: 2020-07-08T09:00:00
+  end: 2020-07-08T10:00:00
+  community: Community 3
+  attendees: []
