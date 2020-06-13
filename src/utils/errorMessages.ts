@@ -17,6 +17,6 @@ export const ADMIN_REMOVE_ADMIN = 'Only admins can remove admins';
 
 // EVENT
 export const CREATE_EVENT = 'Could not create event';
-export const GET_EVENT = 'Could not get community';
-export const ADMIN_UPDATE_EVENT = 'Only admins can update communities';
-export const ADMIN_DELETE_EVENT = 'Only admins can delete communities';
+export const GET_EVENT = 'Could not get event';
+export const ADMIN_UPDATE_EVENT = 'Only admins can update events';
+export const ADMIN_DELETE_EVENT = 'Only admins can delete events';
