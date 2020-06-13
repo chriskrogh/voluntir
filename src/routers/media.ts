@@ -42,9 +42,9 @@ router.post(
 );
 
 // get media by id
-router.get(Routes.MEDIA + '/:id', async (req: Request, res: Response) => {
+router.get(Routes.MEDIA, async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     const media = await MediaModel.findById(id);
     if (media == null) {
       res.status(404).send();
@@ -58,9 +58,9 @@ router.get(Routes.MEDIA + '/:id', async (req: Request, res: Response) => {
 });
 
 // get image by id
-router.get(Routes.MEDIA + '/image/:id', async (req: Request, res: Response) => {
+router.get(Routes.MEDIA + '/image', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
 
     const stream = new PassThrough();
     const data: Uint8Array[] = [];
@@ -78,13 +78,13 @@ router.get(Routes.MEDIA + '/image/:id', async (req: Request, res: Response) => {
 });
 
 // delete media
-router.delete(Routes.MEDIA + '/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.delete(Routes.MEDIA, auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const media = await MediaModel.findById(req.params.id);
+    const media = await MediaModel.findById(req.query.id);
     if (!media) {
       throw new Error;
     }
-    const fileName = req.params.id + '.jpg';
+    const fileName = req.query.id + '.jpg';
     await blobService.deleteBlob(CONTAINER_NAME, fileName);
     await media.remove();
     res.send();

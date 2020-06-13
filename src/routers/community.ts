@@ -27,9 +27,9 @@ router.post(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Respo
 });
 
 // get community by id
-router.get(Routes.COMMUNITY + '/:id', auth, async (req: Request, res: Response) => {
+router.get(Routes.COMMUNITY, auth, async (req: Request, res: Response) => {
   try {
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findById(req.query.id);
     if(!community) {
       res.status(404).send();
     } else {
@@ -42,10 +42,10 @@ router.get(Routes.COMMUNITY + '/:id', auth, async (req: Request, res: Response) 
 });
 
 // update community
-router.patch(Routes.COMMUNITY + '/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const updates = req.body as CommunityDoc;
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findById(req.query.id);
 
     if (!community) {
       res.status(404).send();
@@ -65,9 +65,9 @@ router.patch(Routes.COMMUNITY + '/:id', auth, async (req: AuthenticatedRequest, 
 });
 
 // delete community
-router.delete(Routes.COMMUNITY + '/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.delete(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findById(req.query.id);
     if (!community) {
       res.status(404).send();
     } else {
@@ -84,10 +84,10 @@ router.delete(Routes.COMMUNITY + '/:id', auth, async (req: AuthenticatedRequest,
   }
 });
 
-router.patch(Routes.COMMUNITY + '/add/admin/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.COMMUNITY + '/add/admin', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { userId } = req.body;
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findById(req.query.id);
 
     if(!userId) throw new Error('User id not specified');
 
@@ -108,10 +108,10 @@ router.patch(Routes.COMMUNITY + '/add/admin/:id', auth, async (req: Authenticate
   }
 });
 
-router.patch(Routes.COMMUNITY + '/remove/admin/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.COMMUNITY + '/remove/admin', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { userId } = req.body;
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findById(req.query.id);
 
     if(!userId) throw new Error('User id not specified');
 
@@ -131,9 +131,9 @@ router.patch(Routes.COMMUNITY + '/remove/admin/:id', auth, async (req: Authentic
   }
 });
 
-router.patch(Routes.COMMUNITY + '/add/member/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.COMMUNITY + '/add/member', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findById(req.query.id);
     if (!community) {
       res.status(404).send();
     } else {
@@ -147,9 +147,9 @@ router.patch(Routes.COMMUNITY + '/add/member/:id', auth, async (req: Authenticat
   }
 });
 
-router.patch(Routes.COMMUNITY + '/remove/member/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.COMMUNITY + '/remove/member', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findById(req.query.id);
     if (!community) {
       res.status(404).send();
     } else {

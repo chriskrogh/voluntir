@@ -99,9 +99,9 @@ router.get(Routes.USER + '/me', auth, async (req: AuthenticatedRequest, res: Res
 });
 
 // get someone
-router.get(Routes.USER + '/:id', auth, async (req: Request, res: Response) => {
+router.get(Routes.USER, auth, async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findById(req.params.id);
+    const user = await UserModel.findById(req.query.id);
     if (!user) {
       throw new Error('User not found');
     }
@@ -113,9 +113,9 @@ router.get(Routes.USER + '/:id', auth, async (req: Request, res: Response) => {
 });
 
 // get avatar
-router.get(Routes.USER + '/:id/picture', async (req: Request, res: Response) => {
+router.get(Routes.USER + '/picture', async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findById(req.params.id);
+    const user = await UserModel.findById(req.query.id);
     if (!user || !user.picture) {
       throw new Error;
     }
@@ -142,10 +142,10 @@ router.patch(Routes.USER + '/me', auth, async (req: AuthenticatedRequest, res: R
 });
 
 // update someone
-router.patch(Routes.USER + '/:id', auth, async (req: Request, res: Response) => {
+router.patch(Routes.USER, auth, async (req: Request, res: Response) => {
   const source = req.body as UserDoc;
   try {
-    const user = await UserModel.findById(req.params.id);
+    const user = await UserModel.findById(req.query.id);
     if (!user) {
       throw new Error('Could not find user');
     }
@@ -173,9 +173,9 @@ router.delete(Routes.USER + '/me', auth, async (req: AuthenticatedRequest, res: 
 });
 
 // delete someone
-router.delete(Routes.USER + '/:id', auth, async (req: Request, res: Response) => {
+router.delete(Routes.USER, auth, async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findById(req.params.id);
+    const user = await UserModel.findById(req.query.id);
     if (user) {
       await user.remove();
     }
@@ -186,9 +186,9 @@ router.delete(Routes.USER + '/:id', auth, async (req: Request, res: Response) =>
   }
 });
 
-router.patch(Routes.USER + '/follow/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.USER + '/follow', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     const user = await UserModel.findById(id);
     if(!user) {
       res.status(404).send();
@@ -198,7 +198,7 @@ router.patch(Routes.USER + '/follow/:id', auth, async (req: AuthenticatedRequest
       user.save();
       // add to user to my following
       const following = req.user?.following as Types.Array<Types.ObjectId>;
-      following.push(Types.ObjectId(id));
+      following.push(Types.ObjectId(id as string));
       req.user?.save();
       res.send();
     }
@@ -208,9 +208,9 @@ router.patch(Routes.USER + '/follow/:id', auth, async (req: AuthenticatedRequest
   }
 });
 
-router.patch(Routes.USER + '/unfollow/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.USER + '/unfollow', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     const user = await UserModel.findById(id);
     if(!user) {
       res.status(404).send();
@@ -220,7 +220,7 @@ router.patch(Routes.USER + '/unfollow/:id', auth, async (req: AuthenticatedReque
       user.save();
       // add to user to my following
       const following = req.user?.following as Types.Array<Types.ObjectId>;
-      following.pull(Types.ObjectId(id));
+      following.pull(Types.ObjectId(id as string));
       req.user?.save();
       res.send();
     }

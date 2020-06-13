@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
-import { Types } from 'mongoose';
+import { Types, isValidObjectId } from 'mongoose';
 import Event, { EventDoc } from "../models/event";
-import { CommunityDoc } from '../models/community';
+import CommunityModel, { CommunityDoc } from '../models/community';
 import { AuthenticatedRequest } from '../types/network';
 import auth from '../middleware/auth';
 import * as M from '../utils/errorMessages';
@@ -28,9 +28,9 @@ router.post(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response)
 });
 
 // get event by id
-router.get(Routes.EVENT + '/:id', auth, async (req: Request, res: Response) => {
+router.get(Routes.EVENT, auth, async (req: Request, res: Response) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.query.id);
     if(!event) {
       res.status(404).send();
     } else {
@@ -43,10 +43,10 @@ router.get(Routes.EVENT + '/:id', auth, async (req: Request, res: Response) => {
 });
 
 // update event
-router.patch(Routes.EVENT + '/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const updates = req.body as EventDoc;
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.query.id);
 
     if (!event) {
       res.status(404).send();
@@ -67,9 +67,9 @@ router.patch(Routes.EVENT + '/:id', auth, async (req: AuthenticatedRequest, res:
 });
 
 // delete event
-router.delete(Routes.EVENT + '/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.delete(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.query.id);
     if (!event) {
       res.status(404).send();
     } else {
@@ -87,9 +87,9 @@ router.delete(Routes.EVENT + '/:id', auth, async (req: AuthenticatedRequest, res
   }
 });
 
-router.patch(Routes.EVENT + '/attend/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.EVENT + '/attend', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.query.id);
     if(!event) {
       res.status(404).send();
     } else {
@@ -103,9 +103,9 @@ router.patch(Routes.EVENT + '/attend/:id', auth, async (req: AuthenticatedReques
   }
 });
 
-router.patch(Routes.EVENT + '/unattend/:id', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch(Routes.EVENT + '/unattend', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.query.id);
     if(!event) {
       res.status(404).send();
     } else {
@@ -114,6 +114,21 @@ router.patch(Routes.EVENT + '/unattend/:id', auth, async (req: AuthenticatedRequ
       event.save();
       res.send();
     }
+  } catch (error) {
+    console.log(error);
+    res.status(404).send(error);
+  }
+});
+
+router.get(Routes.EVENT + '/home', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const joinedCommunities = await CommunityModel.find({
+      $or: [{ members: req.user?._id }, { admins: req.user?._id }]
+    });
+    const events = await Event.find({
+      $or: [{ attendees: req.user?._id }, { community: { $in: joinedCommunities } }]
+    });
+    res.send(events);
   } catch (error) {
     console.log(error);
     res.status(404).send(error);
