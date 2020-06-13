@@ -148,7 +148,6 @@ function LoginForm({ classes, theme }: Props) {
           )}
           {!isValidPassword(password) && (
             <li>
-              {/* eslint-disable-next-line max-len */}
               <ErrorText text="Passwords must be at least 6 characters long" />
             </li>
           )}

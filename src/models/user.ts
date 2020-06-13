@@ -30,20 +30,20 @@ const UserSchema = new Schema({
   banner: {
     type: Types.ObjectId
   },
-  tokens: [ {
+  tokens: [{
     type: String,
     required: true
-  } ],
-  followers: [ {
+  }],
+  followers: [{
     type: Types.ObjectId,
     required: true,
     ref: ObjectRefs.USER
-  } ],
-  following: [ {
+  }],
+  following: [{
     type: Types.ObjectId,
     required: true,
     ref: ObjectRefs.USER
-  } ]
+  }]
 }, {
   timestamps: true
 });

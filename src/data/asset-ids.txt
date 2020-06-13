@@ -1,0 +1,32 @@
+Communities
+  Community A
+    Banner  5edce0c7dd51d54cf18b7b06
+    Logo    5edce2ce0dc0144d8c8830a0
+
+  Community B
+    Banner  5edce33c0dc0144d8c8830a1
+    Logo    5edce35c0dc0144d8c8830a2
+
+  Community C
+    Banner  5edce3dc0dc0144d8c8830a3
+    Logo    5edce3eb0dc0144d8c8830a4
+
+Events
+  Beach
+    Landscape 1 hello
+    Landscape 2 hello
+    Portrait 1  hello
+    Portrait 2  hello
+
+  Food
+    Landscape 1 hello
+    Landscape 2 hello
+    Portrait 1  hello
+    Portrait 2  hello
+
+  Beach
+    Landscape 1 hello
+    Landscape 2 hello
+    Portrait 1  hello
+    Portrait 2  hello
+  
