@@ -1,8 +1,10 @@
+import /*type*/ { AuthenticatedRequest } from '../types/network';
+import /*type*/ { RouteError } from '../utils/exception';
+
 import express, { Request, Response } from 'express';
-import { Types, isValidObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 import Event, { EventDoc } from "../models/event";
 import CommunityModel, { CommunityDoc } from '../models/community';
-import { AuthenticatedRequest } from '../types/network';
 import auth from '../middleware/auth';
 import * as M from '../utils/errorMessages';
 import { Routes } from '../utils/constants';
@@ -32,13 +34,12 @@ router.get(Routes.EVENT, auth, async (req: Request, res: Response) => {
   try {
     const event = await Event.findById(req.query.id);
     if(!event) {
-      res.status(404).send();
-    } else {
-      res.send(event);
+      throw new RouteError(new Error(M.FIND_EVENT), 404);
     }
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(M.GET_EVENT);
+    res.send(event);
+  } catch (exc) {
+    console.log(exc.error);
+    res.status(exc.status || 400).send(exc.error.message);
   }
 });
 
@@ -47,22 +48,19 @@ router.patch(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response
   try {
     const updates = req.body as EventDoc;
     const event = await Event.findById(req.query.id);
-
     if (!event) {
-      res.status(404).send();
-    } else {
-      await event.populate('community').execPopulate();
-      if(!isAdmin(req.user?._id, event.community as CommunityDoc)) {
-        throw new Error(M.ADMIN_UPDATE_EVENT);
-      }
-
-      Object.assign(event, updates);
-      await event.save();
-      res.send(event);
+      throw new RouteError(new Error(M.FIND_EVENT), 404);
     }
-  } catch (err) {
-    console.log(err);
-    res.status(400).send(err);
+    await event.populate('community').execPopulate();
+    if(!isAdmin(req.user?._id, event.community as CommunityDoc)) {
+      throw new RouteError(new Error(M.ADMIN_UPDATE_EVENT), 403);
+    }
+    Object.assign(event, updates);
+    await event.save();
+    res.send(event);
+  } catch (exc) {
+    console.log(exc.error);
+    res.status(exc.status || 400).send(exc.error.message);
   }
 });
 
@@ -71,52 +69,48 @@ router.delete(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Respons
   try {
     const event = await Event.findById(req.query.id);
     if (!event) {
-      res.status(404).send();
-    } else {
-      await event.populate('community').execPopulate();
-      if(!isAdmin(req.user?._id, event.community as CommunityDoc)) {
-        throw new Error(M.ADMIN_DELETE_EVENT);
-      }
-
-      await event.remove();
-      res.send();
+      throw new RouteError(new Error(M.FIND_EVENT), 404);
     }
-  } catch (err) {
-    console.log(err);
-    res.status(400).send(err);
+    await event.populate('community').execPopulate();
+    if(!isAdmin(req.user?._id, event.community as CommunityDoc)) {
+      throw new RouteError(new Error(M.ADMIN_DELETE_EVENT), 403);
+    }
+    await event.remove();
+    res.send();
+  } catch (exc) {
+    console.log(exc.error);
+    res.status(exc.status || 400).send(exc.error.message);
   }
 });
 
 router.patch(Routes.EVENT + '/attend', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const event = await Event.findById(req.query.id);
-    if(!event) {
-      res.status(404).send();
-    } else {
-      event.attendees.push(req.user?._id);
-      event.save();
-      res.send();
+    if (!event) {
+      throw new RouteError(new Error(M.FIND_EVENT), 404);
     }
-  } catch (error) {
-    console.log(error);
-    res.status(404).send(error);
+    event.attendees.push(req.user?._id);
+    event.save();
+    res.send();
+  } catch (exc) {
+    console.log(exc.error);
+    res.status(exc.status || 400).send(exc.error.message);
   }
 });
 
 router.patch(Routes.EVENT + '/unattend', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const event = await Event.findById(req.query.id);
-    if(!event) {
-      res.status(404).send();
-    } else {
-      const attendees = event.attendees as Types.Array<Types.ObjectId>;
-      attendees.pull(req.user?._id);
-      event.save();
-      res.send();
+    if (!event) {
+      throw new RouteError(new Error(M.FIND_EVENT), 404);
     }
-  } catch (error) {
-    console.log(error);
-    res.status(404).send(error);
+    const attendees = event.attendees as Types.Array<Types.ObjectId>;
+    attendees.pull(req.user?._id);
+    event.save();
+    res.send();
+  } catch (exc) {
+    console.log(exc.error);
+    res.status(exc.status || 400).send(exc.error.message);
   }
 });
 
@@ -129,9 +123,9 @@ router.get(Routes.EVENT + '/home', auth, async (req: AuthenticatedRequest, res: 
       $or: [{ attendees: req.user?._id }, { community: { $in: joinedCommunities } }]
     });
     res.send(events);
-  } catch (error) {
-    console.log(error);
-    res.status(404).send(error);
+  } catch (exc) {
+    console.log(exc.error);
+    res.status(exc.status || 400).send(exc.error.message);
   }
 });
 

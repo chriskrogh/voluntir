@@ -17,6 +17,6 @@ export const ADMIN_REMOVE_ADMIN = 'Only admins can remove admins';
 
 // EVENT
 export const CREATE_EVENT = 'Could not create event';
-export const GET_EVENT = 'Could not get event';
+export const FIND_EVENT = 'Could not find event';
 export const ADMIN_UPDATE_EVENT = 'Only admins can update events';
 export const ADMIN_DELETE_EVENT = 'Only admins can delete events';
