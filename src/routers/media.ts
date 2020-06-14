@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { RouteError } from '../utils/exception';
 import { PassThrough } from 'stream';
 import { imageSize } from 'image-size';
 import { AuthenticatedRequest } from '../types/network';
@@ -21,7 +22,7 @@ router.post(
   async (req: AuthenticatedRequest, res: Response) => {
     try {
       await blobService.createContainerIfDoesNotExist(CONTAINER_NAME);
-      if (!req.file || !req.file.buffer) throw new Error;
+      if (!req.file || !req.file.buffer) throw new Error('File not present');
 
       const newBuffer = await compress(req.file.buffer);
 
@@ -34,9 +35,9 @@ router.post(
       await blobService.uploadString(CONTAINER_NAME, media._id + '.jpg', newBuffer);
       await media.save();
       res.status(201).send(media);
-    } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
+    } catch (exc) {
+      console.log(exc);
+      res.status(exc.status || 400).send(exc?.error?.message);
     }
   }
 );
@@ -46,14 +47,13 @@ router.get(Routes.MEDIA, async (req: Request, res: Response) => {
   try {
     const { id } = req.query;
     const media = await MediaModel.findById(id);
-    if (media == null) {
-      res.status(404).send();
-    } else {
-      res.send(media);
+    if(!media) {
+      throw new RouteError(new Error(M.FIND_MEDIA), 404);
     }
-  } catch (err) {
-    console.log(err);
-    res.status(400).send(err);
+    res.send(media);
+  } catch (exc) {
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -71,9 +71,9 @@ router.get(Routes.MEDIA + '/image', async (req: Request, res: Response) => {
 
     res.set('Content-Type', 'image/jpg');
     res.send(mergedBuffer);
-  } catch (err) {
-    console.log(err);
-    res.status(400).send(err);
+  } catch (exc) {
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -81,16 +81,16 @@ router.get(Routes.MEDIA + '/image', async (req: Request, res: Response) => {
 router.delete(Routes.MEDIA, auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const media = await MediaModel.findById(req.query.id);
-    if (!media) {
-      throw new Error;
+    if(!media) {
+      throw new RouteError(new Error(M.FIND_MEDIA), 404);
     }
     const fileName = req.query.id + '.jpg';
     await blobService.deleteBlob(CONTAINER_NAME, fileName);
     await media.remove();
     res.send();
-  } catch (err) {
-    console.log(err);
-    res.status(404).send(err);
+  } catch (exc) {
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 

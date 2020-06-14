@@ -38,8 +38,8 @@ router.get(Routes.EVENT, auth, async (req: Request, res: Response) => {
     }
     res.send(event);
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -59,8 +59,8 @@ router.patch(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response
     await event.save();
     res.send(event);
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -78,8 +78,8 @@ router.delete(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Respons
     await event.remove();
     res.send();
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -93,8 +93,8 @@ router.patch(Routes.EVENT + '/attend', auth, async (req: AuthenticatedRequest, r
     event.save();
     res.send();
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -109,8 +109,8 @@ router.patch(Routes.EVENT + '/unattend', auth, async (req: AuthenticatedRequest,
     event.save();
     res.send();
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -124,8 +124,8 @@ router.get(Routes.EVENT + '/home', auth, async (req: AuthenticatedRequest, res: 
     });
     res.send(events);
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 

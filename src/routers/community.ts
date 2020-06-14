@@ -36,8 +36,8 @@ router.get(Routes.COMMUNITY, auth, async (req: Request, res: Response) => {
     }
     res.send(community);
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -56,8 +56,8 @@ router.patch(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Resp
     await community.save();
     res.send(community);
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -74,8 +74,8 @@ router.delete(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Res
     await community.remove();
     res.send();
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -95,8 +95,8 @@ router.patch(Routes.COMMUNITY + '/add/admin', auth, async (req: AuthenticatedReq
     community.save();
     res.send();
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -115,8 +115,8 @@ router.patch(Routes.COMMUNITY + '/remove/admin', auth, async (req: Authenticated
     community.save();
     res.send();
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -130,8 +130,8 @@ router.patch(Routes.COMMUNITY + '/add/member', auth, async (req: AuthenticatedRe
     community.save();
     res.send();
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
@@ -145,8 +145,8 @@ router.patch(Routes.COMMUNITY + '/remove/member', auth, async (req: Authenticate
     community.save();
     res.send();
   } catch (exc) {
-    console.log(exc.error);
-    res.status(exc.status || 400).send(exc.error.message);
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
   }
 });
 
