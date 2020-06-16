@@ -11,7 +11,7 @@ const auth = async (req: AuthenticatedRequest, res: Response, next: NextFunction
   try {
     const { APP_SECRET } = process.env;
     const authHeader = req.header('Authorization');
-    if (authHeader == null) {
+    if (!authHeader) {
       throw new Error();
     }
     const token = authHeader.replace('Bearer ', '');

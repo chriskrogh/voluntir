@@ -1,13 +1,13 @@
 import express, { Request, Response } from 'express';
 import { Types } from 'mongoose';
-import { RouteError } from '../utils/exception';
-import Community, { CommunityDoc } from "../models/community";
-import { AuthenticatedRequest } from '../types/network';
-import auth from '../middleware/auth';
-import * as M from '../utils/errorMessages';
-import { Routes } from '../utils/constants';
-import { isAdmin } from './utils';
-import '../db/mongoose';
+import { RouteError } from '../../utils/exception';
+import Community, { CommunityDoc } from "../../models/community";
+import { AuthenticatedRequest } from '../../types/network';
+import auth from '../../middleware/auth';
+import * as M from '../../utils/errorMessages';
+import { Routes } from '../../utils/constants';
+import { isAdmin } from '../utils';
+import '../../db/mongoose';
 
 const router = express.Router();
 

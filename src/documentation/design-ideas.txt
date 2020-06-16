@@ -1,12 +1,9 @@
 Home page
   Events 
-    Upcoming
-      AND [
-        OR [ 
-          that your friends are attending,
-          that communities you follow are hosting
-        ],
-        you are not attending
-      ]
-      .filter(events that are now or later)
-      .sort(by event start time)
+    OR [ 
+      that your friends are attending,
+      that communities you follow are hosting
+    ]
+    .filter(you are not attending)
+    .limit
+    .sort(NEW, UPCOMING, RECENT)

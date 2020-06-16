@@ -1,16 +1,16 @@
 import express, { Request, Response } from 'express';
-import { RouteError } from '../utils/exception';
+import { RouteError } from '../../utils/exception';
 import { PassThrough } from 'stream';
 import { imageSize } from 'image-size';
-import { AuthenticatedRequest } from '../types/network';
-import MediaModel from '../models/media';
-import upload from '../utils/upload';
-import auth from '../middleware/auth';
-import compress from '../utils/compress';
-import blobService from '../utils/blobstorage';
-import { Routes, CONTAINER_NAME } from '../utils/constants';
-import * as M from '../utils/errorMessages';
-import '../db/mongoose';
+import { AuthenticatedRequest } from '../../types/network';
+import MediaModel from '../../models/media';
+import upload from '../../utils/upload';
+import auth from '../../middleware/auth';
+import compress from '../../utils/compress';
+import blobService from '../../utils/blobstorage';
+import { Routes, CONTAINER_NAME } from '../../utils/constants';
+import * as M from '../../utils/errorMessages';
+import '../../db/mongoose';
 
 const router = express.Router();
 

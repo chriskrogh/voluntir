@@ -1,17 +1,19 @@
-import /*type*/ { AuthenticatedRequest } from '../types/network';
-import /*type*/ { RouteError } from '../utils/exception';
+import /*type*/ { AuthenticatedRequest } from '../../types/network';
+import /*type*/ { RouteError } from '../../utils/exception';
 
 import express, { Request, Response } from 'express';
 import { Types } from 'mongoose';
-import Event, { EventDoc } from "../models/event";
-import CommunityModel, { CommunityDoc } from '../models/community';
-import auth from '../middleware/auth';
-import * as M from '../utils/errorMessages';
-import { Routes } from '../utils/constants';
-import { isAdmin } from './utils';
+import Event, { EventDoc } from "../../models/event";
+import { CommunityDoc } from '../../models/community';
+import auth from '../../middleware/auth';
+import { Routes } from '../../utils/constants';
+import { isAdmin } from '../utils';
+import { homeAggregateQuery, getJoinedCommunityIds } from './utils';
+import * as M from '../../utils/errorMessages';
 import '../db/mongoose';
 
 const router = express.Router();
+const DOC_QUERY_LIMIT = 1000;
 
 // create event
 router.post(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response) => {
@@ -114,14 +116,82 @@ router.patch(Routes.EVENT + '/unattend', auth, async (req: AuthenticatedRequest,
   }
 });
 
-router.get(Routes.EVENT + '/home', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.get(Routes.EVENT + '/home/new', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const joinedCommunities = await CommunityModel.find({
-      $or: [{ members: req.user?._id }, { admins: req.user?._id }]
-    });
-    const events = await Event.find({
-      $or: [{ attendees: req.user?._id }, { community: { $in: joinedCommunities } }]
-    });
+    const user = req.user;
+    if(!user) {
+      throw new RouteError(new Error(M.FETCH_ME), 400);
+    }
+    const joinedCommunityIds = await getJoinedCommunityIds(user);
+    const events = await Event.aggregate([
+      ...homeAggregateQuery(joinedCommunityIds, user),
+      {
+        $limit: DOC_QUERY_LIMIT
+      },
+      {
+        $sort: { createdAt: -1 }
+      }
+    ]);
+    res.send(events);
+  } catch (exc) {
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
+  }
+});
+
+router.get(Routes.EVENT + '/home/upcoming', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const user = req.user;
+    if(!user) {
+      throw new RouteError(new Error(M.FETCH_ME), 400);
+    }
+    const page = parseInt(req.query.page as string);
+    if(page == null || isNaN(page)) {
+      throw new RouteError(new Error(M.MISSING_PAGE), 400);
+    }
+    const joinedCommunityIds = await getJoinedCommunityIds(user);
+    const events = await Event.aggregate([
+      ...homeAggregateQuery(joinedCommunityIds, user),
+      {
+        $match: {
+          start: { $gte: new Date() }
+        }
+      },
+      {
+        $limit: DOC_QUERY_LIMIT
+      },
+      {
+        $sort: { start: 1 }
+      }
+    ]);
+    res.send(events);
+  } catch (exc) {
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
+  }
+});
+
+router.get(Routes.EVENT + '/home/recent', auth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const user = req.user;
+    if(!user) {
+      throw new RouteError(new Error(M.FETCH_ME), 400);
+    }
+    const joinedCommunityIds = await getJoinedCommunityIds(user);
+    const events = await Event.aggregate([
+      ...homeAggregateQuery(joinedCommunityIds, user),
+      {
+        $match: {
+          start: { $lt: new Date() }
+        }
+      },
+      {
+        $limit: DOC_QUERY_LIMIT
+      },
+      {
+        $sort: { start: -1 }
+      }
+    ]);
     res.send(events);
   } catch (exc) {
     console.log(exc);

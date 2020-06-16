@@ -1,12 +1,12 @@
 import express, { Request, Response } from 'express';
 import { Types } from 'mongoose';
-import { RouteError } from '../utils/exception';
-import UserModel, { UserDoc } from "../models/user";
-import { AuthenticatedRequest } from '../types/network';
-import auth from '../middleware/auth';
-import { Routes } from '../utils/constants';
-import * as M from '../utils/errorMessages';
-import '../db/mongoose';
+import { RouteError } from '../../utils/exception';
+import UserModel, { UserDoc } from "../../models/user";
+import { AuthenticatedRequest } from '../../types/network';
+import auth from '../../middleware/auth';
+import { Routes } from '../../utils/constants';
+import * as M from '../../utils/errorMessages';
+import '../../db/mongoose';
 
 const router = express.Router();
 
