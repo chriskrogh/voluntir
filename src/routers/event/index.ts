@@ -10,10 +10,12 @@ import { Routes } from '../../utils/constants';
 import { isAdmin } from '../utils';
 import { homeAggregateQuery, getJoinedCommunityIds } from './utils';
 import * as M from '../../utils/errorMessages';
-import '../db/mongoose';
+import '../../db/mongoose';
+
+const DOC_QUERY_LIMIT = 1000;
+const NUM_EVENTS_IN_PAGE = 10;
 
 const router = express.Router();
-const DOC_QUERY_LIMIT = 1000;
 
 // create event
 router.post(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response) => {
@@ -120,7 +122,11 @@ router.get(Routes.EVENT + '/home/new', auth, async (req: AuthenticatedRequest, r
   try {
     const user = req.user;
     if(!user) {
-      throw new RouteError(new Error(M.FETCH_ME), 400);
+      throw new RouteError(new Error(M.FETCH_ME));
+    }
+    const page = parseInt(req.query.page as string);
+    if(page == null || isNaN(page)) {
+      throw new RouteError(new Error(M.MISSING_PAGE));
     }
     const joinedCommunityIds = await getJoinedCommunityIds(user);
     const events = await Event.aggregate([
@@ -132,7 +138,7 @@ router.get(Routes.EVENT + '/home/new', auth, async (req: AuthenticatedRequest, r
         $sort: { createdAt: -1 }
       }
     ]);
-    res.send(events);
+    res.send(events.slice(page * NUM_EVENTS_IN_PAGE, (page + 1) * NUM_EVENTS_IN_PAGE));
   } catch (exc) {
     console.log(exc);
     res.status(exc.status || 400).send(exc?.error?.message);
@@ -143,11 +149,11 @@ router.get(Routes.EVENT + '/home/upcoming', auth, async (req: AuthenticatedReque
   try {
     const user = req.user;
     if(!user) {
-      throw new RouteError(new Error(M.FETCH_ME), 400);
+      throw new RouteError(new Error(M.FETCH_ME));
     }
     const page = parseInt(req.query.page as string);
     if(page == null || isNaN(page)) {
-      throw new RouteError(new Error(M.MISSING_PAGE), 400);
+      throw new RouteError(new Error(M.MISSING_PAGE));
     }
     const joinedCommunityIds = await getJoinedCommunityIds(user);
     const events = await Event.aggregate([
@@ -164,7 +170,7 @@ router.get(Routes.EVENT + '/home/upcoming', auth, async (req: AuthenticatedReque
         $sort: { start: 1 }
       }
     ]);
-    res.send(events);
+    res.send(events.slice(page * NUM_EVENTS_IN_PAGE, (page + 1) * NUM_EVENTS_IN_PAGE));
   } catch (exc) {
     console.log(exc);
     res.status(exc.status || 400).send(exc?.error?.message);
@@ -175,7 +181,11 @@ router.get(Routes.EVENT + '/home/recent', auth, async (req: AuthenticatedRequest
   try {
     const user = req.user;
     if(!user) {
-      throw new RouteError(new Error(M.FETCH_ME), 400);
+      throw new RouteError(new Error(M.FETCH_ME));
+    }
+    const page = parseInt(req.query.page as string);
+    if(page == null || isNaN(page)) {
+      throw new RouteError(new Error(M.MISSING_PAGE));
     }
     const joinedCommunityIds = await getJoinedCommunityIds(user);
     const events = await Event.aggregate([
@@ -192,7 +202,7 @@ router.get(Routes.EVENT + '/home/recent', auth, async (req: AuthenticatedRequest
         $sort: { start: -1 }
       }
     ]);
-    res.send(events);
+    res.send(events.slice(page * NUM_EVENTS_IN_PAGE, (page + 1) * NUM_EVENTS_IN_PAGE));
   } catch (exc) {
     console.log(exc);
     res.status(exc.status || 400).send(exc?.error?.message);
