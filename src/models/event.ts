@@ -1,4 +1,5 @@
 import { Types, Schema, Document, model } from 'mongoose';
+import { GeoJSON } from '../types/location';
 import { CommunityDoc } from './community';
 import { UserDoc } from './user';
 import Media from './media';
@@ -8,7 +9,7 @@ import { ObjectRefs, CONTAINER_NAME } from '../utils/constants';
 export interface EventDoc extends Document {
   title: string;
   description: string;
-  location: string;
+  location: GeoJSON;
   start: Date;
   end: Date;
   community: Types.ObjectId | CommunityDoc;
