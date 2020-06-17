@@ -2,7 +2,9 @@ import { Types } from 'mongoose';
 import Community from '../../models/community';
 import { UserDoc } from '../../models/user';
 
-export const homeAggregateQuery = (joinedCommunityIds: Types.ObjectId[], user: UserDoc) => [
+const NUM_EVENTS_IN_PAGE = 10;
+
+export const homeQueryAggregate = (joinedCommunityIds: Types.ObjectId[], user: UserDoc) => [
   {
     $match: {
       $or: [
@@ -17,6 +19,15 @@ export const homeAggregateQuery = (joinedCommunityIds: Types.ObjectId[], user: U
     }
   },
 ];
+
+export const homePaginateAggregate = (page: number) => [
+  {
+    $skip: page > 0 ? ((page - 1) * NUM_EVENTS_IN_PAGE) : 0
+  },
+  {
+    $limit: NUM_EVENTS_IN_PAGE
+  }
+]
 
 export const getJoinedCommunityIds = async (user: UserDoc) => {
   const joinedCommunities = await Community.find({

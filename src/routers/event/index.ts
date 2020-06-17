@@ -8,12 +8,9 @@ import { CommunityDoc } from '../../models/community';
 import auth from '../../middleware/auth';
 import { Routes } from '../../utils/constants';
 import { isAdmin } from '../utils';
-import { homeAggregateQuery, getJoinedCommunityIds } from './utils';
+import { homeQueryAggregate, getJoinedCommunityIds, homePaginateAggregate } from './utils';
 import * as M from '../../utils/errorMessages';
 import '../../db/mongoose';
-
-const DOC_QUERY_LIMIT = 1000;
-const NUM_EVENTS_IN_PAGE = 10;
 
 const router = express.Router();
 
@@ -130,15 +127,13 @@ router.get(Routes.EVENT + '/home/new', auth, async (req: AuthenticatedRequest, r
     }
     const joinedCommunityIds = await getJoinedCommunityIds(user);
     const events = await Event.aggregate([
-      ...homeAggregateQuery(joinedCommunityIds, user),
-      {
-        $limit: DOC_QUERY_LIMIT
-      },
+      ...homeQueryAggregate(joinedCommunityIds, user),
       {
         $sort: { createdAt: -1 }
-      }
+      },
+      ...homePaginateAggregate(page)
     ]);
-    res.send(events.slice(page * NUM_EVENTS_IN_PAGE, (page + 1) * NUM_EVENTS_IN_PAGE));
+    res.send(events);
   } catch (exc) {
     console.log(exc);
     res.status(exc.status || 400).send(exc?.error?.message);
@@ -157,20 +152,18 @@ router.get(Routes.EVENT + '/home/upcoming', auth, async (req: AuthenticatedReque
     }
     const joinedCommunityIds = await getJoinedCommunityIds(user);
     const events = await Event.aggregate([
-      ...homeAggregateQuery(joinedCommunityIds, user),
+      ...homeQueryAggregate(joinedCommunityIds, user),
       {
         $match: {
           start: { $gte: new Date() }
         }
       },
       {
-        $limit: DOC_QUERY_LIMIT
-      },
-      {
         $sort: { start: 1 }
-      }
+      },
+      ...homePaginateAggregate(page)
     ]);
-    res.send(events.slice(page * NUM_EVENTS_IN_PAGE, (page + 1) * NUM_EVENTS_IN_PAGE));
+    res.send(events);
   } catch (exc) {
     console.log(exc);
     res.status(exc.status || 400).send(exc?.error?.message);
@@ -189,20 +182,18 @@ router.get(Routes.EVENT + '/home/recent', auth, async (req: AuthenticatedRequest
     }
     const joinedCommunityIds = await getJoinedCommunityIds(user);
     const events = await Event.aggregate([
-      ...homeAggregateQuery(joinedCommunityIds, user),
+      ...homeQueryAggregate(joinedCommunityIds, user),
       {
         $match: {
           start: { $lt: new Date() }
         }
       },
       {
-        $limit: DOC_QUERY_LIMIT
-      },
-      {
         $sort: { start: -1 }
-      }
+      },
+      ...homePaginateAggregate(page)
     ]);
-    res.send(events.slice(page * NUM_EVENTS_IN_PAGE, (page + 1) * NUM_EVENTS_IN_PAGE));
+    res.send(events);
   } catch (exc) {
     console.log(exc);
     res.status(exc.status || 400).send(exc?.error?.message);
