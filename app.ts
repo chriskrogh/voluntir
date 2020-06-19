@@ -1,9 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
-import UserRouter from './src/routers/user';
-import MediaRouter from './src/routers/media';
-import CommunityRouter from './src/routers/community';
-import EventRouter from './src/routers/event';
+import APIRouter from './src/routers/api';
+import './src/db/mongoose';
 import 'dotenv/config';
 
 // create server
@@ -25,10 +23,7 @@ if(process.env.NODE_ENV === 'development') {
 app.use(express.static(path.join(__dirname, CLIENT_DIR)));
 app.use(express.json());
 
-app.use(UserRouter);
-app.use(MediaRouter);
-app.use(CommunityRouter);
-app.use(EventRouter);
+app.use('/api', APIRouter);
 
 // The "catchall" handler: for a request that doesn't
 // match one above, send back React's index.html file.

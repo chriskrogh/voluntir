@@ -10,7 +10,6 @@ import compress from '../../utils/compress';
 import blobService from '../../utils/blobstorage';
 import { Routes, CONTAINER_NAME } from '../../utils/constants';
 import * as M from '../../utils/errorMessages';
-import '../../db/mongoose';
 
 const router = express.Router();
 

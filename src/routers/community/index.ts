@@ -7,7 +7,6 @@ import auth from '../../middleware/auth';
 import * as M from '../../utils/errorMessages';
 import { Routes } from '../../utils/constants';
 import { isAdmin } from '../utils';
-import '../../db/mongoose';
 
 const router = express.Router();
 

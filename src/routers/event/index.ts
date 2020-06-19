@@ -10,7 +10,6 @@ import { Routes } from '../../utils/constants';
 import { isAdmin } from '../utils';
 import { homeQueryAggregate, getJoinedCommunityIds, homePaginateAggregate } from './utils';
 import * as M from '../../utils/errorMessages';
-import '../../db/mongoose';
 
 const router = express.Router();
 

@@ -6,7 +6,6 @@ import { AuthenticatedRequest } from '../../types/network';
 import auth from '../../middleware/auth';
 import { Routes } from '../../utils/constants';
 import * as M from '../../utils/errorMessages';
-import '../../db/mongoose';
 
 const router = express.Router();
 
