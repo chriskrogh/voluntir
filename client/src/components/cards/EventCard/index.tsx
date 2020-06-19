@@ -4,6 +4,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { Event } from 'types/event';
+import { ScreenSize } from 'types/theme';
 import CollapsableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
@@ -16,18 +17,25 @@ import Slider from 'components/Slider';
 import { Routes } from 'utils/constants';
 import { getCommunityLogo } from 'utils/api/community';
 import { getLocalTime } from 'utils/date';
+import useScreenSize from 'utils/hooks/useScreenSize';
 
 const styles = (theme: Theme) => createStyles({
   container: {
     display: 'flex',
     flexDirection: 'row',
     marginTop: theme.spacing(2),
-    padding: theme.spacing(1),
     borderRadius: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('md')]: {
+      padding: theme.spacing(1),
+    },
   },
   contentContainer: {
-    width: 502,
+    width: 736,
+    [theme.breakpoints.down('md')]: {
+      width: 502
+    },
     [theme.breakpoints.down('sm')]: {
       width: 356
     },
@@ -39,12 +47,18 @@ const styles = (theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: theme.spacing(1),
     overflow: 'hidden',
     cursor: 'pointer',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    marginRight: theme.spacing(2),
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    [theme.breakpoints.down('md')]: {
+      marginRight: theme.spacing(1),
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+    },
     [theme.breakpoints.down('sm')]: {
       width: 28,
       height: 28,
@@ -123,6 +137,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function EventCard({ classes, theme, className, event }: Props) {
+  const screenSize = useScreenSize();
   const history = useHistory();
 
   const {
@@ -222,7 +237,10 @@ function EventCard({ classes, theme, className, event }: Props) {
         <div className={classes.textContainer}>
           <CollapsableContainer
             containerClassName={classes.textContainer}
-            maxHeight={100}
+            maxHeight={screenSize === ScreenSize.LG || screenSize === ScreenSize.XL
+              ? 200
+              : 100
+            }
           >
             <div className={classes.clickableContainer} onClick={goToEvent}>
               <ParagraphText text={description} />

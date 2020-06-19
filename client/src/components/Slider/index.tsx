@@ -49,6 +49,9 @@ const styles = () => createStyles({
 
 const getContainerWidth = (screenSize: ScreenSize): number => {
   switch (screenSize) {
+    case ScreenSize.XL:
+    case ScreenSize.LG:
+      return 736;
     case ScreenSize.MD:
       return 502;
     case ScreenSize.SM:
