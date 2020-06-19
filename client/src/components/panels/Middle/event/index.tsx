@@ -11,7 +11,6 @@ import CollapseableContainer from 'components/CollapseableContainer';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import Slider from 'components/Slider';
-import useScreenSize from 'utils/hooks/useScreenSize';
 import useQuery from 'utils/hooks/useQuery';
 import events from 'data/events';
 import M from 'utils/errorMessages';
@@ -94,7 +93,6 @@ const getEvent = (id: string | null, history: History) => {
 function EventPanel({ classes }: WithStyles<typeof styles>) {
   const history = useHistory();
 
-  const screenSize = useScreenSize();
   const eventId = useQuery().get('id');
   const event = getEvent(eventId, history);
 
@@ -161,10 +159,7 @@ function EventPanel({ classes }: WithStyles<typeof styles>) {
           </ButtonGroup>
           <div className={classes.sectionContainer}>
             {section === Sections.GALLERY && media && (
-              <Slider
-                media={media}
-                screenSize={screenSize}
-              />
+              <Slider media={media} />
             )}
           </div>
         </div>

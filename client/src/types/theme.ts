@@ -7,6 +7,8 @@ export type NamedTheme = Theme & {
 }
 
 export enum ScreenSize {
+  XL = 'xl',
+  LG = 'lg',
   MD = 'md',
   SM = 'sm',
   XS = 'xs'

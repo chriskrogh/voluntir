@@ -20,7 +20,10 @@ const styles = (theme: Theme) => createStyles({
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'relative',
-    width: 960,
+    width: 1280,
+    [theme.breakpoints.down('md')]: {
+      width: 960
+    },
     [theme.breakpoints.down('sm')]: {
       width: 600
     },

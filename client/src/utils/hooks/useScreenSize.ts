@@ -3,7 +3,11 @@ import { ScreenSize } from 'types/theme';
 
 const getScreenSize = () => {
   const width = window.innerWidth;
-  if (width >= 960) {
+  if(width >= 1920) {
+    return ScreenSize.XL;
+  } else if(width >= 1280) {
+    return ScreenSize.LG;
+  } else if (width >= 960) {
     return ScreenSize.MD;
   } else if (width >= 600) {
     return ScreenSize.SM;

@@ -7,6 +7,7 @@ import { Button } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigatePreviousIcon from '@material-ui/icons/NavigateBefore';
 import { Media } from 'types/media';
+import useScreenSize from 'utils/hooks/useScreenSize';
 
 const transitionTime = '0.3s';
 
@@ -63,11 +64,12 @@ const getIndex = (translateValue: number) => ((translateValue / 100) * -1);
 
 interface Props extends WithStyles<typeof styles> {
   media: Media[];
-  screenSize: ScreenSize;
 }
 
-function Slider({ classes, media, screenSize }: Props) {
+function Slider({ classes, media }: Props) {
   const [ translateValue, setTranslateValue ] = useState(0);
+
+  const screenSize = useScreenSize();
 
   const containerWidth = getContainerWidth(screenSize);
   const slideHeight = (containerWidth / media[getIndex(translateValue)].AR);

@@ -13,7 +13,6 @@ import PlayArrow from '@material-ui/icons/PlayArrow';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import StopIcon from '@material-ui/icons/Stop';
 import Slider from 'components/Slider';
-import useScreenSize from 'utils/hooks/useScreenSize';
 import { Routes } from 'utils/constants';
 import { getCommunityLogo } from 'utils/api/community';
 import { getLocalTime } from 'utils/date';
@@ -124,7 +123,6 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function EventCard({ classes, theme, className, event }: Props) {
-  const screenSize = useScreenSize();
   const history = useHistory();
 
   const {
@@ -233,10 +231,7 @@ function EventCard({ classes, theme, className, event }: Props) {
         </div>
         {media && (
           <div className={classes.sliderContainer}>
-            <Slider
-              media={media}
-              screenSize={screenSize}
-            />
+            <Slider media={media} />
           </div>
         )}
       </div>
