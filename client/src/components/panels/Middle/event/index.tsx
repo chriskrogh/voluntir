@@ -24,7 +24,10 @@ const styles = (theme: Theme) => createStyles({
   contentContainer: {
     display: 'flex',
     flexDirection: 'column',
-    width: 502,
+    width: 736,
+    [theme.breakpoints.down('md')]: {
+      width: 502
+    },
     [theme.breakpoints.down('sm')]: {
       width: 356
     },
@@ -36,12 +39,18 @@ const styles = (theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: theme.spacing(1),
     overflow: 'hidden',
     cursor: 'pointer',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    marginRight: theme.spacing(2),
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    [theme.breakpoints.down('md')]: {
+      marginRight: theme.spacing(1),
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+    },
     [theme.breakpoints.down('sm')]: {
       width: 28,
       height: 28,

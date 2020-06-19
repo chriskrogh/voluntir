@@ -81,7 +81,7 @@ function CommunityPanel({ classes }: WithStyles<typeof styles>) {
   const history = useHistory();
   const id = useQuery().get('id');
   const community = getCommnity(id, history);
-  const { banner, logo, name, description, events, admins } = community;
+  const { banner, logo, name, description, admins } = community;
   const [ section, setSection ] = useState(Sections.HOME);
 
   return (
