@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import cors from 'cors';
 import path from 'path';
 import UserRouter from './src/routers/user';
 import MediaRouter from './src/routers/media';
@@ -16,9 +15,14 @@ const CLIENT_DIR = (path.basename(__dirname) === 'build')
   ? `../${clientBuild}`
   : clientBuild;
 
+// use cors if in dev mode
+if(process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  app.use(require('cors')());
+}
+
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, CLIENT_DIR)));
-app.use(cors());
 app.use(express.json());
 
 app.use(UserRouter);
