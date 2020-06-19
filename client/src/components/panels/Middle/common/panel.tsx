@@ -8,8 +8,11 @@ const  styles = (theme: Theme) => createStyles({
     flexDirection: 'column',
     marginBottom: theme.spacing(3),
     height: '100%',
-    width: 600,
     backgroundColor: theme.palette.background.default,
+    width: 860,
+    [theme.breakpoints.down('md')]: {
+      width: 600,
+    },
     [theme.breakpoints.down('sm')]: {
       width: 440
     }

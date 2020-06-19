@@ -13,10 +13,10 @@ const styles = (theme: Theme) => createStyles({
     flexDirection: 'column',
     position: 'sticky',
     top: 0,
-    height: '100%',
-    width: 180,
     justifyContent: 'center',
     backgroundColor: theme.palette.background.default,
+    height: '100%',
+    width: 180,
     [theme.breakpoints.down('sm')]: {
       width: 40
     },

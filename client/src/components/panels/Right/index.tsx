@@ -18,7 +18,10 @@ const styles = (theme: Theme) => createStyles({
     top: 48,
     height: '100%',
     justifyContent: 'center',
-    width: 180,
+    width: 240,
+    [theme.breakpoints.down('md')]: {
+      width: 180,
+    },
     [theme.breakpoints.down('sm')]: {
       width: 120
     },
