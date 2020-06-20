@@ -2,15 +2,18 @@ import /*type*/ { AuthenticatedRequest } from '../../types/network';
 import /*type*/ { RouteError } from '../../utils/exception';
 
 import express, { Request, Response } from 'express';
-import { Types } from 'mongoose';
 import Event, { EventDoc } from "../../models/event";
 import { CommunityDoc } from '../../models/community';
 import auth from '../../middleware/auth';
+import HomeRouter from './home';
+import AttendRouter from './attend';
 import { isAdmin } from '../utils';
-import { homeQueryAggregate, getJoinedCommunityIds, homePaginateAggregate } from './utils';
 import * as M from '../../utils/errorMessages';
 
 const router = express.Router();
+
+router.use(HomeRouter);
+router.use(AttendRouter);
 
 // create event
 router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
@@ -76,122 +79,6 @@ router.delete('/', auth, async (req: AuthenticatedRequest, res: Response) => {
     }
     await event.remove();
     res.send();
-  } catch (exc) {
-    console.log(exc);
-    res.status(exc.status || 400).send(exc?.error?.message);
-  }
-});
-
-router.patch('/attend', auth, async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const event = await Event.findById(req.query.id);
-    if (!event) {
-      throw new RouteError(new Error(M.FIND_EVENT), 404);
-    }
-    event.attendees.push(req.user?._id);
-    event.save();
-    res.send();
-  } catch (exc) {
-    console.log(exc);
-    res.status(exc.status || 400).send(exc?.error?.message);
-  }
-});
-
-router.patch('/unattend', auth, async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const event = await Event.findById(req.query.id);
-    if (!event) {
-      throw new RouteError(new Error(M.FIND_EVENT), 404);
-    }
-    const attendees = event.attendees as Types.Array<Types.ObjectId>;
-    attendees.pull(req.user?._id);
-    event.save();
-    res.send();
-  } catch (exc) {
-    console.log(exc);
-    res.status(exc.status || 400).send(exc?.error?.message);
-  }
-});
-
-router.get('/home/new', auth, async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const user = req.user;
-    if(!user) {
-      throw new RouteError(new Error(M.FETCH_ME));
-    }
-    const page = parseInt(req.query.page as string);
-    if(page == null || isNaN(page)) {
-      throw new RouteError(new Error(M.MISSING_PAGE));
-    }
-    const joinedCommunityIds = await getJoinedCommunityIds(user);
-    const events = await Event.aggregate([
-      ...homeQueryAggregate(joinedCommunityIds, user),
-      {
-        $sort: { createdAt: -1 }
-      },
-      ...homePaginateAggregate(page)
-    ]);
-    res.send(events);
-  } catch (exc) {
-    console.log(exc);
-    res.status(exc.status || 400).send(exc?.error?.message);
-  }
-});
-
-router.get('/home/upcoming', auth, async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const user = req.user;
-    if(!user) {
-      throw new RouteError(new Error(M.FETCH_ME));
-    }
-    const page = parseInt(req.query.page as string);
-    if(page == null || isNaN(page)) {
-      throw new RouteError(new Error(M.MISSING_PAGE));
-    }
-    const joinedCommunityIds = await getJoinedCommunityIds(user);
-    const events = await Event.aggregate([
-      ...homeQueryAggregate(joinedCommunityIds, user),
-      {
-        $match: {
-          start: { $gte: new Date() }
-        }
-      },
-      {
-        $sort: { start: 1 }
-      },
-      ...homePaginateAggregate(page)
-    ]);
-    res.send(events);
-  } catch (exc) {
-    console.log(exc);
-    res.status(exc.status || 400).send(exc?.error?.message);
-  }
-});
-
-router.get('/home/recent', auth, async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const user = req.user;
-    if(!user) {
-      throw new RouteError(new Error(M.FETCH_ME));
-    }
-    const page = parseInt(req.query.page as string);
-    if(page == null || isNaN(page)) {
-      throw new RouteError(new Error(M.MISSING_PAGE));
-    }
-    const joinedCommunityIds = await getJoinedCommunityIds(user);
-    const events = await Event.aggregate([
-      ...homeQueryAggregate(joinedCommunityIds, user),
-      {
-        $match: {
-          start: { $lt: new Date() }
-        }
-      },
-      {
-        $sort: { start: -1 }
-      },
-      ...homePaginateAggregate(page)
-    ]);
-    res.send(events);
   } catch (exc) {
     console.log(exc);
     res.status(exc.status || 400).send(exc?.error?.message);
