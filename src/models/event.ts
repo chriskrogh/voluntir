@@ -28,8 +28,14 @@ const EventSchema = new Schema({
     trim: true
   },
   location: {
-    type: String,
-    required: true
+    type: {
+      type: String,
+      required: true
+    },
+    coordinates: [{
+      type: Number,
+      required: true
+    }]
   },
   start: {
     type: Date,
