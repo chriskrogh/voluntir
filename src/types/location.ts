@@ -1,4 +1,10 @@
 export type GeoJSON = {
-  type: string;
+  type: 'Point'
+  | 'LineString'
+  | 'Polygon'
+  | 'MultiPoint'
+  | 'MultiLineString'
+  | 'MultiPolygon'
+  | 'GeometryCollection';
   coordinates: [number, number];
 }
