@@ -3,15 +3,15 @@ import { RouteError } from '../../utils/exception';
 import Community, { CommunityDoc } from "../../models/community";
 import { AuthenticatedRequest } from '../../types/network';
 import auth from '../../middleware/auth';
-import MemberRoutes from './member';
-import AdminRoutes from './admin';
+import MemberRouter from './member';
+import AdminRouter from './admin';
 import { isAdmin } from '../utils';
 import * as M from '../../utils/errorMessages';
 
 const router = express.Router();
 
-router.use(MemberRoutes);
-router.use(AdminRoutes);
+router.use(MemberRouter);
+router.use(AdminRouter);
 
 // create community
 router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
