@@ -14,6 +14,7 @@ type ListContainersResult = {
 }
 
 const listContainers = async (): Promise<ListContainersResult> => {
+  // return new Promise((resolve) => resolve({ message: '', containers: [] }));
   return new Promise((resolve, reject) => {
     blobService.listContainersSegmented(null,
       (err: Error, data: BlobService.ListContainerResult) => {
