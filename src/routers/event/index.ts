@@ -5,21 +5,24 @@ import express, { Request, Response } from 'express';
 import Event, { EventDoc } from "../../models/event";
 import { CommunityDoc } from '../../models/community';
 import auth from '../../middleware/auth';
-import HomeRouter from './home';
 import AttendRouter from './attend';
+import HomeRouter from './home';
+import ExploreRouter from './explore';
 import { isAdmin } from '../utils';
 import * as M from '../../utils/errorMessages';
 
 const router = express.Router();
 
-router.use(HomeRouter);
 router.use(AttendRouter);
+router.use('/home', HomeRouter);
+router.use('/explore', ExploreRouter);
 
 // create event
 router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const event = new Event({
       ...req.body,
+      location: { type: 'Point', coordinates: req.body.location },
       admins: [ req.user?._id ],
       attendees: []
     });
