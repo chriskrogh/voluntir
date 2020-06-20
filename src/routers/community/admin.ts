@@ -4,8 +4,8 @@ import { RouteError } from '../../utils/exception';
 import Community from "../../models/community";
 import { AuthenticatedRequest } from '../../types/network';
 import auth from '../../middleware/auth';
-import * as M from '../../utils/errorMessages';
 import { isAdmin } from '../utils';
+import * as M from '../../utils/errorMessages';
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.patch('/add/admin', auth, async (req: AuthenticatedRequest, res: Response
       throw new RouteError(new Error(M.FIND_COMMUNITY), 404);
     }
     if(!isAdmin(req.user?._id, community)) {
-      throw new RouteError(new Error(M.ADMIN_UPDATE_COMMUNITY), 403);
+      throw new RouteError(new Error('Only admins can add other admins'), 403);
     }
     community.members.pull(Types.ObjectId(userId));
     community.admins.push(userId);
@@ -39,7 +39,7 @@ router.patch('/remove/admin', auth, async (req: AuthenticatedRequest, res: Respo
       throw new RouteError(new Error(M.FIND_COMMUNITY), 404);
     }
     if(!isAdmin(req.user?._id, community)) {
-      throw new RouteError(new Error(M.ADMIN_UPDATE_COMMUNITY), 403);
+      throw new RouteError(new Error('Only admins can add other admins'), 403);
     }
     community.admins.pull(userId);
     community.save();

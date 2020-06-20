@@ -27,7 +27,7 @@ router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
     res.status(201).send(event);
   } catch (error) {
     console.log(error);
-    res.status(400).send(M.CREATE_EVENT);
+    res.status(400).send('Could not create event');
   }
 });
 
@@ -55,7 +55,7 @@ router.patch('/', auth, async (req: AuthenticatedRequest, res: Response) => {
     }
     await event.populate('community').execPopulate();
     if(!isAdmin(req.user?._id, event.community as CommunityDoc)) {
-      throw new RouteError(new Error(M.ADMIN_UPDATE_EVENT), 403);
+      throw new RouteError(new Error('Only admins can update events'), 403);
     }
     Object.assign(event, updates);
     await event.save();
@@ -75,7 +75,7 @@ router.delete('/', auth, async (req: AuthenticatedRequest, res: Response) => {
     }
     await event.populate('community').execPopulate();
     if(!isAdmin(req.user?._id, event.community as CommunityDoc)) {
-      throw new RouteError(new Error(M.ADMIN_DELETE_EVENT), 403);
+      throw new RouteError(new Error('Only admins can delete events'), 403);
     }
     await event.remove();
     res.send();

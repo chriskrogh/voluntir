@@ -25,7 +25,7 @@ router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
     res.status(201).send(community);
   } catch (error) {
     console.log(error);
-    res.status(400).send(M.CREATE_COMMUNITY);
+    res.status(400).send('Could not create community');
   }
 });
 
@@ -52,7 +52,7 @@ router.patch('/', auth, async (req: AuthenticatedRequest, res: Response) => {
       throw new RouteError(new Error(M.FIND_COMMUNITY), 404);
     }
     if(!isAdmin(req.user?._id, community)) {
-      throw new RouteError(new Error(M.ADMIN_UPDATE_COMMUNITY), 403);
+      throw new RouteError(new Error('Only admins can update communities'), 403);
     }
     Object.assign(community, updates);
     await community.save();
@@ -71,7 +71,7 @@ router.delete('/', auth, async (req: AuthenticatedRequest, res: Response) => {
       throw new RouteError(new Error(M.FIND_COMMUNITY), 404);
     }
     if(!isAdmin(req.user?._id, community)) {
-      throw new RouteError(new Error(M.ADMIN_DELETE_COMMUNITY), 403);
+      throw new RouteError(new Error('Only admins can delete communities'), 403);
     }
     await community.remove();
     res.send();

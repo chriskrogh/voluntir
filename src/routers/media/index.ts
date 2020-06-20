@@ -26,7 +26,7 @@ router.post(
       const newBuffer = await compress(req.file.buffer);
 
       const { width, height } = imageSize(newBuffer);
-      if(!width || !height) throw new Error(M.AR);
+      if(!width || !height) throw new Error('Could not compute aspect ratio for image');
       const AR = width / height;
 
       const media = new MediaModel({ AR, ...req.body });
