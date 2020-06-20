@@ -8,14 +8,14 @@ import upload from '../../utils/upload';
 import auth from '../../middleware/auth';
 import compress from '../../utils/compress';
 import blobService from '../../utils/blobstorage';
-import { Routes, CONTAINER_NAME } from '../../utils/constants';
+import { CONTAINER_NAME } from '../../utils/constants';
 import * as M from '../../utils/errorMessages';
 
 const router = express.Router();
 
 // set media
 router.post(
-  Routes.MEDIA,
+  '/',
   auth,
   upload.single('media'),
   async (req: AuthenticatedRequest, res: Response) => {
@@ -42,7 +42,7 @@ router.post(
 );
 
 // get media by id
-router.get(Routes.MEDIA, async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const { id } = req.query;
     const media = await MediaModel.findById(id);
@@ -57,7 +57,7 @@ router.get(Routes.MEDIA, async (req: Request, res: Response) => {
 });
 
 // get image by id
-router.get(Routes.MEDIA + '/image', async (req: Request, res: Response) => {
+router.get('/image', async (req: Request, res: Response) => {
   try {
     const { id } = req.query;
 
@@ -77,7 +77,7 @@ router.get(Routes.MEDIA + '/image', async (req: Request, res: Response) => {
 });
 
 // delete media
-router.delete(Routes.MEDIA, auth, async (req: AuthenticatedRequest, res: Response) => {
+router.delete('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const media = await MediaModel.findById(req.query.id);
     if(!media) {

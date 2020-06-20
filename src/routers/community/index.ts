@@ -5,13 +5,12 @@ import Community, { CommunityDoc } from "../../models/community";
 import { AuthenticatedRequest } from '../../types/network';
 import auth from '../../middleware/auth';
 import * as M from '../../utils/errorMessages';
-import { Routes } from '../../utils/constants';
 import { isAdmin } from '../utils';
 
 const router = express.Router();
 
 // create community
-router.post(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const community = new Community({
       ...req.body,
@@ -27,7 +26,7 @@ router.post(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Respo
 });
 
 // get community by id
-router.get(Routes.COMMUNITY, auth, async (req: Request, res: Response) => {
+router.get('/', auth, async (req: Request, res: Response) => {
   try {
     const community = await Community.findById(req.query.id);
     if(!community) {
@@ -41,7 +40,7 @@ router.get(Routes.COMMUNITY, auth, async (req: Request, res: Response) => {
 });
 
 // update community
-router.patch(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const updates = req.body as CommunityDoc;
     const community = await Community.findById(req.query.id);
@@ -61,7 +60,7 @@ router.patch(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Resp
 });
 
 // delete community
-router.delete(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Response) => {
+router.delete('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const community = await Community.findById(req.query.id);
     if(!community) {
@@ -78,7 +77,7 @@ router.delete(Routes.COMMUNITY, auth, async (req: AuthenticatedRequest, res: Res
   }
 });
 
-router.patch(Routes.COMMUNITY + '/add/admin', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch('/add/admin', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { userId } = req.body;
     const community = await Community.findById(req.query.id);
@@ -99,7 +98,7 @@ router.patch(Routes.COMMUNITY + '/add/admin', auth, async (req: AuthenticatedReq
   }
 });
 
-router.patch(Routes.COMMUNITY + '/remove/admin', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch('/remove/admin', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { userId } = req.body;
     const community = await Community.findById(req.query.id);
@@ -119,7 +118,7 @@ router.patch(Routes.COMMUNITY + '/remove/admin', auth, async (req: Authenticated
   }
 });
 
-router.patch(Routes.COMMUNITY + '/add/member', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch('/add/member', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const community = await Community.findById(req.query.id);
     if(!community) {
@@ -134,7 +133,7 @@ router.patch(Routes.COMMUNITY + '/add/member', auth, async (req: AuthenticatedRe
   }
 });
 
-router.patch(Routes.COMMUNITY + '/remove/member', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch('/remove/member', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const community = await Community.findById(req.query.id);
     if(!community) {

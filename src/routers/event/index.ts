@@ -6,7 +6,6 @@ import { Types } from 'mongoose';
 import Event, { EventDoc } from "../../models/event";
 import { CommunityDoc } from '../../models/community';
 import auth from '../../middleware/auth';
-import { Routes } from '../../utils/constants';
 import { isAdmin } from '../utils';
 import { homeQueryAggregate, getJoinedCommunityIds, homePaginateAggregate } from './utils';
 import * as M from '../../utils/errorMessages';
@@ -14,7 +13,7 @@ import * as M from '../../utils/errorMessages';
 const router = express.Router();
 
 // create event
-router.post(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const event = new Event({
       ...req.body,
@@ -30,7 +29,7 @@ router.post(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response)
 });
 
 // get event by id
-router.get(Routes.EVENT, auth, async (req: Request, res: Response) => {
+router.get('/', auth, async (req: Request, res: Response) => {
   try {
     const event = await Event.findById(req.query.id);
     if(!event) {
@@ -44,7 +43,7 @@ router.get(Routes.EVENT, auth, async (req: Request, res: Response) => {
 });
 
 // update event
-router.patch(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const updates = req.body as EventDoc;
     const event = await Event.findById(req.query.id);
@@ -65,7 +64,7 @@ router.patch(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response
 });
 
 // delete event
-router.delete(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Response) => {
+router.delete('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const event = await Event.findById(req.query.id);
     if (!event) {
@@ -83,7 +82,7 @@ router.delete(Routes.EVENT, auth, async (req: AuthenticatedRequest, res: Respons
   }
 });
 
-router.patch(Routes.EVENT + '/attend', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch('/attend', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const event = await Event.findById(req.query.id);
     if (!event) {
@@ -98,7 +97,7 @@ router.patch(Routes.EVENT + '/attend', auth, async (req: AuthenticatedRequest, r
   }
 });
 
-router.patch(Routes.EVENT + '/unattend', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.patch('/unattend', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const event = await Event.findById(req.query.id);
     if (!event) {
@@ -114,7 +113,7 @@ router.patch(Routes.EVENT + '/unattend', auth, async (req: AuthenticatedRequest,
   }
 });
 
-router.get(Routes.EVENT + '/home/new', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.get('/home/new', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const user = req.user;
     if(!user) {
@@ -139,7 +138,7 @@ router.get(Routes.EVENT + '/home/new', auth, async (req: AuthenticatedRequest, r
   }
 });
 
-router.get(Routes.EVENT + '/home/upcoming', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.get('/home/upcoming', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const user = req.user;
     if(!user) {
@@ -169,7 +168,7 @@ router.get(Routes.EVENT + '/home/upcoming', auth, async (req: AuthenticatedReque
   }
 });
 
-router.get(Routes.EVENT + '/home/recent', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.get('/home/recent', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const user = req.user;
     if(!user) {
