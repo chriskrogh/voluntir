@@ -9,17 +9,27 @@ import * as M from '../../../utils/errorMessages';
 
 const router = express.Router();
 
-router.get('/new', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.get('/new', async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const user = req.user;
-    if(!user) {
-      throw new RouteError(new Error(M.FETCH_ME));
+    const lat = parseFloat(req.query.lat as string);
+    const lng = parseFloat(req.query.lng as string);
+    if(lat == null || isNaN(lat) || lng == null || isNaN(lng)) {
+      throw new RouteError(new Error('Bad coordinates'), 422);
     }
+
     const page = parseInt(req.query.page as string);
     if(page == null || isNaN(page)) {
       throw new RouteError(new Error(M.MISSING_PAGE));
     }
+
     const events = await Event.aggregate([
+      {
+        $geoNear: {
+          near: { type: 'Point', coordinates: [ lat , lng ] },
+          distanceField: 'dist.calculated',
+          key: 'location'
+        }
+      },
       {
         $sort: { createdAt: -1 }
       },

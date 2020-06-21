@@ -16,6 +16,18 @@ export interface EventDoc extends Document {
   attendees: Types.Array<Types.ObjectId> | Types.Array<UserDoc>;
 }
 
+const GeoSchema = new Schema({
+  type: {
+    type: String,
+    required: true
+  },
+  coordinates: {
+    type: [ Number ],
+    index: '2dsphere',
+    required: true
+  }
+});
+
 const EventSchema = new Schema({
   title: {
     type: String,
@@ -27,16 +39,7 @@ const EventSchema = new Schema({
     required: true,
     trim: true
   },
-  location: {
-    type: {
-      type: String,
-      required: true
-    },
-    coordinates: [{
-      type: Number,
-      required: true
-    }]
-  },
+  location: GeoSchema,
   start: {
     type: Date,
     required: true

@@ -9,6 +9,7 @@ import AttendRouter from './attend';
 import HomeRouter from './home';
 import ExploreRouter from './explore';
 import { isAdmin } from '../utils';
+import events from '../../data/events';
 import * as M from '../../utils/errorMessages';
 
 const router = express.Router();
@@ -23,7 +24,6 @@ router.post('/', auth, async (req: AuthenticatedRequest, res: Response) => {
     const event = new Event({
       ...req.body,
       location: { type: 'Point', coordinates: req.body.location },
-      admins: [ req.user?._id ],
       attendees: []
     });
     await event.save();
@@ -81,6 +81,26 @@ router.delete('/', auth, async (req: AuthenticatedRequest, res: Response) => {
       throw new RouteError(new Error('Only admins can delete events'), 403);
     }
     await event.remove();
+    res.send();
+  } catch (exc) {
+    console.log(exc);
+    res.status(exc.status || 400).send(exc?.error?.message);
+  }
+});
+
+// THIS ROUTE IS USED TO POPULATE THE DB WITH DUMMY DATA
+router.post('/populate', async (req: Request, res: Response) => {
+  try {
+    events.forEach(async event => {
+      const eventDoc = new Event({
+        ...event,
+        location: {
+          type: 'Point',
+          coordinates: event.location
+        }
+      });
+      await eventDoc.save();
+    });
     res.send();
   } catch (exc) {
     console.log(exc);
