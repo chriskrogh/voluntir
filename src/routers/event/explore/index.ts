@@ -1,5 +1,6 @@
 import /*type*/ { AuthenticatedRequest } from '../../../types/network';
 import /*type*/ { RouteError } from '../../../utils/exception';
+import /*type*/ { GeoJSON } from '../../../types/location';
 
 import express, { Response } from 'express';
 import Event from "../../../models/event";
@@ -19,19 +20,16 @@ router.get('/new', async (req: AuthenticatedRequest, res: Response) => {
 
     const page = parseInt(req.query.page as string);
     if(page == null || isNaN(page)) {
-      throw new RouteError(new Error(M.MISSING_PAGE));
+      throw new RouteError(new Error(M.MISSING_PAGE), 442);
     }
 
     const events = await Event.aggregate([
       {
         $geoNear: {
-          near: { type: 'Point', coordinates: [ lat , lng ] },
-          distanceField: 'dist.calculated',
-          key: 'location'
+          near: { type: 'Point', coordinates: [ lng , lat ] } as GeoJSON,
+          distanceField: 'dist',
+          spherical: true
         }
-      },
-      {
-        $sort: { createdAt: -1 }
       },
       ...paginateAggregate(page)
     ]);

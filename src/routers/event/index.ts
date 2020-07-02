@@ -96,7 +96,7 @@ router.post('/populate', async (req: Request, res: Response) => {
         ...event,
         location: {
           type: 'Point',
-          coordinates: event.location
+          coordinates: event.coordinates
         }
       });
       await eventDoc.save();
