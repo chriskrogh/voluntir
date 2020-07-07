@@ -160,6 +160,7 @@ function LoginForm({ classes, theme }: Props) {
       )}
       <div className={classes.topSpacing}>
         <TextField
+          variant="outlined"
           value={email}
           label="Email"
           onChange={e => setEmail(e.target.value)}
@@ -176,6 +177,7 @@ function LoginForm({ classes, theme }: Props) {
       </div>
       <div className={classes.topSpacing}>
         <TextField
+          variant="outlined"
           value={password}
           label="Password"
           onChange={e => setPassword(e.target.value)}

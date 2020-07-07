@@ -181,6 +181,7 @@ function SignUpForm({ classes, theme }: Props) {
       )}
       <div className={classes.topSpacing}>
         <TextField
+          variant="outlined"
           value={name}
           label='Name'
           onChange={e => setName(e.target.value)}
@@ -191,6 +192,7 @@ function SignUpForm({ classes, theme }: Props) {
       </div>
       <div className={classes.topSpacing}>
         <TextField
+          variant="outlined"
           value={email}
           label='Email'
           onChange={e => setEmail(e.target.value)}
@@ -207,6 +209,7 @@ function SignUpForm({ classes, theme }: Props) {
       </div>
       <div className={classes.topSpacing}>
         <TextField
+          variant="outlined"
           value={password}
           label='Password'
           onChange={e => setPassword(e.target.value)}
@@ -221,6 +224,7 @@ function SignUpForm({ classes, theme }: Props) {
       </div>
       <div className={classes.topSpacing}>
         <TextField
+          variant="outlined"
           value={cPassword}
           label='Confirm Password'
           onChange={e => setCPassword(e.target.value)}
