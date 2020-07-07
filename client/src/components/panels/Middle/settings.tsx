@@ -8,9 +8,6 @@ import Subtitle from 'components/typography/Subtitle';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';
 
 const styles = (theme: Theme) => createStyles({
-  container: {
-    margin: `0 ${theme.spacing(2)}px`
-  },
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -28,7 +25,7 @@ function Settings({ classes }: WithStyles<typeof styles>) {
       <div className={classes.titleContainer}>
         <Title text="Settings" />
       </div>
-      <Container className={classes.container}>
+      <Container topSpacing={false}>
         <div className={classes.subtitleContainer}>
           <Subtitle text="Theme" />
         </div>

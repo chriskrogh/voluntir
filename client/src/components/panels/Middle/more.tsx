@@ -12,9 +12,6 @@ import AddIcon from '@material-ui/icons/Add';
 import { Routes } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
-  container: {
-    margin: `0 ${theme.spacing(2)}px`
-  },
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -57,7 +54,7 @@ function More({ classes }: WithStyles<typeof styles>) {
       <div className={classes.titleContainer}>
         <Title text="More" />
       </div>
-      <Container className={classes.container}>
+      <Container topSpacing={false}>
         <div className={classes.subtitleContainer}>
           <Subtitle text="Communities" />
         </div>

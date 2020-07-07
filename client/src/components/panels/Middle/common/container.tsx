@@ -7,7 +7,7 @@ const  styles = (theme: Theme) => createStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    margin: `48px ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
+    margin: `48px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
     padding: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
     borderRadius: theme.spacing(1)
@@ -17,11 +17,15 @@ const  styles = (theme: Theme) => createStyles({
 interface Props extends WithStyles<typeof styles> {
   children?: ReactNode | ReactNode[];
   className?: string;
+  topSpacing?: boolean;
 }
 
-function Container({ classes, children, className }: Props) {
+function Container({ classes, className, topSpacing = true, children }: Props) {
   return (
-    <div className={classnames(classes.container, className)}>
+    <div
+      className={classnames(classes.container, className)}
+      style={{ marginTop: topSpacing ? 48 : 0 }}
+    >
       {children}
     </div>
   );

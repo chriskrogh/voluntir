@@ -13,7 +13,7 @@ const styles = (theme: Theme) => createStyles({
     flexDirection: 'column',
   },
   panelContainer: {
-    margin: `0 ${theme.spacing(2)}`
+    margin: `0 ${theme.spacing(2)}px`
   },
   buttonGroup: {
     margin: theme.spacing(2),
@@ -47,7 +47,7 @@ function CreateCommunity({ classes }: WithStyles<typeof styles>) {
         <Content community={community} />
       ) : (
         <Panel>
-          <Container className={classes.panelContainer}>
+          <Container topSpacing={false}>
             hello
           </Container>
         </Panel>
