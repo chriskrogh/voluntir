@@ -64,15 +64,16 @@ const getAdmins = (admins: string[]) => {
 
 interface Props extends WithStyles<typeof styles> {
   community: Community;
+  topSpacing?: boolean;
 }
 
-function CommunityPanelContent({ classes, community }: Props) {
+function CommunityPanelContent({ classes, topSpacing = true, community }: Props) {
   const { banner, logo, name, description, admins } = community;
   const [ section, setSection ] = useState(Sections.HOME);
 
   return (
     <Panel>
-      <Container>
+      <Container topSpacing={topSpacing}>
         <BannerPicture
           banner={banner}
           picture={logo}
