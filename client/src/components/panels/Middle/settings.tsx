@@ -1,8 +1,8 @@
 import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import Panel from './common/Panel';
-import Container from './common/Container';
+import Panel from './common/panel';
+import Container from './common/container';
 import Title from 'components/typography/Title';
 import Subtitle from 'components/typography/Subtitle';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';

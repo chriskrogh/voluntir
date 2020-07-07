@@ -3,7 +3,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { Event } from 'types/event';
 import { Feeds } from 'utils/constants';
-import Panel from './common/Panel';
+import Panel from './common/panel';
 import Title from 'components/typography/Title';
 import EventList from 'components/lists/EventList';
 import events from 'data/events';

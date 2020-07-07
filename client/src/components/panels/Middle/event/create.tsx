@@ -1,6 +1,6 @@
 import React from 'react';
-import Container from '../common/Container';
-import Panel from '../common/Panel';
+import Container from '../common/container';
+import Panel from '../common/panel';
 
 function CreateEvent() {
   return (
