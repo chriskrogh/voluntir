@@ -5,6 +5,7 @@ import { ButtonGroup, Button } from '@material-ui/core';
 import Panel from '../common/panel';
 import Container from '../common/container';
 import Content from './content';
+import CreateCommunityForm from 'components/forms/CreateCommunity';
 import communities from 'data/communities';
 
 const styles = (theme: Theme) => createStyles({
@@ -44,11 +45,11 @@ function CreateCommunity({ classes }: WithStyles<typeof styles>) {
         </Button>
       </ButtonGroup>
       {preview ? (
-        <Content community={community} />
+        <Content community={community} topSpacing={false} />
       ) : (
         <Panel>
           <Container topSpacing={false}>
-            hello
+            <CreateCommunityForm setCommunity={setCommunity} />
           </Container>
         </Panel>
       )}
