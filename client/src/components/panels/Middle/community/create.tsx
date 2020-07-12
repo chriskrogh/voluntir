@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import /*type*/ { Community } from 'types/community';
+
+import React, { useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { ButtonGroup, Button } from '@material-ui/core';
 import Panel from '../common/panel';
 import Container from '../common/container';
 import Content from './content';
+import Title from 'components/typography/Title';
+import ParagraphText from 'components/typography/ParagraphText'
 import CreateCommunityForm from 'components/forms/CreateCommunity';
-import communities from 'data/communities';
+import { Sections } from './types';
 
 const styles = (theme: Theme) => createStyles({
   container: {
@@ -22,11 +26,26 @@ const styles = (theme: Theme) => createStyles({
   selectedButton: {
     backgroundColor: theme.palette.background.paper
   },
+  instructions: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  }
 })
+
+const initialCommunity = {
+  _id: '0',
+  name: 'Community Name',
+  description: 'Use this section to tell people about your community. You can talk about your mission, your past events, and the contributions that you have made.',
+  events: [],
+  admins: [],
+  createdAt: new Date(),
+  updatedAt: new Date()
+} as Community;
 
 function CreateCommunity({ classes }: WithStyles<typeof styles>) {
   const [ preview, setPreview ] = useState(false);
-  const [ community, setCommunity ] = useState(communities[0])
+  const [ community, setCommunity ] = useState(initialCommunity)
 
   return (
     <div className={classes.container}>
@@ -45,11 +64,23 @@ function CreateCommunity({ classes }: WithStyles<typeof styles>) {
         </Button>
       </ButtonGroup>
       {preview ? (
-        <Content community={community} topSpacing={false} />
+        <Content
+          community={community}
+          topSpacing={false}
+          initialSection={Sections.ABOUT}
+        />
       ) : (
         <Panel>
           <Container topSpacing={false}>
-            <CreateCommunityForm setCommunity={setCommunity} />
+            <div className={classes.instructions}>
+              <Title text="Tell us about your community!" />
+              <ParagraphText text="We'll review your request when you're done." />
+              <ParagraphText text="If it all looks good, we'll update you when it's live!" />
+            </div>
+            <CreateCommunityForm
+              setCommunity={setCommunity}
+              community={community}
+            />
           </Container>
         </Panel>
       )}

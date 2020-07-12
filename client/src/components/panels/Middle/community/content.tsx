@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import /*type*/ { Event } from 'types/event';
+import /*type*/ { User } from 'types/user';
 import /*type*/ { Community } from 'types/community';
+
+import React, { useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { ButtonGroup, Button } from '@material-ui/core';
@@ -12,8 +15,8 @@ import UserList from 'components/lists/UserList';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import { Panels } from 'utils/constants';
-import events from 'data/events';
-import users from 'data/users';
+import { Sections } from './types';
+import Subtitle from 'components/typography/Subtitle';
 
 const styles = (theme: Theme) => createStyles({
   nameContainer: {
@@ -37,39 +40,32 @@ const styles = (theme: Theme) => createStyles({
     backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(2),
     borderRadius: theme.spacing(1)
+  },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
-
-enum Sections {
-  HOME = 'Home',
-  ABOUT = 'About',
-  UPCOMING = 'Upcoming'
-}
-
-const getUpcomingEvents = () => {
-  // replace with special request to server
-  return events;
-}
-
-const getCompletedEvents = () => {
-  // replace with special request to server
-  return events;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getAdmins = (admins: string[]) => {
-  // replace with special request to server
-  return users;
-}
 
 interface Props extends WithStyles<typeof styles> {
   community: Community;
   topSpacing?: boolean;
+  initialSection?: Sections;
 }
 
-function CommunityPanelContent({ classes, topSpacing = true, community }: Props) {
-  const { banner, logo, name, description, admins } = community;
-  const [ section, setSection ] = useState(Sections.HOME);
+function CommunityPanelContent({
+  classes,
+  community,
+  topSpacing = true,
+  initialSection = Sections.HOME,
+}: Props) {
+  const { banner, logo, name, description } = community;
+  const [ section, setSection ] = useState(initialSection);
+
+  const homeEvents = [] as Event[];
+  const upcomingEvents = [] as Event[];
+  const admins = [] as User[];
 
   return (
     <Panel>
@@ -92,17 +88,6 @@ function CommunityPanelContent({ classes, topSpacing = true, community }: Props)
           >
             {Sections.HOME}
           </Button>
-          {description && (
-            <Button
-              className={classnames(
-                classes.button,
-                { [classes.selectedButton]: section === Sections.ABOUT }
-              )}
-              onClick={() => setSection(Sections.ABOUT)}
-            >
-              {Sections.ABOUT}
-            </Button>
-          )}
           <Button
             className={classnames(
               classes.button,
@@ -112,12 +97,25 @@ function CommunityPanelContent({ classes, topSpacing = true, community }: Props)
           >
             {Sections.UPCOMING}
           </Button>
+          <Button
+            className={classnames(
+              classes.button,
+              { [classes.selectedButton]: section === Sections.ABOUT }
+            )}
+            onClick={() => setSection(Sections.ABOUT)}
+          >
+            {Sections.ABOUT}
+          </Button>
         </ButtonGroup>
       </Container>
-      {section === Sections.HOME && (
-        <EventList events={getCompletedEvents()} />
-      )}
-      {section === Sections.ABOUT && description && (
+      {section === Sections.HOME && (homeEvents.length !== 0 ? (
+        <EventList events={homeEvents} />
+      ) : (
+        <div className={classes.center}>
+          <Subtitle text="Events that you've hosted in the past will be shown here" />
+        </div>
+      ))}
+      {section === Sections.ABOUT && (
         <>
           <div className={classnames(classes.middleContainer, classes.aboutContainer)}>
             <ParagraphText text={description} />
@@ -125,14 +123,24 @@ function CommunityPanelContent({ classes, topSpacing = true, community }: Props)
           <div className={classes.middleContainer}>
             <Title text="Admins" />
           </div>
-          <div className={classes.middleContainer}>
-            <UserList users={getAdmins(admins)} />
-          </div>
+          { admins.length !== 0 ? (
+            <div className={classes.middleContainer}>
+              <UserList users={admins} />
+            </div>
+          ) : (
+            <div className={classes.center}>
+              <Subtitle text="A list of community admins will be shown here" />
+            </div>
+          )}
         </>
       )}
-      {section === Sections.UPCOMING && (
-        <EventList events={getUpcomingEvents()} />
-      )}
+      {section === Sections.UPCOMING && (upcomingEvents.length !== 0 ? (
+        <EventList events={upcomingEvents} />
+      ) : (
+        <div className={classes.center}>
+          <Subtitle text="Events that you plan on hosting will be shown here" />
+        </div>
+      ))}
     </Panel>
   );
 }
