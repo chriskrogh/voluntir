@@ -1,6 +1,6 @@
 import { Theme } from "@material-ui/core/styles";
 
-export type TextColor = 'primary' | 'secondary';
+export type TextAlign = 'center' | 'left' | 'right';
 
 export type NamedTheme = Theme & {
   name: string;

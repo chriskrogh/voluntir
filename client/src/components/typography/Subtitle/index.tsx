@@ -1,6 +1,8 @@
+import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import { TextAlign } from 'types/theme';
 
 const styles = (theme: Theme) => ({
   text: {
@@ -12,13 +14,14 @@ const styles = (theme: Theme) => ({
 interface Props extends WithStyles<typeof styles> {
   text: string;
   color?: string;
+  align?: TextAlign;
 }
 
-function Subtitle({ classes, text, color }: Props) {
+function Subtitle({ classes, text, color, align = 'left' }: Props) {
   return (
     <h3
       className={classes.text}
-      style={{ color }}
+      style={{ color, textAlign: align }}
     >
       {text}
     </h3>
