@@ -1,11 +1,11 @@
 import type { AuthenticatedRequest } from '../../../types/network';
-import type { RouteError } from '../../../utils/exception';
 
 import express, { Response } from 'express';
 import Event from "../../../models/event";
 import auth from '../../../middleware/auth';
 import { paginateAggregate } from '../utils';
 import { getJoinedCommunityIds, queryAggregate } from './utils';
+import { RouteError } from '../../../utils/exception';
 import * as M from '../../../utils/errorMessages';
 
 const router = express.Router();

@@ -1,11 +1,11 @@
 import type { AuthenticatedRequest } from '../../../types/network';
-import type { RouteError } from '../../../utils/exception';
 import type { GeoJSON } from '../../../types/location';
 
 import express, { Response } from 'express';
 import Event from "../../../models/event";
 import auth from '../../../middleware/auth';
 import { paginateAggregate } from '../utils';
+import { RouteError } from '../../../utils/exception';
 import * as M from '../../../utils/errorMessages';
 
 const router = express.Router();
