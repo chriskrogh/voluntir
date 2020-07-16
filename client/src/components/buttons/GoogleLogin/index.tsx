@@ -1,13 +1,14 @@
+import /*type*/ { WithStyles } from '@material-ui/core/styles';
+import /*type*/ { AuthMode } from 'types/network';
+
 import React, { useContext } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import /*type*/ { WithStyles } from '@material-ui/core/styles';
 import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline
 } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import { AuthMode } from 'types/network';
 import { User, UserData } from 'types/user';
 import { Routes } from 'utils/constants';
 import { thirdPartyAuth } from 'utils/api/user';

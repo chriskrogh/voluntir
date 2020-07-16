@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import /*type*/ { Theme, WithStyles } from '@material-ui/core/styles';
+
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';

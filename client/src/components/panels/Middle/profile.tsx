@@ -1,6 +1,7 @@
-import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import /*type*/ { History } from 'history';
+
+import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import Panel from './common/panel';

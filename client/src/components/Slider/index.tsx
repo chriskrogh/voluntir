@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import /*type*/ { WithStyles } from '@material-ui/core/styles';
+import /*type*/ { Media } from 'types/media';
+
+import React, { useState, useEffect } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { ScreenSize } from 'types/theme';
 import { Button } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigatePreviousIcon from '@material-ui/icons/NavigateBefore';
-import { Media } from 'types/media';
 import useScreenSize from 'utils/hooks/useScreenSize';
 
 const transitionTime = '0.3s';

@@ -1,5 +1,6 @@
-import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
+import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { StaticAssets, Panels } from 'utils/constants';
 export const BANNER_HEIGHT = 240;

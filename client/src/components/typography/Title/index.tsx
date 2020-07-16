@@ -1,6 +1,7 @@
+import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 
 const styles = (theme: Theme) => ({
   text: {

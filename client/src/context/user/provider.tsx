@@ -1,5 +1,6 @@
+import /*type*/ { User } from 'types/user';
+
 import React, { useReducer } from 'react';
-import { User } from 'types/user';
 import { UserContext, initialState } from './state';
 import Reducer from './reducer';
 import ActionTypes from './actions';

@@ -1,10 +1,11 @@
+import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import /*type*/ { Event } from 'types/event';
+
 import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
-import { Event } from 'types/event';
 import events from 'data/events';
 import ParagraphText from 'components/typography/ParagraphText';
 import Subtitle from 'components/typography/Subtitle';

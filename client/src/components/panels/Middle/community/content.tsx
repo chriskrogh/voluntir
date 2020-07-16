@@ -2,6 +2,7 @@ import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import /*type*/ { Event } from 'types/event';
 import /*type*/ { User } from 'types/user';
 import /*type*/ { Community } from 'types/community';
+import /*type*/ { Sections } from './types';
 
 import React, { useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
@@ -14,9 +15,8 @@ import EventList from 'components/lists/EventList';
 import UserList from 'components/lists/UserList';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
-import { Panels } from 'utils/constants';
-import { Sections } from './types';
 import Subtitle from 'components/typography/Subtitle';
+import { Panels } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
   nameContainer: {

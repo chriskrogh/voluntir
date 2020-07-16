@@ -1,5 +1,6 @@
-import React from 'react';
 import /*type*/ { History } from 'history';
+
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import communities from 'data/communities';
 import M from 'utils/errorMessages';

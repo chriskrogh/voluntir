@@ -1,7 +1,8 @@
-import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import /*type*/ { Event } from 'types/event';
+
+import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import { Event } from 'types/event';
 import EventCard from 'components/cards/EventCard';
 
 const styles = (theme: Theme) => createStyles({

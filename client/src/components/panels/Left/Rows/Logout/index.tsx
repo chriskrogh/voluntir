@@ -1,11 +1,12 @@
+import /*type*/ { LeftPanelRowStyles } from 'types/leftPanelRow';
+
 import React, { useContext, memo } from 'react';
 import isEqual from 'react-fast-compare';
-import { LeftPanelRowStyles } from 'types/leftPanelRow';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import { logout } from 'utils/api/user';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { logout } from 'utils/api/user';
 import { Routes } from 'utils/constants';
 
 interface Props {

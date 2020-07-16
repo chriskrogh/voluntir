@@ -1,5 +1,6 @@
+import /*type*/ { User } from 'types/user';
+
 import { createContext } from 'react';
-import { User } from 'types/user';
 
 export const initialState = {
   user: {

@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
+import React, { ReactNode } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 
 const  styles = (theme: Theme) => createStyles({

@@ -1,8 +1,9 @@
+import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { ButtonGroup, Button } from '@material-ui/core';
 import Page from 'components/Page';
 import Title from 'components/typography/Title';

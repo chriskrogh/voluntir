@@ -1,6 +1,7 @@
+import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
 import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Logo from 'components/buttons/Logo';
 import NavButton from './Rows/Nav';

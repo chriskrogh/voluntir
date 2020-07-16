@@ -1,8 +1,9 @@
+import /*type*/ { LeftPanelRowStyles } from 'types/leftPanelRow';
+
 import React, { useContext, memo } from 'react';
 import isEqual from 'react-fast-compare';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from 'context/user/state';
-import { LeftPanelRowStyles } from 'types/leftPanelRow';
 import { Button } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Explore';

@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
+import React, { useContext } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { ThemeContext } from 'context/theme/state';
+import Button from '@material-ui/core/Button';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 import LightTheme from 'theme/themes/light';
 import DarkTheme from 'theme/themes/dark';
 import ParagraphText from 'components/typography/ParagraphText';

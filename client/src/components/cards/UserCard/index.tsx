@@ -1,10 +1,11 @@
-import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import /*type*/ { User } from 'types/user';
+
+import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { Routes } from 'utils/constants';
-import { User } from 'types/user';
 import ParagraphText from 'components/typography/ParagraphText';
 
 const styles = (theme: Theme) => createStyles({

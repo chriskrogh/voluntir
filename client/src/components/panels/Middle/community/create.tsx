@@ -1,5 +1,6 @@
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
 import /*type*/ { Community } from 'types/community';
+import /*type*/ { Sections } from './types';
 
 import React, { useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
@@ -10,7 +11,6 @@ import Content from './content';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText'
 import CreateCommunityForm from 'components/forms/CreateCommunity';
-import { Sections } from './types';
 
 const styles = (theme: Theme) => createStyles({
   container: {

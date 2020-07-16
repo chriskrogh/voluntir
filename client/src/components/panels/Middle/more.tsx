@@ -1,5 +1,6 @@
-import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
+import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom'
 import { Button } from '@material-ui/core';

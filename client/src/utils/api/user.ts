@@ -1,7 +1,8 @@
+import /*type*/ { AuthResponse } from 'types/network';
+import /*type*/ { Method } from 'types/network';
+import /*type*/ { User, Credentials, UserData } from 'types/user';
+
 import { makeRequest } from 'utils/network/request';
-import { AuthResponse } from 'types/network';
-import { User, Credentials, UserData } from 'types/user';
-import { Method } from 'types/network';
 import { USERS } from 'utils/network/endpoints';
 import M from 'utils/errorMessages';
 

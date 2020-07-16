@@ -1,5 +1,6 @@
+import /*type*/ { NamedTheme } from 'types/theme';
+
 import { createContext } from 'react';
-import { NamedTheme } from 'types/theme';
 import LightTheme from 'theme/themes/light';
 import DarkTheme from 'theme/themes/dark';
 

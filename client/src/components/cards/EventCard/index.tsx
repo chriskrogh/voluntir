@@ -1,18 +1,19 @@
-import React from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import /*type*/ { Event } from 'types/event';
+import /*type*/ { ScreenSize } from 'types/theme';
+
+import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
-import { Event } from 'types/event';
-import { ScreenSize } from 'types/theme';
-import CollapsableContainer from 'components/CollapseableContainer';
-import Title from 'components/typography/Title';
-import ParagraphText from 'components/typography/ParagraphText';
-import SubText from 'components/typography/SubText';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import StopIcon from '@material-ui/icons/Stop';
+import CollapsableContainer from 'components/CollapseableContainer';
+import Title from 'components/typography/Title';
+import ParagraphText from 'components/typography/ParagraphText';
+import SubText from 'components/typography/SubText';
 import Slider from 'components/Slider';
 import { Routes } from 'utils/constants';
 import { getCommunityLogo } from 'utils/api/community';

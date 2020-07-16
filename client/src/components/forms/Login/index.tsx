@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
 import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+
+import React, { useState, useContext } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { UserContext } from 'context/user/state';
