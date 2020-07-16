@@ -1,5 +1,5 @@
-import /*type*/ { WithStyles } from '@material-ui/core/styles';
-import /*type*/ { Media } from 'types/media';
+import type { WithStyles } from '@material-ui/core/styles';
+import type { Media } from 'types/media';
 
 import React, { useState, useEffect } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';

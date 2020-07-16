@@ -1,4 +1,4 @@
-import /*type*/ { Theme, WithStyles } from '@material-ui/core/styles';
+import type { Theme, WithStyles } from '@material-ui/core/styles';
 
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';

@@ -1,5 +1,5 @@
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
-import /*type*/ { Event } from 'types/event';
+import type { WithStyles, Theme } from '@material-ui/core/styles';
+import type { Event } from 'types/event';
 
 import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';

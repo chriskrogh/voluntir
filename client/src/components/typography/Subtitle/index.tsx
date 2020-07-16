@@ -1,5 +1,5 @@
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
-import /*type*/ { TextAlign } from 'types/theme';
+import type { WithStyles, Theme } from '@material-ui/core/styles';
+import type { TextAlign } from 'types/theme';
 
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';

@@ -1,4 +1,4 @@
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
+import type { WithStyles, Theme } from '@material-ui/core/styles';
 
 import React, { useContext, useEffect } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';

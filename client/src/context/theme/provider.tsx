@@ -1,4 +1,4 @@
-import /*type*/ { NamedTheme } from 'types/theme';
+import type { NamedTheme } from 'types/theme';
 
 import React, { useReducer } from 'react';
 import { ThemeContext, initialState } from './state';

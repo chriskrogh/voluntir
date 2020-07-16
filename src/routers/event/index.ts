@@ -1,5 +1,5 @@
-import /*type*/ { AuthenticatedRequest } from '../../types/network';
-import /*type*/ { RouteError } from '../../utils/exception';
+import type { AuthenticatedRequest } from '../../types/network';
+import type { RouteError } from '../../utils/exception';
 
 import express, { Request, Response } from 'express';
 import Event, { EventDoc } from "../../models/event";

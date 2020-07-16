@@ -1,4 +1,4 @@
-import /*type*/ { WithStyles } from '@material-ui/core/styles';
+import type { WithStyles } from '@material-ui/core/styles';
 
 import React, { useState, useContext } from 'react';
 import classnames from 'classnames';

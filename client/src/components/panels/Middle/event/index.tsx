@@ -1,5 +1,5 @@
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
-import /*type*/ { History } from 'history';
+import type { WithStyles, Theme } from '@material-ui/core/styles';
+import type { History } from 'history';
 
 import React, { useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';

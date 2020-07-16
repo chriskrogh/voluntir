@@ -1,6 +1,6 @@
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
-import /*type*/ { Community } from 'types/community';
-import /*type*/ { Sections } from './types';
+import type { WithStyles, Theme } from '@material-ui/core/styles';
+import type { Community } from 'types/community';
+import { Sections } from './types';
 
 import React, { useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';

@@ -1,4 +1,4 @@
-import /*type*/ { History } from 'history';
+import type { History } from 'history';
 
 import React from 'react';
 import { useHistory } from 'react-router-dom';

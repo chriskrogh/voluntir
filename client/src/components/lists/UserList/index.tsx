@@ -1,5 +1,5 @@
-import /*type*/ { WithStyles } from '@material-ui/core/styles';
-import /*type*/ { User } from 'types/user';
+import type { WithStyles } from '@material-ui/core/styles';
+import type { User } from 'types/user';
 
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';

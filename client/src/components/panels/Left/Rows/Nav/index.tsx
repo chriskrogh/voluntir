@@ -1,4 +1,4 @@
-import /*type*/ { LeftPanelRowStyles } from 'types/leftPanelRow';
+import type { LeftPanelRowStyles } from 'types/leftPanelRow';
 
 import React, { useContext, memo } from 'react';
 import isEqual from 'react-fast-compare';

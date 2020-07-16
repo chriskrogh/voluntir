@@ -1,5 +1,5 @@
-import /*type*/ { WithStyles } from '@material-ui/core/styles';
-import /*type*/ { AuthMode } from 'types/network';
+import type { WithStyles } from '@material-ui/core/styles';
+import type { AuthMode } from 'types/network';
 
 import React, { useContext } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';

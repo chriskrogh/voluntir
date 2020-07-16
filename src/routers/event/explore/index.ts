@@ -1,6 +1,6 @@
-import /*type*/ { AuthenticatedRequest } from '../../../types/network';
-import /*type*/ { RouteError } from '../../../utils/exception';
-import /*type*/ { GeoJSON } from '../../../types/location';
+import type { AuthenticatedRequest } from '../../../types/network';
+import type { RouteError } from '../../../utils/exception';
+import type { GeoJSON } from '../../../types/location';
 
 import express, { Response } from 'express';
 import Event from "../../../models/event";

@@ -1,6 +1,6 @@
-import /*type*/ { WithStyles, Theme } from '@material-ui/core/styles';
-import /*type*/ { Event } from 'types/event';
-import /*type*/ { ScreenSize } from 'types/theme';
+import type { WithStyles, Theme } from '@material-ui/core/styles';
+import type { Event } from 'types/event';
+import { ScreenSize } from 'types/theme';
 
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
