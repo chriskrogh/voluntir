@@ -2,6 +2,7 @@ import type { WithStyles, Theme } from '@material-ui/core/styles';
 
 import React, { useCallback } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 import { useDropzone } from 'react-dropzone';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import ParagraphText from 'components/typography/ParagraphText';
@@ -15,15 +16,18 @@ const styles = (theme: Theme) => createStyles({
     width: 200,
     minHeight: 100,
     borderRadius: theme.spacing(1),
-    border: '1px dotted black',
-    cursor: 'pointer'
+  },
+  background: {
+    overflow: 'hidden',
+    backgroundSize: 'cover',
   },
   textContainer: {
     marginTop: theme.spacing(1)
   },
   image: {
     maxWidth: '100%',
-    maxHeight: '100%'
+    maxHeight: '100%',
+    borderRadius: theme.spacing(1),
   }
 });
 
@@ -43,23 +47,23 @@ function DropZone({ classes, callback, background, multiple = false }: Props) {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  return (
-    <div className={classes.container} {...getRootProps()}>
+  return !background ? (
+    <div
+      className={classes.container}
+      style={{ border: '1px dotted black', cursor: 'pointer' }}
+      {...getRootProps()}
+    >
       <input {...getInputProps()} multiple={multiple} />
-      {background ? (
-        <img
-          alt="upload"
-          src={background}
-          className={classes.image}
-        />
-      ) : (
-        <>
-          <ImageSearchIcon />
-          <div className={classes.textContainer}>
-            <ParagraphText text={isDragActive ? '' : 'Drag files or click here to upload'} align='center' />
-          </div>
-        </>
-      )}
+      <ImageSearchIcon />
+      <div className={classes.textContainer}>
+        <ParagraphText text={isDragActive ? '' : 'Drag files or click here to upload'} align='center' />
+      </div>
+    </div>
+  ) : (
+    <div
+      className={classnames(classes.container, classes.background)}
+      style={{ backgroundImage: `url(${background})` }}
+    >
     </div>
   );
 }
