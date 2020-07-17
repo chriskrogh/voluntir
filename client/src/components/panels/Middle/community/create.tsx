@@ -38,6 +38,7 @@ const initialCommunity = {
   description: 'Use this section to tell people about your community. You can talk about your mission, your past events, and the contributions that you have made.',
   events: [],
   admins: [],
+  donate: '',
   logo: '/assets/community.jpg',
   banner: '/assets/banner.jpg',
   createdAt: new Date(),

@@ -96,6 +96,16 @@ function CreateCommunityForm({ classes, community, setCommunity }: Props) {
           </div>
         </div>
       </div>
+      <div className={classes.qaPair}>
+        <Subtitle text="Donate link" />
+        <TextField
+          className={classnames(classes.input, classes.textInput)}
+          variant="outlined"
+          value={community.donate}
+          onChange={e => setCommunityField('description', e.target.value)}
+          placeholder="https://paypal.com"
+        />
+      </div>
     </div>
   );
 }
