@@ -16,7 +16,6 @@ import UserList from 'components/lists/UserList';
 import Title from 'components/typography/Title';
 import ParagraphText from 'components/typography/ParagraphText';
 import Subtitle from 'components/typography/Subtitle';
-import { Panels } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
   nameContainer: {
@@ -73,7 +72,6 @@ function CommunityPanelContent({
         <BannerPicture
           banner={banner}
           picture={logo}
-          panel={Panels.COMMUNITY}
         />
         <div className={classes.nameContainer}>
           <Title text={name} />

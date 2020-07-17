@@ -7,16 +7,22 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import TextField from '@material-ui/core/TextField';
 import Subtitle from 'components/typography/Subtitle';
+import DropZone from 'components/DropZone';
 
 const styles = (theme: Theme) => createStyles({
   container: {
     display: 'flex',
+    flexDirection: 'column',
     margin: theme.spacing(2),
+  },
+  row: {
+    display: 'flex',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
   },
   column: {
+    alignItems: 'center',
     width: '50%',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -32,9 +38,6 @@ const styles = (theme: Theme) => createStyles({
     marginTop: theme.spacing(1),
   },
   textInput: {
-    width: '100%'
-  },
-  dropZone: {
     width: '100%'
   }
 });
@@ -54,33 +57,43 @@ function CreateCommunityForm({ classes, community, setCommunity }: Props) {
 
   return (
     <div className={classes.container}>
-      <div className={classes.column}>
-        <div className={classes.qaPair}>
-          <Subtitle text="Name" align="center" />
-          <TextField
-            className={classnames(classes.input, classes.textInput)}
-            variant="outlined"
-            value={community.name}
-            onChange={e => setCommunityField('name', e.target.value)}
-          />
-        </div>
-        <div className={classes.qaPair}>
-          <Subtitle text="Description" align="center" />
-          <TextField
-            className={classnames(classes.input, classes.textInput)}
-            variant="outlined"
-            value={community.description}
-            onChange={e => setCommunityField('description', e.target.value)}
-            multiline
-          />
-        </div>
+      <div className={classes.qaPair}>
+        <Subtitle text="Name" />
+        <TextField
+          className={classnames(classes.input, classes.textInput)}
+          variant="outlined"
+          value={community.name}
+          onChange={e => setCommunityField('name', e.target.value)}
+        />
       </div>
-      <div className={classes.column}>
-        <div className={classes.qaPair}>
-          <Subtitle text="Profile Picture" align="center" />
+      <div className={classes.qaPair}>
+        <Subtitle text="Description" />
+        <TextField
+          className={classnames(classes.input, classes.textInput)}
+          variant="outlined"
+          value={community.description}
+          onChange={e => setCommunityField('description', e.target.value)}
+          multiline
+        />
+      </div>
+      <div className={classes.row}>
+        <div className={classnames(classes.qaPair, classes.column)}>
+          <Subtitle text="Profile Picture" />
+          <div className={classes.input}>
+            <DropZone
+              callback={(id: string) => console.log(id)}
+              background={community.logo}
+            />
+          </div>
         </div>
-        <div className={classes.qaPair}>
-          <Subtitle text="Banner" align="center" />
+        <div className={classnames(classes.qaPair, classes.column)}>
+          <Subtitle text="Banner" />
+          <div className={classes.input}>
+            <DropZone
+              callback={(id: string) => console.log(id)}
+              background={community.banner}
+            />
+          </div>
         </div>
       </div>
     </div>

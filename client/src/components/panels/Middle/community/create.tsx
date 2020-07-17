@@ -9,7 +9,6 @@ import Panel from '../common/panel';
 import Container from '../common/container';
 import Content from './content';
 import Title from 'components/typography/Title';
-import ParagraphText from 'components/typography/ParagraphText'
 import CreateCommunityForm from 'components/forms/CreateCommunity';
 
 const styles = (theme: Theme) => createStyles({
@@ -74,8 +73,6 @@ function CreateCommunity({ classes }: WithStyles<typeof styles>) {
           <Container topSpacing={false}>
             <div className={classes.instructions}>
               <Title text="Tell us about your community!" />
-              <ParagraphText text="We'll review your request when you're done." />
-              <ParagraphText text="If it all looks good, we'll update you when it's live!" />
             </div>
             <CreateCommunityForm
               setCommunity={setCommunity}

@@ -11,7 +11,7 @@ import Title from 'components/typography/Title';
 import EventList from 'components/lists/EventList';
 import users from 'data/users';
 import events from 'data/events';
-import { Routes, Panels } from 'utils/constants';
+import { Routes } from 'utils/constants';
 import M from 'utils/errorMessages';
 import useQuery from 'utils/hooks/useQuery';
 
@@ -53,7 +53,6 @@ function ProfilePanel({ classes }: WithStyles<typeof styles>) {
         <BannerPicture
           banner={banner}
           picture={picture}
-          panel={Panels.PROFILE}
         />
         <div className={classes.nameContainer}>
           <Title text={name} />

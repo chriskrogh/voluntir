@@ -2,7 +2,6 @@ import type { WithStyles, Theme } from '@material-ui/core/styles';
 
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import { StaticAssets, Panels } from 'utils/constants';
 export const BANNER_HEIGHT = 240;
 export const PICTURE_SIZE = BANNER_HEIGHT / 2;
 
@@ -46,25 +45,19 @@ const styles = (theme: Theme) => createStyles({
 interface Props extends WithStyles<typeof styles> {
   banner?: string;
   picture?: string;
-  panel: Panels.PROFILE | Panels.COMMUNITY;
 }
 
-function BannerPicture({ classes, banner, picture, panel }: Props) {
-  const bannerAsset = banner || StaticAssets.BANNER;
-  const pictureAsset = picture || (
-    (panel === Panels.PROFILE) ? StaticAssets.USER : StaticAssets.COMMUNITY
-  );
-
+function BannerPicture({ classes, banner, picture }: Props) {
   return (
     <div className={classes.bannerPictureContainer}>
       <div
         className={classes.banner}
-        style={{ backgroundImage: `url(${bannerAsset})` }}
+        style={{ backgroundImage: `url(${banner})` }}
       />
       <div className={classes.pictureWrapper}>
         <div className={classes.pictureContainer}>
           <img
-            src={pictureAsset}
+            src={picture}
             className={classes.picture}
             alt="user"
           />

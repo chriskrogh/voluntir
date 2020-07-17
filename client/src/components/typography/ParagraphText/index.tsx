@@ -1,4 +1,5 @@
 import type { WithStyles, Theme } from '@material-ui/core/styles';
+import type { TextAlign } from 'types/theme';
 
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
@@ -22,16 +23,17 @@ interface Props extends WithStyles<typeof styles> {
   text: string;
   color?: string;
   underline?: boolean;
+  align?: TextAlign;
 }
 
-function ParagraphText({ classes, color, text, underline }: Props) {
+function ParagraphText({ classes, color, text, underline, align = 'left' }: Props) {
   return (
     <p
       className={classnames(
         classes.text,
         { [classes.underline]: underline }
       )}
-      style={{ color }}
+      style={{ color, textAlign: align }}
     >
       {text}
     </p>
