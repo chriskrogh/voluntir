@@ -4,8 +4,8 @@ import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Logo from 'components/buttons/Logo';
-import NavButton from './Rows/Nav';
-import LogoutButton from './Rows/Logout';
+import NavButton from './Nav';
+import { rows } from './constants';
 import { Panels } from 'utils/constants';
 
 const styles = (theme: Theme) => createStyles({
@@ -74,39 +74,14 @@ function LeftPanel({ classes }: WithStyles<typeof styles>) {
         <Logo />
       </div>
       <div className={classes.table}>
-        <div className={classes.row}>
-          <NavButton
-            styles={classes}
-            panel={Panels.HOME}
-          />
-        </div>
-        <div className={classes.row}>
-          <NavButton
-            styles={classes}
-            panel={Panels.EXPLORE}
-          />
-        </div>
-        <div className={classes.row}>
-          <NavButton
-            styles={classes}
-            panel={Panels.PROFILE}
-          />
-        </div>
-        <div className={classes.row}>
-          <NavButton
-            styles={classes}
-            panel={Panels.SETTINGS}
-          />
-        </div>
-        <div className={classes.row}>
-          <NavButton
-            styles={classes}
-            panel={Panels.MORE}
-          />
-        </div>
-        <div className={classes.row}>
-          <LogoutButton styles={classes} />
-        </div>
+        {rows.map((row: Panels) => (
+          <div className={classes.row} key={row}>
+            <NavButton
+              styles={classes}
+              panel={row}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import Container from './common/container';
 import Title from 'components/typography/Title';
 import Subtitle from 'components/typography/Subtitle';
 import ThemeToggleButton from 'components/buttons/ThemeToggle';
+import LogoutButton from 'components/buttons/Logout';
 
 const styles = (theme: Theme) => createStyles({
   titleContainer: {
@@ -31,6 +32,10 @@ function Settings({ classes }: WithStyles<typeof styles>) {
           <Subtitle text="Theme" />
         </div>
         <ThemeToggleButton />
+        <div className={classes.subtitleContainer}>
+          <Subtitle text="Account" />
+        </div>
+        <LogoutButton />
       </Container>
     </Panel>
   );
