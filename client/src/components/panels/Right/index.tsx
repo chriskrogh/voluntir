@@ -16,7 +16,7 @@ const styles = (theme: Theme) => createStyles({
     display: 'flex',
     flexDirection: 'column',
     position: 'sticky',
-    top: 48,
+    marginTop: 48,
     height: '100%',
     justifyContent: 'center',
     width: 240,
