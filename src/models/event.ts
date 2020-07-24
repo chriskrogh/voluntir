@@ -4,7 +4,7 @@ import { CommunityDoc } from './community';
 import { UserDoc } from './user';
 import Media from './media';
 import blobService from '../utils/blobstorage';
-import { ObjectRefs, CONTAINER_NAME } from '../utils/constants';
+import { ObjectRefs } from '../utils/constants';
 
 export interface EventDoc extends Document {
   title: string;
@@ -71,7 +71,7 @@ EventSchema.virtual('media', {
 EventSchema.pre('remove', async function(next) {
   const media = await Media.find({ event: this._id });
   media.forEach(async (item) => {
-    await blobService.deleteBlob(CONTAINER_NAME, item._id + '.jpg');
+    await blobService.deleteBlob('media', item._id + '.jpg');
     await Media.findByIdAndDelete(item._id);
   });
   next();

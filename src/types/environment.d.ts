@@ -3,6 +3,8 @@ declare global {
     interface ProcessEnv {
       APP_SECRET: string;
       NODE_ENV: 'development' | 'production';
+      ACCOUNT_NAME: string;
+      ACCOUNT_KEY: string;
     }
   }
 }

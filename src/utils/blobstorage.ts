@@ -7,13 +7,11 @@ import {
   StorageSharedKeyCredential,
 } from "@azure/storage-blob";
 
-const account = process.env.ACCOUNT_NAME || "";
-const accountKey = process.env.ACCOUNT_KEY || "";
+const { ACCOUNT_NAME, ACCOUNT_KEY } = process.env;
 
-const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
-
+const sharedKeyCredential = new StorageSharedKeyCredential(ACCOUNT_NAME, ACCOUNT_KEY);
 const blobServiceClient = new BlobServiceClient(
-  `https://${account}.blob.core.windows.net`,
+  `https://${ACCOUNT_NAME}.blob.core.windows.net`,
   sharedKeyCredential
 );
 
@@ -50,7 +48,7 @@ const uploadContent = async (
 
   try {
     await blockBlobClient.upload(content, Buffer.byteLength(content));
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -67,7 +65,7 @@ const downloadContent = async (
     const downloadedStream = (await blockBlobClient.download(0))
       .readableStreamBody as NodeJS.ReadableStream;
     return getDataFromStream(downloadedStream);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -78,7 +76,7 @@ const deleteBlob = async (containerName: string, blobName: string) => {
       .getContainerClient(containerName)
       .getBlockBlobClient(blobName)
       .delete();
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -88,7 +86,7 @@ const deleteContainer = async (containerName: string) => {
     await blobServiceClient
       .getContainerClient(containerName)
       .delete();
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 }
