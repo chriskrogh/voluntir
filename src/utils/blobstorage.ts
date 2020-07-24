@@ -1,11 +1,8 @@
-if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config();
-}
-
+import 'dotenv/config';
 import {
   BlobServiceClient,
   StorageSharedKeyCredential,
-} from "@azure/storage-blob";
+} from '@azure/storage-blob';
 
 const { ACCOUNT_NAME, ACCOUNT_KEY } = process.env;
 
