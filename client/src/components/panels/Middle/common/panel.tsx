@@ -15,7 +15,7 @@ const  styles = (theme: Theme) => createStyles({
       width: 600,
     },
     [theme.breakpoints.down('sm')]: {
-      width: 440
+      width: '100%'
     }
   }
 })
