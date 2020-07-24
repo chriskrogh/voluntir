@@ -1,162 +1,102 @@
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
 }
 
-import path from 'path';
-import storage, { BlobService } from 'azure-storage';
-import { Writable } from 'stream';
+import {
+  BlobServiceClient,
+  StorageSharedKeyCredential,
+} from "@azure/storage-blob";
 
-const blobService = storage.createBlobService();
+const account = process.env.ACCOUNT_NAME || "";
+const accountKey = process.env.ACCOUNT_KEY || "";
 
-type ListContainersResult = {
-  message: string;
-  containers: BlobService.ContainerResult[];
+const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
+
+const blobServiceClient = new BlobServiceClient(
+  `https://${account}.blob.core.windows.net`,
+  sharedKeyCredential
+);
+
+const getDataFromStream = async (readableStream: NodeJS.ReadableStream) => {
+  return new Promise((resolve, reject) => {
+    const chunks: Uint8Array[] = [];
+    readableStream.on("data", (data) => {
+      chunks.push(data);
+    });
+    readableStream.on("end", () => {
+      resolve(Buffer.concat(chunks));
+    });
+    readableStream.on("error", reject);
+  });
 }
 
-const listContainers = async (): Promise<ListContainersResult> => {
-  // return new Promise((resolve) => resolve({ message: '', containers: [] }));
-  return new Promise((resolve, reject) => {
-    blobService.listContainersSegmented(null,
-      (err: Error, data: BlobService.ListContainerResult) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve({
-            message: `${data.entries.length} containers`,
-            containers: data.entries
-          });
-        }
-      }
-    );
-  });
-};
+const createContainerIfDoesNotExist = async (containerName: string) => {
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  try {
+    await containerClient.create()
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-const createContainer = async (containerName: string) => {
-  return new Promise((resolve, reject) => {
-    blobService.createContainerIfNotExists(
-      containerName,
-      { publicAccessLevel: 'blob' },
-      err => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve({ message: `Container '${containerName}' created` });
-        }
-      }
-    );
-  });
-};
-
-const uploadString = async (
+const uploadContent = async (
   containerName: string,
   blobName: string,
-  text: string | Buffer
+  content: Buffer
 ) => {
-  return new Promise((resolve, reject) => {
-    blobService.createBlockBlobFromText(containerName, blobName, text, err => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ message: `Text "${text}" is written to blob storage` });
-      }
-    });
-  });
-};
+  const blockBlobClient = blobServiceClient
+    .getContainerClient(containerName)
+    .getBlockBlobClient(blobName);
 
-const uploadLocalFile = async (containerName: string, filePath: string) => {
-  return new Promise((resolve, reject) => {
-    const fullPath = path.resolve(filePath);
-    const blobName = path.basename(filePath);
-    blobService.createBlockBlobFromLocalFile(
-      containerName,
-      blobName,
-      fullPath,
-      err => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve({ message: `Local file "${filePath}" is uploaded` });
-        }
-      }
-    );
-  });
-};
+  try {
+    await blockBlobClient.upload(content, Buffer.byteLength(content));
+  } catch(error) {
+    console.log(error);
+  }
+}
 
-const listBlobs = async (containerName: string) => {
-  return new Promise((resolve, reject) => {
-    blobService.listBlobsSegmented(
-      containerName,
-      { nextMarker: "" },
-      (err: Error, data: BlobService.ListBlobsResult) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve({
-            message: `${data.entries.length} blobs in '${containerName}'`,
-            blobs: data.entries
-          });
-        }
-      }
-    );
-  });
-};
-
-const downloadBlob = async (
+const downloadContent = async (
   containerName: string,
   blobName: string,
-  writeStream: Writable
 ) => {
-  return new Promise((resolve, reject) => {
-    blobService.getBlobToStream(containerName, blobName, writeStream, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ message: `Blob downloaded "${data}"`, data });
-      }
-    });
-  });
-};
+  const blockBlobClient = blobServiceClient
+    .getContainerClient(containerName)
+    .getBlockBlobClient(blobName);
+
+  try {
+    const downloadedStream = (await blockBlobClient.download(0))
+      .readableStreamBody as NodeJS.ReadableStream;
+    return getDataFromStream(downloadedStream);
+  } catch(error) {
+    console.log(error);
+  }
+}
 
 const deleteBlob = async (containerName: string, blobName: string) => {
-  return new Promise((resolve, reject) => {
-    blobService.deleteBlobIfExists(containerName, blobName, err => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ message: `Block blob '${blobName}' deleted` });
-      }
-    });
-  });
-};
+  try {
+    await blobServiceClient
+      .getContainerClient(containerName)
+      .getBlockBlobClient(blobName)
+      .delete();
+  } catch(error) {
+    console.log(error);
+  }
+}
 
 const deleteContainer = async (containerName: string) => {
-  return new Promise((resolve, reject) => {
-    blobService.deleteContainer(containerName, err => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ message: `Container '${containerName}' deleted` });
-      }
-    });
-  });
-};
-
-const createContainerIfDoesNotExist = async (containerName: string) => {
-  const response = await listContainers();
-  const containerDoesNotExist = response.containers
-    .findIndex((container) => container.name === containerName) === -1;
-  if (containerDoesNotExist) {
-    await createContainer(containerName);
+  try {
+    await blobServiceClient
+      .getContainerClient(containerName)
+      .delete();
+  } catch(error) {
+    console.log(error);
   }
 }
 
 export default {
-  listContainers,
   createContainerIfDoesNotExist,
-  uploadString,
-  uploadLocalFile,
-  listBlobs,
-  downloadBlob,
+  uploadContent,
+  downloadContent,
   deleteBlob,
   deleteContainer
 };

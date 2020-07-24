@@ -2,7 +2,7 @@ import multer from 'multer';
 
 export default multer({
   limits: {
-    fileSize: 8300000
+    fileSize: 5000000
   },
   fileFilter(req, file, cb) {
     const fn = file.originalname.toLowerCase();

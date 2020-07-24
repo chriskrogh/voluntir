@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import { RouteError } from '../../utils/exception';
-import { PassThrough } from 'stream';
 import { imageSize } from 'image-size';
 import { AuthenticatedRequest } from '../../types/network';
 import MediaModel from '../../models/media';
@@ -8,7 +7,6 @@ import upload from '../../utils/upload';
 import auth from '../../middleware/auth';
 import compress from '../../utils/compress';
 import blobService from '../../utils/blobstorage';
-import { CONTAINER_NAME } from '../../utils/constants';
 import * as M from '../../utils/errorMessages';
 
 const router = express.Router();
@@ -20,7 +18,7 @@ router.post(
   upload.single('media'),
   async (req: AuthenticatedRequest, res: Response) => {
     try {
-      await blobService.createContainerIfDoesNotExist(CONTAINER_NAME);
+      await blobService.createContainerIfDoesNotExist('media');
       if (!req.file || !req.file.buffer) throw new Error('File not present');
 
       const newBuffer = await compress(req.file.buffer);
@@ -31,7 +29,7 @@ router.post(
 
       const media = new MediaModel({ AR, ...req.body });
 
-      await blobService.uploadString(CONTAINER_NAME, media._id + '.jpg', newBuffer);
+      await blobService.uploadContent('media', media._id + '.jpg', newBuffer);
       await media.save();
       res.status(201).send(media);
     } catch (exc) {
@@ -44,8 +42,7 @@ router.post(
 // get media by id
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const { id } = req.query;
-    const media = await MediaModel.findById(id);
+    const media = await MediaModel.findById(req.query.id);
     if(!media) {
       throw new RouteError(new Error(M.FIND_MEDIA), 404);
     }
@@ -59,17 +56,12 @@ router.get('/', async (req: Request, res: Response) => {
 // get image by id
 router.get('/image', async (req: Request, res: Response) => {
   try {
-    const { id } = req.query;
+    const { container, id } = req.query;
 
-    const stream = new PassThrough();
-    const data: Uint8Array[] = [];
-
-    stream.on('data', d => data.push(d));
-    await blobService.downloadBlob(CONTAINER_NAME, id + '.jpg', stream);
-    const mergedBuffer = Buffer.concat(data);
+    const blob = await blobService.downloadContent(container as string, id + '.jpg');
 
     res.set('Content-Type', 'image/jpg');
-    res.send(mergedBuffer);
+    res.send(blob);
   } catch (exc) {
     console.log(exc);
     res.status(exc.status || 400).send(exc?.error?.message);
@@ -79,13 +71,17 @@ router.get('/image', async (req: Request, res: Response) => {
 // delete media
 router.delete('/', auth, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const media = await MediaModel.findById(req.query.id);
+    const { container, id } = req.query;
+    const fileName = id + '.jpg';
+
+    const media = await MediaModel.findById(id);
     if(!media) {
       throw new RouteError(new Error(M.FIND_MEDIA), 404);
     }
-    const fileName = req.query.id + '.jpg';
-    await blobService.deleteBlob(CONTAINER_NAME, fileName);
+
+    await blobService.deleteBlob(container as string, fileName);
     await media.remove();
+
     res.send();
   } catch (exc) {
     console.log(exc);
